@@ -1,0 +1,197 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "rollbar": "https://api.rollbar.com/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Item": {
+      "@id": "rollbar:Item",
+      "@context": {
+        "id": "rollbar:itemId",
+        "counter": "rollbar:projectCounter",
+        "environment": "rollbar:environment",
+        "title": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "level": "rollbar:severityLevel",
+        "status": "rollbar:workflowStatus",
+        "hash": "rollbar:fingerprint",
+        "totalOccurrences": {
+          "@id": "rollbar:totalOccurrences",
+          "@type": "xsd:integer"
+        },
+        "uniqueOccurrences": {
+          "@id": "rollbar:uniqueOccurrences",
+          "@type": "xsd:integer"
+        },
+        "firstOccurrenceTimestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "lastOccurrenceTimestamp": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "resolvedInVersion": "rollbar:resolvedInVersion",
+        "assignedUser": {
+          "@id": "rollbar:assignedUser",
+          "@type": "@id"
+        },
+        "project": {
+          "@id": "rollbar:project",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Occurrence": {
+      "@id": "rollbar:Occurrence",
+      "@context": {
+        "id": "rollbar:occurrenceId",
+        "item": {
+          "@id": "rollbar:item",
+          "@type": "@id"
+        },
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        },
+        "environment": "rollbar:environment",
+        "codeVersion": "rollbar:codeVersion",
+        "platform": "rollbar:platform",
+        "language": {
+          "@id": "schema:programmingLanguage",
+          "@type": "xsd:string"
+        },
+        "framework": "rollbar:framework",
+        "person": {
+          "@id": "rollbar:person",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Project": {
+      "@id": "rollbar:Project",
+      "@context": {
+        "id": "rollbar:projectId",
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "status": "rollbar:projectStatus",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "dateModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "account": {
+          "@id": "rollbar:account",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Deploy": {
+      "@id": "rollbar:Deploy",
+      "@context": {
+        "id": "rollbar:deployId",
+        "environment": "rollbar:environment",
+        "revision": "rollbar:revision",
+        "status": "rollbar:deployStatus",
+        "comment": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "localUsername": "rollbar:localUsername",
+        "rollbarUsername": "rollbar:rollbarUsername",
+        "startTime": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "finishTime": {
+          "@id": "schema:endDate",
+          "@type": "xsd:dateTime"
+        },
+        "project": {
+          "@id": "rollbar:project",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Team": {
+      "@id": "rollbar:Team",
+      "@context": {
+        "id": "rollbar:teamId",
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "accessLevel": "rollbar:accessLevel",
+        "members": {
+          "@id": "schema:member",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "projects": {
+          "@id": "rollbar:projects",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "rollbar:User",
+      "@context": {
+        "id": "rollbar:userId",
+        "username": {
+          "@id": "schema:alternateName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "AccessToken": {
+      "@id": "rollbar:AccessToken",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "scopes": {
+          "@id": "rollbar:scopes",
+          "@container": "@set"
+        },
+        "status": "rollbar:tokenStatus",
+        "dateCreated": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "WebhookEvent": {
+      "@id": "rollbar:WebhookEvent",
+      "@context": {
+        "eventName": "rollbar:eventName",
+        "data": "rollbar:eventData",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

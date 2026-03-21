@@ -1,0 +1,430 @@
+asyncapi: 2.6.0
+info:
+  title: Rollbar Webhook Events
+  description: >-
+    Rollbar's webhook notification system delivers real-time event
+    notifications to configured endpoints when errors, deployments, and
+    other significant events occur. Webhooks are triggered based on
+    configurable rules and deliver payloads in JSON or XML format via
+    HTTP POST requests. The webhook endpoint should respond with a 200,
+    201, 202, or 204 status code. If another response code is received
+    or the request times out after 3 seconds, Rollbar will retry up to
+    10 times with exponential backoff, with the first retry after 1 second
+    and the 10th retry after 16 days.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+  rollbarWebhook:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The webhook URL configured in Rollbar project settings under
+      Settings > Notifications > Webhook. This is the destination
+      endpoint that receives event payloads.
+    variables:
+      webhookUrl:
+        description: >-
+          The fully qualified URL where Rollbar sends webhook payloads.
+    security:
+      - {}
+channels:
+  /webhook:
+    description: >-
+      The webhook delivery channel. All Rollbar webhook events are sent
+      as HTTP POST requests to the configured URL. Rules can override
+      the destination URL on a per-rule basis.
+    publish:
+      operationId: receiveWebhookEvent
+      summary: Receive a Rollbar webhook event
+      description: >-
+        Receives webhook event payloads from Rollbar when configured
+        notification rules are triggered. All payloads share a common
+        structure with event_name and data top-level keys.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/NewItemEvent'
+          - $ref: '#/components/messages/OccurrenceEvent'
+          - $ref: '#/components/messages/ExponentialRepeatItemEvent'
+          - $ref: '#/components/messages/ItemVelocityEvent'
+          - $ref: '#/components/messages/ResolvedItemEvent'
+          - $ref: '#/components/messages/ReactivatedItemEvent'
+          - $ref: '#/components/messages/ReopenedItemEvent'
+          - $ref: '#/components/messages/DeployEvent'
+components:
+  messages:
+    NewItemEvent:
+      name: new_item
+      title: New Item Event
+      summary: >-
+        Triggered when an error or message is seen for the first time.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/NewItemPayload'
+    OccurrenceEvent:
+      name: occurrence
+      title: Every Occurrence Event
+      summary: >-
+        Triggered on every occurrence of an error or message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OccurrencePayload'
+    ExponentialRepeatItemEvent:
+      name: exp_repeat_item
+      title: Exponential Repeat Item Event
+      summary: >-
+        Triggered on the 10th, 100th, 1000th, and subsequent exponential
+        occurrences of an item.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ExponentialRepeatPayload'
+    ItemVelocityEvent:
+      name: item_velocity
+      title: High Occurrence Rate Event
+      summary: >-
+        Triggered when an item's occurrence rate exceeds a configured threshold.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ItemVelocityPayload'
+    ResolvedItemEvent:
+      name: resolved_item
+      title: Item Resolved Event
+      summary: >-
+        Triggered when an item is marked as resolved.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ResolvedItemPayload'
+    ReactivatedItemEvent:
+      name: reactivated_item
+      title: Item Reactivated Event
+      summary: >-
+        Triggered when a resolved item occurs again, changing its status
+        back to active.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ReactivatedItemPayload'
+    ReopenedItemEvent:
+      name: reopened_item
+      title: Item Reopened Event
+      summary: >-
+        Triggered when a resolved or muted item is manually reopened.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ReopenedItemPayload'
+    DeployEvent:
+      name: deploy
+      title: Deploy Event
+      summary: >-
+        Triggered when a deployment is reported to Rollbar.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DeployPayload'
+  schemas:
+    BaseWebhookPayload:
+      type: object
+      description: >-
+        Common structure shared by all Rollbar webhook payloads.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The type of event that triggered this webhook. Useful for
+            branching behavior in webhook handlers.
+        data:
+          type: object
+          description: >-
+            The event data containing information about what triggered
+            the webhook.
+    NewItemPayload:
+      type: object
+      description: >-
+        Payload sent when a new item is created in Rollbar.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: new_item
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+    OccurrencePayload:
+      type: object
+      description: >-
+        Payload sent on every occurrence of an item.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: occurrence
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+            occurrence:
+              $ref: '#/components/schemas/WebhookOccurrence'
+    ExponentialRepeatPayload:
+      type: object
+      description: >-
+        Payload sent on exponential repeat occurrences (10th, 100th, etc.).
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: exp_repeat_item
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+            occurrences:
+              type: integer
+              description: >-
+                The occurrence count threshold that was crossed (e.g., 10,
+                100, 1000).
+    ItemVelocityPayload:
+      type: object
+      description: >-
+        Payload sent when an item exceeds a high occurrence rate.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: item_velocity
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+            rate:
+              type: number
+              description: >-
+                The occurrence rate that triggered the event.
+    ResolvedItemPayload:
+      type: object
+      description: >-
+        Payload sent when an item is resolved.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: resolved_item
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+    ReactivatedItemPayload:
+      type: object
+      description: >-
+        Payload sent when a resolved item is reactivated by a new occurrence.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: reactivated_item
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+    ReopenedItemPayload:
+      type: object
+      description: >-
+        Payload sent when an item is manually reopened.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: reopened_item
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            item:
+              $ref: '#/components/schemas/WebhookItem'
+    DeployPayload:
+      type: object
+      description: >-
+        Payload sent when a deployment is reported to Rollbar.
+      required:
+        - event_name
+        - data
+      properties:
+        event_name:
+          type: string
+          description: >-
+            The event type identifier.
+          const: deploy
+        data:
+          type: object
+          description: >-
+            The event data.
+          properties:
+            deploy:
+              $ref: '#/components/schemas/WebhookDeploy'
+    WebhookItem:
+      type: object
+      description: >-
+        Item data included in webhook payloads.
+      properties:
+        id:
+          type: integer
+          description: >-
+            The item ID.
+        counter:
+          type: integer
+          description: >-
+            The project-specific counter.
+        environment:
+          type: string
+          description: >-
+            The environment where the item was seen.
+        title:
+          type: string
+          description: >-
+            The title or summary of the item.
+        level:
+          type: string
+          description: >-
+            The severity level.
+          enum:
+            - critical
+            - error
+            - warning
+            - info
+            - debug
+        status:
+          type: string
+          description: >-
+            The item status.
+          enum:
+            - active
+            - resolved
+            - muted
+        total_occurrences:
+          type: integer
+          description: >-
+            Total number of occurrences.
+        project_id:
+          type: integer
+          description: >-
+            The project ID.
+        last_occurrence_timestamp:
+          type: integer
+          description: >-
+            Unix timestamp of the most recent occurrence.
+        first_occurrence_timestamp:
+          type: integer
+          description: >-
+            Unix timestamp of the first occurrence.
+    WebhookOccurrence:
+      type: object
+      description: >-
+        Occurrence data included in webhook payloads.
+      properties:
+        id:
+          type: integer
+          description: >-
+            The occurrence instance ID.
+        timestamp:
+          type: integer
+          description: >-
+            Unix timestamp of the occurrence.
+        version:
+          type: string
+          description: >-
+            The code version when the occurrence happened.
+        data:
+          type: object
+          description: >-
+            Full occurrence data payload.
+    WebhookDeploy:
+      type: object
+      description: >-
+        Deploy data included in webhook payloads.
+      properties:
+        id:
+          type: integer
+          description: >-
+            The deploy ID.
+        environment:
+          type: string
+          description: >-
+            The environment deployed to.
+        project_id:
+          type: integer
+          description: >-
+            The project ID.
+        revision:
+          type: string
+          description: >-
+            The revision or commit SHA.
+        local_username:
+          type: string
+          description: >-
+            The local username of the deployer.
+        comment:
+          type: string
+          description: >-
+            The deploy comment.
+        user_id:
+          type: integer
+          description: >-
+            The Rollbar user ID.
+        start_time:
+          type: integer
+          description: >-
+            Unix timestamp when the deploy started.
+        finish_time:
+          type: integer
+          description: >-
+            Unix timestamp when the deploy finished.

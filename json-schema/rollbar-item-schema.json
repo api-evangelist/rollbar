@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rollbar.com/schemas/rollbar/item.json",
+  "title": "Rollbar Item",
+  "description": "A Rollbar item representing a unique error or message tracked by Rollbar, grouped by fingerprint. Items are the primary unit of work in Rollbar's error tracking workflow.",
+  "type": "object",
+  "required": ["id", "counter", "title", "level", "status", "project_id"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The internal item ID used for API operations."
+    },
+    "counter": {
+      "type": "integer",
+      "description": "The project-specific counter displayed in Rollbar URLs (e.g., items/456)."
+    },
+    "environment": {
+      "type": "string",
+      "description": "The environment where this item was first seen (e.g., production, staging).",
+      "maxLength": 255
+    },
+    "framework": {
+      "type": "integer",
+      "description": "Framework identifier code representing the application framework."
+    },
+    "hash": {
+      "type": "string",
+      "description": "The fingerprint hash used to group occurrences into this item."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title or summary of the item, typically derived from the error message."
+    },
+    "first_occurrence_id": {
+      "type": "integer",
+      "description": "The instance ID of the first occurrence of this item."
+    },
+    "first_occurrence_timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp when this item was first seen."
+    },
+    "last_occurrence_id": {
+      "type": "integer",
+      "description": "The instance ID of the most recent occurrence of this item."
+    },
+    "last_occurrence_timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp of the most recent occurrence."
+    },
+    "level": {
+      "type": "string",
+      "description": "The severity level of the item.",
+      "enum": ["critical", "error", "warning", "info", "debug"]
+    },
+    "status": {
+      "type": "string",
+      "description": "The current workflow status of the item.",
+      "enum": ["active", "resolved", "muted"]
+    },
+    "total_occurrences": {
+      "type": "integer",
+      "description": "Total number of times this item has occurred.",
+      "minimum": 0
+    },
+    "unique_occurrences": {
+      "type": "integer",
+      "description": "Number of unique occurrences based on deduplication criteria.",
+      "minimum": 0
+    },
+    "project_id": {
+      "type": "integer",
+      "description": "The project ID this item belongs to."
+    },
+    "resolved_in_version": {
+      "type": ["string", "null"],
+      "description": "The code version in which this item was resolved.",
+      "maxLength": 40
+    },
+    "assigned_user_id": {
+      "type": ["integer", "null"],
+      "description": "The user ID of the person assigned to investigate this item."
+    },
+    "integrations_data": {
+      "type": "object",
+      "description": "Data from third-party integrations linked to this item."
+    },
+    "last_activated_timestamp": {
+      "type": "integer",
+      "description": "Unix timestamp when the item was last activated or reactivated."
+    },
+    "last_resolved_timestamp": {
+      "type": ["integer", "null"],
+      "description": "Unix timestamp when the item was last resolved."
+    }
+  },
+  "$defs": {
+    "ItemLevel": {
+      "type": "string",
+      "description": "The severity level for Rollbar items.",
+      "enum": ["critical", "error", "warning", "info", "debug"]
+    },
+    "ItemStatus": {
+      "type": "string",
+      "description": "The workflow status for Rollbar items.",
+      "enum": ["active", "resolved", "muted"]
+    }
+  }
+}
