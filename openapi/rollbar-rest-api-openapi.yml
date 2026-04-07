@@ -22,10 +22,20 @@ servers:
   - url: https://api.rollbar.com/api/1
     description: Production Server
 tags:
+  - name: Access Tokens
+    description: >-
+      Manage project access tokens used for authentication and authorization
+      when interacting with the API.
+  - name: Invites
+    description: >-
+      Manage invitations to join teams within a Rollbar account.
   - name: Items
     description: >-
       Manage error and message items tracked by Rollbar. Items represent
       unique errors or messages grouped by fingerprint.
+  - name: Notifications
+    description: >-
+      Manage webhook notification rules and configuration for a project.
   - name: Occurrences
     description: >-
       Retrieve individual occurrences of errors and messages. Each occurrence
@@ -34,10 +44,10 @@ tags:
     description: >-
       Manage projects within a Rollbar account. Projects are the top-level
       organizational unit for error tracking.
-  - name: Access Tokens
+  - name: Source Maps
     description: >-
-      Manage project access tokens used for authentication and authorization
-      when interacting with the API.
+      Upload JavaScript source maps to enable readable stack traces for
+      minified code.
   - name: Teams
     description: >-
       Manage teams and team membership within a Rollbar account. Teams
@@ -45,16 +55,6 @@ tags:
   - name: Users
     description: >-
       Retrieve user information within a Rollbar account.
-  - name: Invites
-    description: >-
-      Manage invitations to join teams within a Rollbar account.
-  - name: Source Maps
-    description: >-
-      Upload JavaScript source maps to enable readable stack traces for
-      minified code.
-  - name: Notifications
-    description: >-
-      Manage webhook notification rules and configuration for a project.
 security:
   - accessToken: []
 paths:

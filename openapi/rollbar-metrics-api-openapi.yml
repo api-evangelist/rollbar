@@ -21,14 +21,14 @@ servers:
   - url: https://api.rollbar.com/api/1
     description: Production Server
 tags:
-  - name: Occurrences Metrics
-    description: >-
-      Query occurrence count metrics over time with filtering, grouping,
-      and aggregation capabilities.
   - name: Items Metrics
     description: >-
       Query metrics for specific items including occurrence counts and
       aggregate statistics.
+  - name: Occurrences Metrics
+    description: >-
+      Query occurrence count metrics over time with filtering, grouping,
+      and aggregation capabilities.
   - name: Resolution Time Metrics
     description: >-
       Query time-to-resolution metrics for projects, filterable by
