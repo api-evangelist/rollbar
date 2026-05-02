@@ -1,0 +1,81 @@
+{
+  "operation": "createItem",
+  "summary": "Create an Item",
+  "description": "Report an error occurrence to Rollbar from a server-side application",
+  "request": {
+    "method": "POST",
+    "url": "https://api.rollbar.com/api/1/item/",
+    "headers": {
+      "X-Rollbar-Access-Token": "post_server_item_token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "access_token": "post_server_item_token",
+      "data": {
+        "environment": "production",
+        "body": {
+          "trace": {
+            "frames": [
+              {
+                "filename": "app/controllers/orders_controller.rb",
+                "lineno": 47,
+                "method": "create",
+                "code": "order = Order.create!(order_params)"
+              },
+              {
+                "filename": "app/models/order.rb",
+                "lineno": 23,
+                "method": "validate_inventory",
+                "code": "raise InsufficientInventoryError, \"SKU #{sku} has only #{available} units available\""
+              }
+            ],
+            "exception": {
+              "class": "InsufficientInventoryError",
+              "message": "SKU ABC-123 has only 2 units available"
+            }
+          }
+        },
+        "level": "error",
+        "timestamp": 1746144000,
+        "code_version": "v2.4.1",
+        "platform": "linux",
+        "language": "ruby",
+        "framework": "rails",
+        "request": {
+          "url": "https://shop.example.com/orders",
+          "method": "POST",
+          "headers": {
+            "Accept": "application/json",
+            "User-Agent": "Mozilla/5.0"
+          },
+          "user_ip": "203.0.113.42",
+          "params": {
+            "sku": "ABC-123",
+            "quantity": 5
+          }
+        },
+        "person": {
+          "id": "user-9876",
+          "username": "alice",
+          "email": "alice@example.com"
+        },
+        "server": {
+          "host": "web-prod-01",
+          "root": "/var/www/shop",
+          "branch": "main",
+          "code_version": "a1b2c3d"
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "err": 0,
+      "result": {
+        "id": "abc123def456",
+        "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      }
+    }
+  }
+}

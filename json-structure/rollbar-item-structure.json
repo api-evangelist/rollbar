@@ -1,0 +1,101 @@
+{
+  "title": "Rollbar API Data Structure",
+  "description": "Hierarchical structure documentation for Rollbar's key data entities including Items, Occurrences, Projects, and Deploys.",
+  "structure": {
+    "Item": {
+      "description": "A unique error or message group in Rollbar, aggregating multiple Occurrences with the same fingerprint",
+      "fields": {
+        "id": "integer - Internal Rollbar item ID",
+        "project_id": "integer - Rollbar project ID",
+        "counter": "integer - Per-project sequential counter",
+        "fingerprint": "string - Hash identifying this unique error group",
+        "hash": "string - Alternative fingerprint hash",
+        "title": "string - Human-readable error title",
+        "first_occurrence_id": "integer - ID of the first occurrence",
+        "first_occurrence_timestamp": "datetime - When this error was first seen",
+        "last_occurrence_id": "integer - ID of the most recent occurrence",
+        "last_occurrence_timestamp": "datetime - When this error was last seen",
+        "total_occurrences": "integer - Total number of occurrences",
+        "unique_occurrences": "integer - Number of occurrences in the current time window",
+        "level": "enum - debug | info | warning | error | critical",
+        "status": "enum - active | resolved | muted | reactivated",
+        "environment": "string - Environment where this item occurs",
+        "platform": "string - Platform (e.g., browser, python, ruby)",
+        "language": "string - Programming language",
+        "framework": "string - Framework (e.g., rails, django)",
+        "assigned_user_id": "integer - Assigned team member user ID",
+        "resolved_in_version": "string - Deploy version when this was resolved"
+      }
+    },
+    "Occurrence": {
+      "description": "A single instance of an error event sent to Rollbar",
+      "fields": {
+        "id": "integer - Internal occurrence ID",
+        "item_id": "integer - Parent item ID",
+        "project_id": "integer - Project ID",
+        "timestamp": "datetime - When the occurrence was received",
+        "version": "integer - Rollbar protocol version"
+      },
+      "children": {
+        "data": "OccurrenceData - Full occurrence payload with body, request, and context"
+      }
+    },
+    "OccurrenceData": {
+      "description": "Full payload of an occurrence including error details and context",
+      "fields": {
+        "environment": "string - Deployment environment",
+        "level": "enum - debug | info | warning | error | critical",
+        "timestamp": "integer - Unix timestamp when the error occurred",
+        "platform": "string - Client platform",
+        "language": "string - Programming language",
+        "framework": "string - Framework name",
+        "code_version": "string - Application code version",
+        "uuid": "string - Unique occurrence UUID"
+      },
+      "children": {
+        "body": "OccurrenceBody - Exception trace or message",
+        "request": "RequestContext - HTTP request details",
+        "person": "PersonContext - Affected end-user",
+        "server": "ServerContext - Server environment info",
+        "client": "ClientContext - Client environment info",
+        "custom": "object - User-defined key-value context"
+      }
+    },
+    "OccurrenceBody": {
+      "description": "The error or message body of an occurrence",
+      "fields": {
+        "trace.exception.class": "string - Exception class name",
+        "trace.exception.message": "string - Exception message",
+        "trace.frames": "array - Stack frames (each with filename, lineno, method, code)",
+        "message.body": "string - For log-type occurrences, the message text",
+        "crash_report.raw": "string - Raw crash report for mobile/native"
+      }
+    },
+    "Deploy": {
+      "description": "A deployment event reported to Rollbar for release correlation",
+      "fields": {
+        "id": "integer - Deploy ID",
+        "project_id": "integer - Project ID",
+        "environment": "string - Deployment environment",
+        "revision": "string - Code revision (commit hash or tag)",
+        "rollbar_username": "string - Rollbar username who deployed",
+        "local_username": "string - System username on deploy server",
+        "comment": "string - Deployment comment or release notes",
+        "status": "enum - started | succeeded | failed | timed_out",
+        "start_time": "datetime - Deploy start timestamp",
+        "finish_time": "datetime - Deploy completion timestamp"
+      }
+    },
+    "Project": {
+      "description": "A Rollbar project organizing items, tokens, and team access",
+      "fields": {
+        "id": "integer - Project ID",
+        "name": "string - Project name",
+        "account_id": "integer - Account ID",
+        "status": "enum - enabled | disabled | deleted",
+        "date_created": "datetime - Creation timestamp",
+        "date_modified": "datetime - Last modification timestamp"
+      }
+    }
+  }
+}

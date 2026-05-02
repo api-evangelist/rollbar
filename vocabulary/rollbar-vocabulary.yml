@@ -1,0 +1,138 @@
+vocabulary:
+  name: Rollbar Vocabulary
+  description: >-
+    Domain vocabulary for Rollbar, the real-time error tracking and monitoring
+    platform. Covers error management concepts, API terminology, SDK integration,
+    and operational workflows for software quality and reliability.
+  version: 1.0.0
+  modified: '2026-05-02'
+
+terms:
+
+  - term: Item
+    aliases: [Error Item, Issue, Bug]
+    definition: >-
+      A Rollbar Item represents a unique error or message, grouped by fingerprint
+      (root cause). Multiple occurrences of the same error create one Item with
+      an occurrence count. Items have statuses: active, resolved, muted, or reactivated.
+    related: [Occurrence, Fingerprint, Counter]
+
+  - term: Occurrence
+    aliases: [Instance, Error Instance]
+    definition: >-
+      A single instance of an error or message sent to Rollbar. Each time an
+      error fires in production, it creates one Occurrence under the corresponding
+      Item. Occurrences contain full stack traces, request data, and context.
+    related: [Item, Stack Trace, Payload]
+
+  - term: Fingerprint
+    definition: >-
+      A hash used to group occurrences into the same Item. Rollbar computes
+      fingerprints by analyzing stack traces, exception types, and message text.
+      Custom fingerprinting allows controlling how errors are grouped.
+    related: [Item, Occurrence, Grouping]
+
+  - term: Counter
+    aliases: [Project Counter, Item Counter]
+    definition: >-
+      A per-project sequential integer assigned to each unique Item. Used as a
+      human-readable identifier. The AeroAPI endpoint /item_by_counter/{counter}
+      provides access by project counter instead of internal ID.
+    related: [Item, Project]
+
+  - term: Access Token
+    aliases: [Project Access Token, API Token]
+    definition: >-
+      A credential used to authenticate Rollbar API requests. Project access tokens
+      have scopes: post_server_item (write errors), post_client_item (write client
+      errors), read (read data), and write (manage configuration). Passed via the
+      X-Rollbar-Access-Token header.
+    related: [Authentication, Project, Scope]
+
+  - term: Environment
+    definition: >-
+      A string label attached to each occurrence indicating the deployment environment
+      (e.g., production, staging, development). Rollbar separates errors by environment
+      to avoid mixing production issues with development noise.
+    related: [Occurrence, Item, Deploy]
+
+  - term: Deploy
+    aliases: [Deployment, Release]
+    definition: >-
+      A Rollbar Deploy represents a code deployment event reported via the Deployment
+      API. Recording deploys enables correlating error spikes with specific releases,
+      tracking which code version is running, and managing rollbacks.
+    related: [Environment, Item, Version]
+
+  - term: RQL
+    aliases: [Rollbar Query Language]
+    definition: >-
+      A SQL-like query language for analyzing Rollbar data. RQL supports SELECT
+      queries against item_occurrence and deploy tables for custom reporting,
+      data exports, and integration workflows.
+    related: [Item, Occurrence, Deploy]
+
+  - term: Level
+    aliases: [Severity Level, Error Level]
+    definition: >-
+      The severity classification of an error or message in Rollbar. Levels from
+      least to most severe: debug, info, warning, error, critical. Used for
+      filtering and alert routing.
+    related: [Item, Occurrence, Alert]
+
+  - term: Stack Trace
+    definition: >-
+      The call stack captured at the time of an exception or error. Rollbar
+      stores stack traces per occurrence and can de-minify JavaScript stacks
+      using uploaded source maps.
+    related: [Occurrence, Source Map, Frame]
+
+  - term: Source Map
+    definition: >-
+      A file mapping minified JavaScript code back to the original source code.
+      Uploading source maps to Rollbar enables readable stack traces for
+      browser JavaScript errors. Uploaded via the /sourcemap endpoint.
+    related: [Stack Trace, Occurrence, JavaScript]
+
+  - term: Webhook Notification
+    aliases: [Webhook, Notification Rule]
+    definition: >-
+      Rollbar can POST event data to an HTTP endpoint when configured events
+      occur (new error, deploy, item resolved). Webhook rules define which events
+      trigger notifications and to which URL.
+    related: [Notification, Alert, Integration]
+
+  - term: Team
+    definition: >-
+      A group of Rollbar users that can be assigned access to specific projects.
+      Teams control project visibility and access through membership management.
+    related: [Project, User, Invite]
+
+  - term: Project
+    definition: >-
+      The top-level organizational unit in Rollbar. Each project has its own
+      access tokens, items, environments, and team assignments. Typically corresponds
+      to a single application or service being monitored.
+    related: [Access Token, Team, Environment]
+
+  - term: Person
+    aliases: [User Context, Affected User]
+    definition: >-
+      Optional user context attached to an occurrence identifying which end-user
+      was affected by an error. Includes id, username, and email. Used for
+      user-impact analysis.
+    related: [Occurrence, Item]
+
+  - term: Reactivated
+    definition: >-
+      An Item status indicating an error that was previously resolved has reoccurred.
+      Rollbar automatically reactivates resolved items when a new occurrence appears,
+      triggering new notifications.
+    related: [Item, Status, Occurrence]
+
+  - term: Telemetry
+    definition: >-
+      Breadcrumb events captured before an error occurs, such as user actions,
+      network requests, and console logs. Rollbar telemetry helps reconstruct
+      the sequence of events leading to an error.
+    related: [Occurrence, Breadcrumb, Context]

@@ -61,7 +61,7 @@ paths:
   /item/:
     post:
       operationId: createItem
-      summary: Create an item
+      summary: Create an Item
       description: >-
         Reports an error or message to Rollbar. This is the primary endpoint
         used by Rollbar SDKs to send data. The request body should contain
@@ -90,7 +90,7 @@ paths:
   /items/:
     get:
       operationId: listAllItems
-      summary: List all items
+      summary: List All Items
       description: >-
         Returns all items in the project, ordered by most recent occurrence.
         Supports filtering by status, level, and environment, with pagination.
@@ -113,7 +113,7 @@ paths:
   /item/{itemId}:
     get:
       operationId: getItemById
-      summary: Get an item by ID
+      summary: Get an Item by ID
       description: >-
         Returns a single item by its internal item ID. Note that this is
         different from the project counter visible in Rollbar URLs.
@@ -134,7 +134,7 @@ paths:
           description: Item not found
     patch:
       operationId: updateItem
-      summary: Update an item
+      summary: Update an Item
       description: >-
         Updates properties of an item, such as its status, level, title,
         or assigned user. Commonly used to resolve or mute items.
@@ -164,7 +164,7 @@ paths:
   /item_by_counter/{counter}:
     get:
       operationId: getItemByCounter
-      summary: Get an item by project counter
+      summary: Get an Item by Project Counter
       description: >-
         Returns an item by its project counter. The counter is the number
         shown in Rollbar URLs (e.g., items/456). Returns a 301 redirect
@@ -183,7 +183,7 @@ paths:
   /item/{itemId}/instances/:
     get:
       operationId: listItemOccurrences
-      summary: List all occurrences of an item
+      summary: List All Occurrences of an Item
       description: >-
         Returns all occurrences for a specific item, in pages of 20,
         ordered descending by occurrence ID.
@@ -206,7 +206,7 @@ paths:
   /instances/:
     get:
       operationId: listProjectOccurrences
-      summary: List all occurrences in a project
+      summary: List All Occurrences in a Project
       description: >-
         Returns all occurrences in the project, in pages of 20, ordered
         descending by occurrence ID (approximately descending by timestamp).
@@ -226,7 +226,7 @@ paths:
   /instance/{instanceId}:
     get:
       operationId: getOccurrence
-      summary: Get an occurrence
+      summary: Get an Occurrence
       description: >-
         Returns a single occurrence by its instance ID.
       tags:
@@ -253,7 +253,7 @@ paths:
   /projects:
     get:
       operationId: listAllProjects
-      summary: List all projects
+      summary: List All Projects
       description: >-
         Returns all projects in the account. Requires an account-level
         access token.
@@ -270,7 +270,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createProject
-      summary: Create a project
+      summary: Create a Project
       description: >-
         Creates a new project in the account. Optionally supports
         duplicating an existing project by providing a source project ID.
@@ -296,7 +296,7 @@ paths:
   /project/{projectId}:
     get:
       operationId: getProject
-      summary: Get a project
+      summary: Get a Project
       description: >-
         Returns information about a specific project.
       tags:
@@ -316,7 +316,7 @@ paths:
           description: Project not found
     delete:
       operationId: deleteProject
-      summary: Delete a project
+      summary: Delete a Project
       description: >-
         Deletes a project and all of its data. This action is irreversible.
       tags:
@@ -333,7 +333,7 @@ paths:
   /project/{projectId}/access_tokens:
     get:
       operationId: listProjectAccessTokens
-      summary: List all project access tokens
+      summary: List All Project Access Tokens
       description: >-
         Returns all access tokens for a specific project, including their
         scopes and rate limits.
@@ -354,7 +354,7 @@ paths:
           description: Project not found
     post:
       operationId: createProjectAccessToken
-      summary: Create a project access token
+      summary: Create a Project Access Token
       description: >-
         Creates a new access token for a project with specified scopes
         and rate limits.
@@ -382,7 +382,7 @@ paths:
   /project/{projectId}/access_token/{accessTokenId}:
     patch:
       operationId: updateProjectAccessToken
-      summary: Update a project access token
+      summary: Update a Project Access Token
       description: >-
         Updates properties of a project access token, such as its name,
         scopes, or rate limits.
@@ -417,7 +417,7 @@ paths:
   /teams:
     get:
       operationId: listAllTeams
-      summary: List all teams
+      summary: List All Teams
       description: >-
         Returns all teams in the account. Requires an account-level
         access token.
@@ -434,7 +434,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createTeam
-      summary: Create a team
+      summary: Create a Team
       description: >-
         Creates a new team in the account.
       tags:
@@ -459,7 +459,7 @@ paths:
   /team/{teamId}:
     get:
       operationId: getTeam
-      summary: Get a team
+      summary: Get a Team
       description: >-
         Returns information about a specific team.
       tags:
@@ -479,7 +479,7 @@ paths:
           description: Team not found
     delete:
       operationId: deleteTeam
-      summary: Delete a team
+      summary: Delete a Team
       description: >-
         Deletes a team. This action is irreversible.
       tags:
@@ -496,7 +496,7 @@ paths:
   /team/{teamId}/projects:
     get:
       operationId: listTeamProjects
-      summary: List a team's projects
+      summary: List a Team's Projects
       description: >-
         Returns all projects assigned to a specific team.
       tags:
@@ -517,7 +517,7 @@ paths:
   /team/{teamId}/project/{projectId}:
     put:
       operationId: assignProjectToTeam
-      summary: Assign a project to a team
+      summary: Assign a Project to a Team
       description: >-
         Assigns a project to a team, granting the team access to that project.
       tags:
@@ -534,7 +534,7 @@ paths:
           description: Team or project not found
     delete:
       operationId: removeProjectFromTeam
-      summary: Remove a project from a team
+      summary: Remove a Project from a Team
       description: >-
         Removes a project from a team, revoking the team's access to that project.
       tags:
@@ -552,7 +552,7 @@ paths:
   /team/{teamId}/user/{userId}:
     put:
       operationId: assignUserToTeam
-      summary: Assign a user to a team
+      summary: Assign a User to a Team
       description: >-
         Assigns a user to a team, granting them the team's access permissions.
       tags:
@@ -569,7 +569,7 @@ paths:
           description: Team or user not found
     delete:
       operationId: removeUserFromTeam
-      summary: Remove a user from a team
+      summary: Remove a User from a Team
       description: >-
         Removes a user from a team, revoking the team's access permissions
         for that user.
@@ -588,7 +588,7 @@ paths:
   /team/{teamId}/users:
     get:
       operationId: listTeamUsers
-      summary: List a team's users
+      summary: List a Team's Users
       description: >-
         Returns all users assigned to a specific team.
       tags:
@@ -609,7 +609,7 @@ paths:
   /users:
     get:
       operationId: listAllUsers
-      summary: List all users
+      summary: List All Users
       description: >-
         Returns all users in the account. Requires an account-level
         access token.
@@ -627,7 +627,7 @@ paths:
   /user/{userId}:
     get:
       operationId: getUser
-      summary: Get a user
+      summary: Get a User
       description: >-
         Returns information about a specific user by their user ID.
       tags:
@@ -648,7 +648,7 @@ paths:
   /team/{teamId}/invites:
     get:
       operationId: listTeamInvites
-      summary: List all invitations for a team
+      summary: List All Invitations for a Team
       description: >-
         Returns all pending invitations for a specific team.
       tags:
@@ -668,7 +668,7 @@ paths:
           description: Team not found
     post:
       operationId: inviteUserToTeam
-      summary: Invite a user to a team
+      summary: Invite a User to a Team
       description: >-
         Sends an invitation to join a team. The invitee receives an email
         with a link to accept the invitation.
@@ -696,7 +696,7 @@ paths:
   /invite/{inviteId}:
     get:
       operationId: getInvite
-      summary: Get an invitation
+      summary: Get an Invitation
       description: >-
         Returns information about a specific invitation.
       tags:
@@ -722,7 +722,7 @@ paths:
           description: Invitation not found
     delete:
       operationId: cancelInvite
-      summary: Cancel an invitation
+      summary: Cancel an Invitation
       description: >-
         Cancels a pending invitation. Only pending invitations can be cancelled.
       tags:
@@ -745,7 +745,7 @@ paths:
   /sourcemap:
     post:
       operationId: uploadSourceMap
-      summary: Upload a JS source map
+      summary: Upload a JS Source Map
       description: >-
         Uploads a JavaScript source map file so that Rollbar can translate
         minified stack traces into readable source code references. The
@@ -770,7 +770,7 @@ paths:
   /notifications/webhook:
     get:
       operationId: getWebhookConfig
-      summary: Get webhook notification configuration
+      summary: Get Webhook Notification Configuration
       description: >-
         Returns the current webhook notification configuration for the project,
         including the webhook URL and format settings.
@@ -787,7 +787,7 @@ paths:
           description: Unauthorized
     put:
       operationId: updateWebhookConfig
-      summary: Update webhook notification configuration
+      summary: Update Webhook Notification Configuration
       description: >-
         Updates the webhook notification configuration for the project,
         including the URL and format (JSON or XML).
@@ -813,7 +813,7 @@ paths:
   /notifications/webhook/rules:
     get:
       operationId: listWebhookRules
-      summary: List webhook notification rules
+      summary: List Webhook Notification Rules
       description: >-
         Returns all webhook notification rules configured for the project.
       tags:
@@ -829,7 +829,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createWebhookRule
-      summary: Create a webhook notification rule
+      summary: Create a Webhook Notification Rule
       description: >-
         Creates a new webhook notification rule for the project, specifying
         trigger conditions and optional URL override.
@@ -855,7 +855,7 @@ paths:
   /notifications/webhook/rule/{ruleId}:
     get:
       operationId: getWebhookRule
-      summary: Get a webhook notification rule
+      summary: Get a Webhook Notification Rule
       description: >-
         Returns a specific webhook notification rule by its ID.
       tags:
@@ -881,7 +881,7 @@ paths:
           description: Rule not found
     put:
       operationId: updateWebhookRule
-      summary: Update a webhook notification rule
+      summary: Update a Webhook Notification Rule
       description: >-
         Updates a specific webhook notification rule.
       tags:
@@ -913,7 +913,7 @@ paths:
           description: Rule not found
     delete:
       operationId: deleteWebhookRule
-      summary: Delete a webhook notification rule
+      summary: Delete a Webhook Notification Rule
       description: >-
         Deletes a specific webhook notification rule.
       tags:

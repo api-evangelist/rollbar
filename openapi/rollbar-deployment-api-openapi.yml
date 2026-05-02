@@ -31,7 +31,7 @@ paths:
   /deploy:
     post:
       operationId: createDeploy
-      summary: Create a deploy
+      summary: Create a Deploy
       description: >-
         Reports a new deployment to Rollbar. This allows Rollbar to
         correlate error data with specific code releases. The deploy
@@ -61,7 +61,7 @@ paths:
   /deploy/{deployId}:
     get:
       operationId: getDeploy
-      summary: Get a deploy
+      summary: Get a Deploy
       description: >-
         Returns information about a specific deployment by its deploy ID.
       tags:
@@ -81,7 +81,7 @@ paths:
           description: Deploy not found
     patch:
       operationId: updateDeploy
-      summary: Update a deploy
+      summary: Update a Deploy
       description: >-
         Updates the status of a deployment. Commonly used to mark a deploy
         as succeeded or failed after it was initially reported with a
@@ -112,7 +112,7 @@ paths:
   /deploys:
     get:
       operationId: listDeploys
-      summary: List deploys
+      summary: List Deploys
       description: >-
         Returns a paginated list of deployments for the project, ordered
         by most recent first. Supports filtering by environment.

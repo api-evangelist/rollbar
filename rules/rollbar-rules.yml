@@ -1,0 +1,121 @@
+extends: spectral:oas
+rules:
+
+  # Rollbar API uses X-Rollbar-Access-Token header authentication
+  rollbar-has-access-token-security:
+    description: All Rollbar API operations must reference the accessToken security scheme
+    message: "Operation must include the accessToken security scheme (X-Rollbar-Access-Token header)"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      - function: schema
+        functionOptions:
+          schema:
+            type: object
+            anyOf:
+              - required: [security]
+
+  # Operation IDs must be camelCase
+  rollbar-operation-id-camel-case:
+    description: Rollbar operationIds use camelCase naming
+    message: "OperationId '{{value}}' should be in camelCase format"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # All operations must have summaries
+  rollbar-operation-summary-required:
+    description: All Rollbar API operations must have a summary
+    message: "Operation is missing a summary"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  # Summaries must use Title Case
+  rollbar-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  # Rollbar paths use trailing slashes on collection endpoints
+  rollbar-consistent-path-structure:
+    description: Rollbar path segments must use lowercase kebab-case
+    message: "Path segment should be lowercase"
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9_/{}:.-]+)$"
+
+  # Tags must be defined
+  rollbar-tags-defined:
+    description: All operations should reference defined tags
+    message: "Operation should reference at least one tag"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # Response schemas should be defined
+  rollbar-success-response-schema:
+    description: Successful responses should include a schema
+    message: "2xx response should include a content schema"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses[?(@property >= '200' && @property < '300')]"
+    then:
+      field: content
+      function: truthy
+
+  # Error responses should use standard codes
+  rollbar-error-responses-defined:
+    description: Operations should document standard error responses
+    message: "Consider documenting 401 and 429 error responses for Rollbar API compliance"
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["401"]
+            - required: ["403"]
+            - required: ["429"]
+
+  # Request bodies must have content type
+  rollbar-request-body-content-type:
+    description: Request bodies must specify application/json content type
+    message: "Request body should use application/json content type"
+    severity: error
+    given: "$.paths[*][post,put,patch].requestBody.content"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required: ["application/json"]
+
+  # Info section must be complete
+  rollbar-info-complete:
+    description: API info section must include contact and terms
+    message: "API info should include contact URL and termsOfService"
+    severity: warn
+    given: "$.info"
+    then:
+      - field: contact
+        function: truthy
+      - field: termsOfService
+        function: truthy

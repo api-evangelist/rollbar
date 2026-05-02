@@ -1,0 +1,60 @@
+{
+  "operation": "listAllItems",
+  "summary": "List All Items",
+  "description": "Retrieve a paginated list of error items from a Rollbar project filtered by status and level",
+  "request": {
+    "method": "GET",
+    "url": "https://api.rollbar.com/api/1/items/?status=active&level=error&environment=production&page=1",
+    "headers": {
+      "X-Rollbar-Access-Token": "read_token_here"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "err": 0,
+      "result": {
+        "page": 1,
+        "total_count": 3,
+        "items": [
+          {
+            "id": 100001,
+            "project_id": 42,
+            "counter": 15,
+            "environment": "production",
+            "platform": "linux",
+            "language": "ruby",
+            "framework": "rails",
+            "status": "active",
+            "level": "error",
+            "title": "InsufficientInventoryError: SKU ABC-123 has only 2 units available",
+            "first_occurrence_timestamp": 1746057600,
+            "last_occurrence_timestamp": 1746144000,
+            "total_occurrences": 47,
+            "unique_occurrences": 12,
+            "assigned_user_id": null,
+            "fingerprint": "abc123fingerprint"
+          },
+          {
+            "id": 100002,
+            "project_id": 42,
+            "counter": 16,
+            "environment": "production",
+            "platform": "linux",
+            "language": "python",
+            "framework": "django",
+            "status": "active",
+            "level": "error",
+            "title": "ConnectionError: Failed to connect to database",
+            "first_occurrence_timestamp": 1746100000,
+            "last_occurrence_timestamp": 1746143000,
+            "total_occurrences": 3,
+            "unique_occurrences": 3,
+            "assigned_user_id": 999,
+            "fingerprint": "def456fingerprint"
+          }
+        ]
+      }
+    }
+  }
+}

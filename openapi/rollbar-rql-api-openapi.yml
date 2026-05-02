@@ -32,7 +32,7 @@ paths:
   /rql/jobs/:
     get:
       operationId: listRqlJobs
-      summary: List all RQL jobs
+      summary: List All RQL Jobs
       description: >-
         Returns all RQL jobs for the project, including their status
         and query details.
@@ -49,7 +49,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createRqlJob
-      summary: Create an RQL job
+      summary: Create an RQL Job
       description: >-
         Submits a new RQL query as a job. The query uses a SQL-like syntax
         and can query the item_occurrence and deploy logical tables. Jobs
@@ -78,7 +78,7 @@ paths:
   /rql/job/{jobId}:
     get:
       operationId: getRqlJob
-      summary: Get an RQL job
+      summary: Get an RQL Job
       description: >-
         Returns information about a specific RQL job, including its
         current status and query details.
@@ -100,7 +100,7 @@ paths:
   /rql/job/{jobId}/result:
     get:
       operationId: getRqlJobResults
-      summary: Get RQL job results
+      summary: Get RQL Job Results
       description: >-
         Returns the results of a completed RQL job. The job must be in
         the success status. Results include column definitions and rows
