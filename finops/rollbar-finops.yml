@@ -1,0 +1,58 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Rollbar
+providerId: rollbar
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Error Monitoring
+description: FOCUS-aligned FinOps for Rollbar.
+sources:
+  - https://rollbar.com/pricing/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Rollbar
+serviceCategory: Error Monitoring
+billingModel:
+  pricingCategory: Tiered Subscription by Volume
+  billingFrequency: Monthly
+  billingCurrency: USD
+focusColumns:
+  ServiceName: Rollbar
+  ServiceCategory: Error Monitoring
+  ProviderName: Rollbar
+  PublisherName: Rollbar
+  BillingCurrency: USD
+meters:
+  - name: occurrences
+    unit: occurrence
+    aggregation: sum
+    dimensions:
+      - project
+      - environment
+  - name: session_replays
+    unit: replay
+    aggregation: sum
+  - name: credits_used
+    unit: credit
+    aggregation: sum
+  - name: user_seats
+    unit: seat-month
+    aggregation: max
+principles:
+  - name: Visibility
+    description: Track Rollbar consumption monthly.
+  - name: Allocation
+    description: Tag usage to teams/cost centers.
+  - name: Optimization
+    description: Right-size; reclaim unused entitlements.
+  - name: Accountability
+    description: Set spend alerts; quarterly review.

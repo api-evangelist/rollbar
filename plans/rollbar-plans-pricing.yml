@@ -1,0 +1,107 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Rollbar
+providerId: rollbar
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Error Monitoring
+description: 'Rollbar tiers: Free / Essentials / Advanced / Enterprise.'
+sources:
+  - https://rollbar.com/pricing/
+plans:
+  - id: rollbar-free
+    name: Free
+    type: freemium
+    description: 5K occurrences + 1K replays per month.
+    entries:
+      - label: Occurrences
+        name: occurrences
+        type: quota
+        metric: occurrence
+        limit: 5000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Replays
+        name: replays
+        type: quota
+        metric: replay
+        limit: 1000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Real-time feed and alerts
+      - name: Intelligent error grouping
+      - name: Stack traces and telemetry
+      - name: Deploy and version tracking
+  - id: rollbar-essentials
+    name: Essentials
+    type: paid
+    description: 10K-50M occurrences/month tiers.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: All Free features
+      - name: 4K credits included
+      - name: Up to 90-day retention
+      - name: Fine-grained rate limiting
+  - id: rollbar-advanced
+    name: Advanced
+    type: paid
+    description: Custom volume.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: All Essentials features
+      - name: 8K credits included
+      - name: Adaptive alerts
+      - name: RQL + Metrics API
+      - name: SCIM provisioning
+      - name: 180-day retention
+  - id: rollbar-enterprise
+    name: Enterprise
+    type: enterprise
+    description: 80M+ occurrences/month.
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: All Advanced features
+      - name: Direct Slack channel
+      - name: Priority support + SLAs
+      - name: Fully custom retention
+      - name: Enterprise security controls
