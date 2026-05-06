@@ -1,249 +1,458 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Rollbar Error Monitoring"
-  description: >-
-    Unified workflow capability for error monitoring, incident triage, and
-    deployment correlation using Rollbar REST and RQL APIs. Enables engineering
-    teams and on-call engineers to investigate errors, query occurrence data,
-    correlate issues with deployments, and manage error item lifecycle from
-    detection through resolution.
+  label: Rollbar Error Monitoring
+  description: Unified workflow capability for error monitoring, incident triage, and deployment correlation using Rollbar
+    REST and RQL APIs. Enables engineering teams and on-call engineers to investigate errors, query occurrence data, correlate
+    issues with deployments, and manage error item lifecycle from detection through resolution.
   tags:
-    - Error Tracking
-    - Monitoring
-    - Incident Response
-    - DevOps
-    - Rollbar
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Error Tracking
+  - Monitoring
+  - Incident Response
+  - DevOps
+  - Rollbar
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      ROLLBAR_ACCESS_TOKEN: ROLLBAR_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    ROLLBAR_ACCESS_TOKEN: ROLLBAR_ACCESS_TOKEN
 capability:
   consumes:
-    - import: rollbar
-      location: ./shared/rollbar-rest-api.yaml
-
+  - type: http
+    namespace: rollbar
+    baseUri: https://api.rollbar.com/api/1
+    description: Rollbar REST API for error tracking and project management
+    authentication:
+      type: apikey
+      key: X-Rollbar-Access-Token
+      value: '{{ROLLBAR_ACCESS_TOKEN}}'
+      placement: header
+    resources:
+    - name: items
+      path: /items/
+      description: Manage error and message items tracked by Rollbar
+      operations:
+      - name: create-item
+        method: POST
+        description: Report an error or message to Rollbar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            payload: '{{tools.payload}}'
+      - name: list-all-items
+        method: GET
+        description: Returns all items in the project ordered by most recent occurrence
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Filter by status (active, resolved, muted)
+        - name: level
+          in: query
+          type: string
+          required: false
+          description: Filter by level (debug, info, warning, error, critical)
+        - name: environment
+          in: query
+          type: string
+          required: false
+          description: Filter by environment
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-item-by-id
+        method: GET
+        description: Get an item by its Rollbar item ID
+        inputParameters:
+        - name: itemId
+          in: path
+          type: integer
+          required: true
+          description: Rollbar item ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-item
+        method: PATCH
+        description: Update the status or assignee of an item
+        inputParameters:
+        - name: itemId
+          in: path
+          type: integer
+          required: true
+          description: Rollbar item ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            status: '{{tools.status}}'
+    - name: occurrences
+      path: /instances/
+      description: Retrieve individual occurrences of errors and messages
+      operations:
+      - name: list-project-occurrences
+        method: GET
+        description: List all occurrences in a project
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-occurrence
+        method: GET
+        description: Get a single occurrence
+        inputParameters:
+        - name: instanceId
+          in: path
+          type: integer
+          required: true
+          description: Occurrence instance ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects
+      path: /projects
+      description: Manage Rollbar projects
+      operations:
+      - name: list-all-projects
+        method: GET
+        description: Returns all projects in the account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-project
+        method: POST
+        description: Create a new Rollbar project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+      - name: get-project
+        method: GET
+        description: Get details of a specific project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: integer
+          required: true
+          description: Rollbar project ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-project
+        method: DELETE
+        description: Delete a Rollbar project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: integer
+          required: true
+          description: Rollbar project ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: teams
+      path: /teams
+      description: Manage teams and team membership
+      operations:
+      - name: list-all-teams
+        method: GET
+        description: Returns all teams in the account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-team
+        method: POST
+        description: Create a new team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            access_level: '{{tools.access_level}}'
+      - name: assign-user-to-team
+        method: PUT
+        description: Add a user to a team
+        inputParameters:
+        - name: teamId
+          in: path
+          type: integer
+          required: true
+          description: Team ID
+        - name: userId
+          in: path
+          type: integer
+          required: true
+          description: User ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notifications
+      path: /notifications/webhook
+      description: Manage webhook notification configuration
+      operations:
+      - name: get-webhook-config
+        method: GET
+        description: Get webhook notification configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-webhook-rules
+        method: GET
+        description: List all webhook notification rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: rollbar-error-monitoring-api
-      description: "Unified REST API for Rollbar error monitoring and incident triage."
-      resources:
-        - path: /v1/errors
-          name: errors
-          description: "Error item management and triage"
-          operations:
-            - method: GET
-              name: list-errors
-              description: "List all tracked error items with filtering by status and severity"
-              call: "rollbar.list-all-items"
-              with:
-                status: "rest.status"
-                level: "rest.level"
-                environment: "rest.environment"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-            - method: POST
-              name: report-error
-              description: "Report a new error or exception to Rollbar"
-              call: "rollbar.create-item"
-              with:
-                payload: "rest.payload"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/errors/{itemId}
-          name: error-detail
-          description: "Individual error item management"
-          operations:
-            - method: GET
-              name: get-error
-              description: "Get detailed information about a specific error item"
-              call: "rollbar.get-item-by-id"
-              with:
-                itemId: "rest.itemId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-            - method: PATCH
-              name: update-error-status
-              description: "Update error status (resolve, mute, activate)"
-              call: "rollbar.update-item"
-              with:
-                itemId: "rest.itemId"
-                status: "rest.status"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/occurrences
-          name: occurrences
-          description: "Individual error occurrence retrieval"
-          operations:
-            - method: GET
-              name: list-occurrences
-              description: "List all individual error occurrences in the project"
-              call: "rollbar.list-project-occurrences"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-            - method: GET
-              name: get-occurrence
-              description: "Get a specific error occurrence with full stack trace"
-              call: "rollbar.get-occurrence"
-              with:
-                instanceId: "rest.instanceId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/projects
-          name: projects
-          description: "Rollbar project administration"
-          operations:
-            - method: GET
-              name: list-projects
-              description: "List all Rollbar projects"
-              call: "rollbar.list-all-projects"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/notifications
-          name: notifications
-          description: "Webhook notification configuration"
-          operations:
-            - method: GET
-              name: get-notification-config
-              description: "Get webhook notification configuration"
-              call: "rollbar.get-webhook-config"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-            - method: GET
-              name: list-notification-rules
-              description: "List all notification rules"
-              call: "rollbar.list-webhook-rules"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9080
-      namespace: rollbar-error-monitoring-mcp
-      transport: http
-      description: "MCP server for AI-assisted error monitoring, triage, and incident response."
-      tools:
-        - name: list-errors
-          description: "List tracked error items filtered by status, level, or environment"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "rollbar.list-all-items"
-          with:
-            status: "tools.status"
-            level: "tools.level"
-            environment: "tools.environment"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-error
-          description: "Get detailed information about a specific error item including stack trace and metadata"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "rollbar.get-item-by-id"
-          with:
-            itemId: "tools.itemId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: report-error
-          description: "Report a new error or exception to Rollbar for tracking"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "rollbar.create-item"
-          with:
-            payload: "tools.payload"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: resolve-error
-          description: "Mark an error item as resolved"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "rollbar.update-item"
-          with:
-            itemId: "tools.itemId"
-            status: "resolved"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-occurrences
-          description: "List individual error occurrences with full details and stack traces"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "rollbar.list-project-occurrences"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-occurrence
-          description: "Get a specific error occurrence including full stack trace, request data, and context"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "rollbar.get-occurrence"
-          with:
-            instanceId: "tools.instanceId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-projects
-          description: "List all Rollbar projects in the account"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "rollbar.list-all-projects"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-teams
-          description: "List all teams in the Rollbar account"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "rollbar.list-all-teams"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-notification-config
-          description: "Get current webhook notification configuration"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "rollbar.get-webhook-config"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: rollbar-error-monitoring-api
+    description: Unified REST API for Rollbar error monitoring and incident triage.
+    resources:
+    - path: /v1/errors
+      name: errors
+      description: Error item management and triage
+      operations:
+      - method: GET
+        name: list-errors
+        description: List all tracked error items with filtering by status and severity
+        call: rollbar.list-all-items
+        with:
+          status: rest.status
+          level: rest.level
+          environment: rest.environment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: report-error
+        description: Report a new error or exception to Rollbar
+        call: rollbar.create-item
+        with:
+          payload: rest.payload
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/errors/{itemId}
+      name: error-detail
+      description: Individual error item management
+      operations:
+      - method: GET
+        name: get-error
+        description: Get detailed information about a specific error item
+        call: rollbar.get-item-by-id
+        with:
+          itemId: rest.itemId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: update-error-status
+        description: Update error status (resolve, mute, activate)
+        call: rollbar.update-item
+        with:
+          itemId: rest.itemId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/occurrences
+      name: occurrences
+      description: Individual error occurrence retrieval
+      operations:
+      - method: GET
+        name: list-occurrences
+        description: List all individual error occurrences in the project
+        call: rollbar.list-project-occurrences
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: get-occurrence
+        description: Get a specific error occurrence with full stack trace
+        call: rollbar.get-occurrence
+        with:
+          instanceId: rest.instanceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects
+      name: projects
+      description: Rollbar project administration
+      operations:
+      - method: GET
+        name: list-projects
+        description: List all Rollbar projects
+        call: rollbar.list-all-projects
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications
+      name: notifications
+      description: Webhook notification configuration
+      operations:
+      - method: GET
+        name: get-notification-config
+        description: Get webhook notification configuration
+        call: rollbar.get-webhook-config
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: list-notification-rules
+        description: List all notification rules
+        call: rollbar.list-webhook-rules
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9080
+    namespace: rollbar-error-monitoring-mcp
+    transport: http
+    description: MCP server for AI-assisted error monitoring, triage, and incident response.
+    tools:
+    - name: list-errors
+      description: List tracked error items filtered by status, level, or environment
+      hints:
+        readOnly: true
+        openWorld: true
+      call: rollbar.list-all-items
+      with:
+        status: tools.status
+        level: tools.level
+        environment: tools.environment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-error
+      description: Get detailed information about a specific error item including stack trace and metadata
+      hints:
+        readOnly: true
+        openWorld: false
+      call: rollbar.get-item-by-id
+      with:
+        itemId: tools.itemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: report-error
+      description: Report a new error or exception to Rollbar for tracking
+      hints:
+        readOnly: false
+        destructive: false
+      call: rollbar.create-item
+      with:
+        payload: tools.payload
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resolve-error
+      description: Mark an error item as resolved
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rollbar.update-item
+      with:
+        itemId: tools.itemId
+        status: resolved
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-occurrences
+      description: List individual error occurrences with full details and stack traces
+      hints:
+        readOnly: true
+        openWorld: true
+      call: rollbar.list-project-occurrences
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-occurrence
+      description: Get a specific error occurrence including full stack trace, request data, and context
+      hints:
+        readOnly: true
+        openWorld: false
+      call: rollbar.get-occurrence
+      with:
+        instanceId: tools.instanceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-projects
+      description: List all Rollbar projects in the account
+      hints:
+        readOnly: true
+        openWorld: true
+      call: rollbar.list-all-projects
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-teams
+      description: List all teams in the Rollbar account
+      hints:
+        readOnly: true
+        openWorld: true
+      call: rollbar.list-all-teams
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-notification-config
+      description: Get current webhook notification configuration
+      hints:
+        readOnly: true
+        openWorld: false
+      call: rollbar.get-webhook-config
+      outputParameters:
+      - type: object
+        mapping: $.
