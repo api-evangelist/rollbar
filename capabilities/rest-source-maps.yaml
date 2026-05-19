@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Rollbar REST API — Source Maps
+  description: 'Rollbar REST API — Source Maps. 1 operations. Lead operation: Upload a JS Source Map. Self-contained Naftiko
+    capability covering one Rollbar business surface.'
+  tags:
+  - Rollbar
+  - Source Maps
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ROLLBAR_API_KEY: ROLLBAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-source-maps
+    baseUri: https://api.rollbar.com/api/1
+    description: Rollbar REST API — Source Maps business capability. Self-contained, no shared references.
+    resources:
+    - name: sourcemap
+      path: /sourcemap
+      operations:
+      - name: uploadsourcemap
+        method: POST
+        description: Upload a JS Source Map
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Rollbar-Access-Token
+      value: '{{env.ROLLBAR_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-source-maps-rest
+    port: 8080
+    description: REST adapter for Rollbar REST API — Source Maps. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/sourcemap
+      name: sourcemap
+      description: REST surface for sourcemap.
+      operations:
+      - method: POST
+        name: uploadsourcemap
+        description: Upload a JS Source Map
+        call: rest-source-maps.uploadsourcemap
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-source-maps-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Rollbar REST API — Source Maps. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: upload-js-source-map
+      description: Upload a JS Source Map
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-source-maps.uploadsourcemap
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Rollbar Metrics API — Resolution Time Metrics
+  description: 'Rollbar Metrics API — Resolution Time Metrics. 1 operations. Lead operation: Get Resolution Time Metrics for
+    a List of Projects. Self-contained Naftiko capability covering one Rollbar business surface.'
+  tags:
+  - Rollbar
+  - Resolution Time Metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ROLLBAR_API_KEY: ROLLBAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: metrics-resolution-time-metrics
+    baseUri: https://api.rollbar.com/api/1
+    description: Rollbar Metrics API — Resolution Time Metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: metrics-ttr
+      path: /metrics/ttr
+      operations:
+      - name: getresolutiontimemetrics
+        method: POST
+        description: Get Resolution Time Metrics for a List of Projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Rollbar-Access-Token
+      value: '{{env.ROLLBAR_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: metrics-resolution-time-metrics-rest
+    port: 8080
+    description: REST adapter for Rollbar Metrics API — Resolution Time Metrics. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/metrics/ttr
+      name: metrics-ttr
+      description: REST surface for metrics-ttr.
+      operations:
+      - method: POST
+        name: getresolutiontimemetrics
+        description: Get Resolution Time Metrics for a List of Projects
+        call: metrics-resolution-time-metrics.getresolutiontimemetrics
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: metrics-resolution-time-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Rollbar Metrics API — Resolution Time Metrics. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-resolution-time-metrics-list
+      description: Get Resolution Time Metrics for a List of Projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: metrics-resolution-time-metrics.getresolutiontimemetrics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

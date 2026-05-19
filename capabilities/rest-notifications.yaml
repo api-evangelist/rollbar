@@ -1,0 +1,293 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Rollbar REST API — Notifications
+  description: 'Rollbar REST API — Notifications. 7 operations. Lead operation: Get Webhook Notification Configuration. Self-contained
+    Naftiko capability covering one Rollbar business surface.'
+  tags:
+  - Rollbar
+  - Notifications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ROLLBAR_API_KEY: ROLLBAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-notifications
+    baseUri: https://api.rollbar.com/api/1
+    description: Rollbar REST API — Notifications business capability. Self-contained, no shared references.
+    resources:
+    - name: notifications-webhook
+      path: /notifications/webhook
+      operations:
+      - name: getwebhookconfig
+        method: GET
+        description: Get Webhook Notification Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatewebhookconfig
+        method: PUT
+        description: Update Webhook Notification Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: notifications-webhook-rule-ruleId
+      path: /notifications/webhook/rule/{ruleId}
+      operations:
+      - name: getwebhookrule
+        method: GET
+        description: Get a Webhook Notification Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ruleId
+          in: path
+          type: integer
+          description: The ID of the webhook rule to retrieve.
+          required: true
+      - name: updatewebhookrule
+        method: PUT
+        description: Update a Webhook Notification Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ruleId
+          in: path
+          type: integer
+          description: The ID of the webhook rule to update.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewebhookrule
+        method: DELETE
+        description: Delete a Webhook Notification Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ruleId
+          in: path
+          type: integer
+          description: The ID of the webhook rule to delete.
+          required: true
+    - name: notifications-webhook-rules
+      path: /notifications/webhook/rules
+      operations:
+      - name: listwebhookrules
+        method: GET
+        description: List Webhook Notification Rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwebhookrule
+        method: POST
+        description: Create a Webhook Notification Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Rollbar-Access-Token
+      value: '{{env.ROLLBAR_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-notifications-rest
+    port: 8080
+    description: REST adapter for Rollbar REST API — Notifications. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/notifications/webhook
+      name: notifications-webhook
+      description: REST surface for notifications-webhook.
+      operations:
+      - method: GET
+        name: getwebhookconfig
+        description: Get Webhook Notification Configuration
+        call: rest-notifications.getwebhookconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatewebhookconfig
+        description: Update Webhook Notification Configuration
+        call: rest-notifications.updatewebhookconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications/webhook/rule/{ruleid}
+      name: notifications-webhook-rule-ruleid
+      description: REST surface for notifications-webhook-rule-ruleId.
+      operations:
+      - method: GET
+        name: getwebhookrule
+        description: Get a Webhook Notification Rule
+        call: rest-notifications.getwebhookrule
+        with:
+          ruleId: rest.ruleId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatewebhookrule
+        description: Update a Webhook Notification Rule
+        call: rest-notifications.updatewebhookrule
+        with:
+          ruleId: rest.ruleId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhookrule
+        description: Delete a Webhook Notification Rule
+        call: rest-notifications.deletewebhookrule
+        with:
+          ruleId: rest.ruleId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications/webhook/rules
+      name: notifications-webhook-rules
+      description: REST surface for notifications-webhook-rules.
+      operations:
+      - method: GET
+        name: listwebhookrules
+        description: List Webhook Notification Rules
+        call: rest-notifications.listwebhookrules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhookrule
+        description: Create a Webhook Notification Rule
+        call: rest-notifications.createwebhookrule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-notifications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Rollbar REST API — Notifications. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-webhook-notification-configuration
+      description: Get Webhook Notification Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notifications.getwebhookconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook-notification-configuration
+      description: Update Webhook Notification Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-notifications.updatewebhookconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-webhook-notification-rule
+      description: Get a Webhook Notification Rule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notifications.getwebhookrule
+      with:
+        ruleId: tools.ruleId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook-notification-rule
+      description: Update a Webhook Notification Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-notifications.updatewebhookrule
+      with:
+        ruleId: tools.ruleId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook-notification-rule
+      description: Delete a Webhook Notification Rule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-notifications.deletewebhookrule
+      with:
+        ruleId: tools.ruleId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-webhook-notification-rules
+      description: List Webhook Notification Rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notifications.listwebhookrules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook-notification-rule
+      description: Create a Webhook Notification Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-notifications.createwebhookrule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

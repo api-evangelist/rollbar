@@ -1,0 +1,213 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Rollbar REST API — Items
+  description: 'Rollbar REST API — Items. 5 operations. Lead operation: Create an Item. Self-contained Naftiko capability
+    covering one Rollbar business surface.'
+  tags:
+  - Rollbar
+  - Items
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ROLLBAR_API_KEY: ROLLBAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-items
+    baseUri: https://api.rollbar.com/api/1
+    description: Rollbar REST API — Items business capability. Self-contained, no shared references.
+    resources:
+    - name: item
+      path: /item/
+      operations:
+      - name: createitem
+        method: POST
+        description: Create an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: item-itemId
+      path: /item/{itemId}
+      operations:
+      - name: getitembyid
+        method: GET
+        description: Get an Item by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateitem
+        method: PATCH
+        description: Update an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: item_by_counter-counter
+      path: /item_by_counter/{counter}
+      operations:
+      - name: getitembycounter
+        method: GET
+        description: Get an Item by Project Counter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: items
+      path: /items/
+      operations:
+      - name: listallitems
+        method: GET
+        description: List All Items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-Rollbar-Access-Token
+      value: '{{env.ROLLBAR_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-items-rest
+    port: 8080
+    description: REST adapter for Rollbar REST API — Items. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/item
+      name: item
+      description: REST surface for item.
+      operations:
+      - method: POST
+        name: createitem
+        description: Create an Item
+        call: rest-items.createitem
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/item/{itemid}
+      name: item-itemid
+      description: REST surface for item-itemId.
+      operations:
+      - method: GET
+        name: getitembyid
+        description: Get an Item by ID
+        call: rest-items.getitembyid
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateitem
+        description: Update an Item
+        call: rest-items.updateitem
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/item-by-counter/{counter}
+      name: item-by-counter-counter
+      description: REST surface for item_by_counter-counter.
+      operations:
+      - method: GET
+        name: getitembycounter
+        description: Get an Item by Project Counter
+        call: rest-items.getitembycounter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/items
+      name: items
+      description: REST surface for items.
+      operations:
+      - method: GET
+        name: listallitems
+        description: List All Items
+        call: rest-items.listallitems
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-items-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Rollbar REST API — Items. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-item
+      description: Create an Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-items.createitem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-item-id
+      description: Get an Item by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-items.getitembyid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-item
+      description: Update an Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-items.updateitem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-item-project-counter
+      description: Get an Item by Project Counter
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-items.getitembycounter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-items
+      description: List All Items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-items.listallitems
+      outputParameters:
+      - type: object
+        mapping: $.

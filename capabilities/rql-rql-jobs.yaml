@@ -1,0 +1,171 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Rollbar RQL API — RQL Jobs
+  description: 'Rollbar RQL API — RQL Jobs. 4 operations. Lead operation: Get an RQL Job. Self-contained Naftiko capability
+    covering one Rollbar business surface.'
+  tags:
+  - Rollbar
+  - RQL Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ROLLBAR_API_KEY: ROLLBAR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rql-rql-jobs
+    baseUri: https://api.rollbar.com/api/1
+    description: Rollbar RQL API — RQL Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: rql-job-jobId
+      path: /rql/job/{jobId}
+      operations:
+      - name: getrqljob
+        method: GET
+        description: Get an RQL Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: rql-job-jobId-result
+      path: /rql/job/{jobId}/result
+      operations:
+      - name: getrqljobresults
+        method: GET
+        description: Get RQL Job Results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: rql-jobs
+      path: /rql/jobs/
+      operations:
+      - name: listrqljobs
+        method: GET
+        description: List All RQL Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createrqljob
+        method: POST
+        description: Create an RQL Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Rollbar-Access-Token
+      value: '{{env.ROLLBAR_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rql-rql-jobs-rest
+    port: 8080
+    description: REST adapter for Rollbar RQL API — RQL Jobs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/rql/job/{jobid}
+      name: rql-job-jobid
+      description: REST surface for rql-job-jobId.
+      operations:
+      - method: GET
+        name: getrqljob
+        description: Get an RQL Job
+        call: rql-rql-jobs.getrqljob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rql/job/{jobid}/result
+      name: rql-job-jobid-result
+      description: REST surface for rql-job-jobId-result.
+      operations:
+      - method: GET
+        name: getrqljobresults
+        description: Get RQL Job Results
+        call: rql-rql-jobs.getrqljobresults
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/rql/jobs
+      name: rql-jobs
+      description: REST surface for rql-jobs.
+      operations:
+      - method: GET
+        name: listrqljobs
+        description: List All RQL Jobs
+        call: rql-rql-jobs.listrqljobs
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrqljob
+        description: Create an RQL Job
+        call: rql-rql-jobs.createrqljob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rql-rql-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Rollbar RQL API — RQL Jobs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-rql-job
+      description: Get an RQL Job
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rql-rql-jobs.getrqljob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-rql-job-results
+      description: Get RQL Job Results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rql-rql-jobs.getrqljobresults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-rql-jobs
+      description: List All RQL Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rql-rql-jobs.listrqljobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-rql-job
+      description: Create an RQL Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rql-rql-jobs.createrqljob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
