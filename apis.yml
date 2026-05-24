@@ -215,6 +215,8 @@ common:
 - name: MCP Server
   url: https://github.com/rollbar/rollbar-mcp-server
   type: MCPServer
+- type: LLMsTxt
+  url: https://docs.rollbar.com/llms.txt
 integrations:
 - Slack
 - PagerDuty
