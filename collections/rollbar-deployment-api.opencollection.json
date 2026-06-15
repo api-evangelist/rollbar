@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deploys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/deploy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reports a new deployment to Rollbar. This allows Rollbar to correlate error data with specific code releases. The deploy can be created with a status of started and later updated to succeeded or failed using the PATCH endpoint."
+        },
+        {
+          "info": {
+            "name": "Get a Deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/deploy/:deployId",
+            "params": [
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deployment."
+              }
+            ]
+          },
+          "docs": "Returns information about a specific deployment by its deploy ID."
+        },
+        {
+          "info": {
+            "name": "Update a Deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.rollbar.com/api/1/deploy/:deployId",
+            "params": [
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deployment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the status of a deployment. Commonly used to mark a deploy as succeeded or failed after it was initially reported with a started status."
+        },
+        {
+          "info": {
+            "name": "List Deploys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/deploys",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination. Defaults to 1."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "Filter deploys by environment name."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of deployments for the project, ordered by most recent first. Supports filtering by environment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

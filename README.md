@@ -1,121 +1,172 @@
-# Rollbar
+# Rollbar (rollbar)
 
-Rollbar is a real-time error tracking and monitoring platform for software teams. It automatically captures exceptions and errors from web, mobile, and server-side applications, groups them by root cause, and provides actionable alerts to speed up debugging. Rollbar provides SDKs for over a dozen platforms including JavaScript, Python, PHP, Ruby, Go, Swift, .NET, and Java.
+Rollbar is a real-time error tracking and monitoring platform for software teams. It automatically captures exceptions and errors from web, mobile, and server-side applications, groups them by root cause, and provides actionable alerts to speed up debugging. Rollbar provides SDKs for over a dozen platforms including JavaScript, Python, PHP, Ruby, Go, Swift, .NET, and Java. The REST API enables programmatic management of projects, items, occurrences, deployments, teams, notifications, and source maps. The RQL (Rollbar Query Language) provides SQL-like queries for error analysis.
 
-**Website:** [https://rollbar.com/](https://rollbar.com/)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/rollbar/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/rollbar/refs/heads/main/apis.yml)
 
-**Documentation:** [https://docs.rollbar.com/](https://docs.rollbar.com/)
+## Scope
 
-**API Reference:** [https://explorer.docs.rollbar.com/](https://explorer.docs.rollbar.com/)
+- **Type:** Index
 
-**GitHub:** [https://github.com/rollbar](https://github.com/rollbar)
+## Tags
+
+- Error Tracking
+- Monitoring
+- Debugging
+- DevOps
+- Application Performance
+
+## Timestamps
+
+- **Created:** 2026-05-02
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Rollbar REST API
-Programmatic management of projects, items, occurrences, teams, users, invites, notifications, and source maps via RESTful JSON interface.
 
-- **Documentation:** [https://docs.rollbar.com/reference/getting-started-1](https://docs.rollbar.com/reference/getting-started-1)
-- **OpenAPI:** [openapi/rollbar-rest-api-openapi.yml](openapi/rollbar-rest-api-openapi.yml)
+The Rollbar REST API provides programmatic access to the Rollbar error tracking and monitoring platform. Manage projects, items, occurrences, deploys, teams, users, invites, notifications, and source maps through a RESTful JSON interface. Authentication is via project access tokens in the X-Rollbar-Access-Token header.
+
+- **Human URL:** [https://docs.rollbar.com/reference/getting-started-1](https://docs.rollbar.com/reference/getting-started-1)
+- **Base URL:** `https://api.rollbar.com/api/1`
+
+#### Tags
+
+- Error Tracking
+- Monitoring
+- REST
+- Projects
+- Teams
+
+#### Properties
+
+- [Documentation](https://docs.rollbar.com/reference/getting-started-1)
+- [OpenAPI](https://explorer.docs.rollbar.com/) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](openapi/rollbar-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/rollbar-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Rollbar Deployment API
-Notify Rollbar of application deployments to correlate error spikes with specific releases.
 
-- **Documentation:** [https://docs.rollbar.com/reference/post_deploy](https://docs.rollbar.com/reference/post_deploy)
-- **OpenAPI:** [openapi/rollbar-deployment-api-openapi.yml](openapi/rollbar-deployment-api-openapi.yml)
+The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track deployment history, and manage rollbacks with full visibility into which code version is running in production.
+
+- **Human URL:** [https://docs.rollbar.com/reference/post_deploy](https://docs.rollbar.com/reference/post_deploy)
+- **Base URL:** `https://api.rollbar.com/api/1`
+
+#### Tags
+
+- Deployment
+- Release Management
+- Error Tracking
+- REST
+- DevOps
+
+#### Properties
+
+- [Documentation](https://docs.rollbar.com/reference/post_deploy)
+- [OpenAPI](openapi/rollbar-deployment-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/rollbar-deployment-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-deployment-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Rollbar Metrics API
-Query resolution time metrics, occurrence counts, and aggregate analytics data.
 
-- **Documentation:** [https://docs.rollbar.com/reference/metrics](https://docs.rollbar.com/reference/metrics)
-- **OpenAPI:** [openapi/rollbar-metrics-api-openapi.yml](openapi/rollbar-metrics-api-openapi.yml)
+The Rollbar Metrics API is part of Rollbar Analyze and provides programmatic access to metrics data for error tracking analysis and discovery. Enables developers to query resolution time metrics, occurrence counts, and item activation metrics across projects.
+
+- **Human URL:** [https://docs.rollbar.com/reference/metrics](https://docs.rollbar.com/reference/metrics)
+- **Base URL:** `https://api.rollbar.com/api/1`
+
+#### Tags
+
+- Metrics
+- Analytics
+- Error Tracking
+- REST
+- Monitoring
+
+#### Properties
+
+- [Documentation](https://docs.rollbar.com/reference/metrics)
+- [OpenAPI](openapi/rollbar-metrics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/rollbar-metrics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-metrics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Rollbar RQL API
-SQL-like query interface for advanced error analysis over item_occurrence and deploy tables.
 
-- **Documentation:** [https://docs.rollbar.com/reference/rql](https://docs.rollbar.com/reference/rql)
-- **OpenAPI:** [openapi/rollbar-rql-api-openapi.yml](openapi/rollbar-rql-api-openapi.yml)
+The Rollbar RQL (Rollbar Query Language) API provides a SQL-like interface for querying error and deployment data stored in Rollbar. Supports SELECT queries against item_occurrence and deploy tables for advanced error analysis, reporting, and custom integrations.
+
+- **Human URL:** [https://docs.rollbar.com/reference/rql](https://docs.rollbar.com/reference/rql)
+- **Base URL:** `https://api.rollbar.com/api/1`
+
+#### Tags
+
+- Query Language
+- Analytics
+- Error Tracking
+- REST
+- SQL
+
+#### Properties
+
+- [Documentation](https://docs.rollbar.com/reference/rql)
+- [OpenAPI](openapi/rollbar-rql-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/rollbar-rql-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-rql-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Rollbar Webhooks
-Real-time outbound webhook notifications for error events, deployments, and status changes.
 
-- **Documentation:** [https://docs.rollbar.com/docs/webhooks](https://docs.rollbar.com/docs/webhooks)
-- **AsyncAPI:** [asyncapi/rollbar-webhooks-asyncapi.yml](asyncapi/rollbar-webhooks-asyncapi.yml)
+Rollbar supports outbound webhook notifications for real-time event-driven integrations. Webhooks deliver payload data when errors occur, items are resolved, or deployment events happen, enabling integration with Slack, PagerDuty, email, and custom HTTP endpoints.
 
-## Artifacts
+- **Human URL:** [https://docs.rollbar.com/docs/webhooks](https://docs.rollbar.com/docs/webhooks)
+- **Base URL:** `https://api.rollbar.com`
 
-### OpenAPI Specs
-| File | Description |
-|------|-------------|
-| [openapi/rollbar-rest-api-openapi.yml](openapi/rollbar-rest-api-openapi.yml) | Rollbar REST API specification |
-| [openapi/rollbar-deployment-api-openapi.yml](openapi/rollbar-deployment-api-openapi.yml) | Rollbar Deployment API specification |
-| [openapi/rollbar-metrics-api-openapi.yml](openapi/rollbar-metrics-api-openapi.yml) | Rollbar Metrics API specification |
-| [openapi/rollbar-rql-api-openapi.yml](openapi/rollbar-rql-api-openapi.yml) | Rollbar RQL API specification |
+#### Tags
 
-### AsyncAPI Specs
-| File | Description |
-|------|-------------|
-| [asyncapi/rollbar-webhooks-asyncapi.yml](asyncapi/rollbar-webhooks-asyncapi.yml) | Rollbar webhook events AsyncAPI specification |
+- Webhooks
+- Event-Driven
+- Notifications
+- AsyncAPI
+- Monitoring
 
-### Rules
-| File | Description |
-|------|-------------|
-| [rules/rollbar-rules.yml](rules/rollbar-rules.yml) | Spectral ruleset enforcing Rollbar API conventions |
+#### Properties
 
-### Capabilities
-| File | Description |
-|------|-------------|
-| [capabilities/error-monitoring.yaml](capabilities/error-monitoring.yaml) | Unified error monitoring workflow capability |
-| [capabilities/shared/rollbar-rest-api.yaml](capabilities/shared/rollbar-rest-api.yaml) | Rollbar REST API shared capability definition |
+- [Documentation](https://docs.rollbar.com/docs/webhooks)
+- [AsyncAPI](asyncapi/rollbar-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Postman Collection](collections/rollbar-deployment-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-deployment-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/rollbar-metrics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-metrics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/rollbar-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/rollbar-rql-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/rollbar-rql-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-### JSON Schema
-| File | Description |
-|------|-------------|
-| [json-schema/rollbar-item-schema.json](json-schema/rollbar-item-schema.json) | Rollbar error item schema |
-| [json-schema/rollbar-occurrence-schema.json](json-schema/rollbar-occurrence-schema.json) | Rollbar occurrence schema |
-| [json-schema/rollbar-deploy-schema.json](json-schema/rollbar-deploy-schema.json) | Rollbar deployment schema |
-| [json-schema/rollbar-webhook-payload-schema.json](json-schema/rollbar-webhook-payload-schema.json) | Rollbar webhook payload schema |
+## Common Properties
 
-### JSON Structure
-| File | Description |
-|------|-------------|
-| [json-structure/rollbar-item-structure.json](json-structure/rollbar-item-structure.json) | Rollbar data structure documentation |
-
-### JSON-LD
-| File | Description |
-|------|-------------|
-| [json-ld/rollbar-context.jsonld](json-ld/rollbar-context.jsonld) | JSON-LD context for Rollbar data semantics |
-
-### Examples
-| File | Description |
-|------|-------------|
-| [examples/rollbar-create-item-example.json](examples/rollbar-create-item-example.json) | Create an error item example |
-| [examples/rollbar-list-items-example.json](examples/rollbar-list-items-example.json) | List error items example |
-
-### Vocabulary
-| File | Description |
-|------|-------------|
-| [vocabulary/rollbar-vocabulary.yml](vocabulary/rollbar-vocabulary.yml) | Rollbar domain vocabulary |
-
-## Capabilities
-
-### Error Monitoring (`capabilities/error-monitoring.yaml`)
-Unified workflow for error monitoring, incident triage, and deployment correlation. Enables engineering teams and on-call engineers to:
-- Investigate and triage errors by status, level, and environment
-- Drill into individual occurrences with full stack traces
-- Report new errors from any application
-- Resolve and mute items
-- Manage projects and teams
-- Configure webhook notifications
-
-**REST Port:** 8080 | **MCP Port:** 9080 | **Tools:** 9
-
-## Integrations
-
-Slack, PagerDuty, Jira, GitHub, Bitbucket, Heroku
+- [LinkedIn](https://www.linkedin.com/company/rollbar)
+- [Website](https://rollbar.com/)
+- [Documentation](https://docs.rollbar.com/)
+- [Documentation](https://docs.rollbar.com/reference/getting-started-1)
+- [Portal](https://explorer.docs.rollbar.com/)
+- [Pricing](https://rollbar.com/pricing/)
+- [GitHub Organization](https://github.com/rollbar)
+- [Terms of Service](https://rollbar.com/terms/)
+- [Privacy Policy](https://rollbar.com/privacy/)
+- [Support](https://rollbar.com/support/)
+- [OpenAPI](openapi/rollbar-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](openapi/rollbar-deployment-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](openapi/rollbar-metrics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](openapi/rollbar-rql-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [AsyncAPI](asyncapi/rollbar-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [JSON Schema](json-schema/rollbar-item-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/rollbar-occurrence-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/rollbar-deploy-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/rollbar-webhook-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [J S O N L D Context](json-ld/rollbar-context.jsonld)
+- [Features](undefined)
+- [M C P Server](https://github.com/rollbar/rollbar-mcp-server)
+- [L L Ms Txt](https://docs.rollbar.com/llms.txt)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com

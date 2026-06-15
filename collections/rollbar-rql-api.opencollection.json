@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar RQL API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RQL Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All RQL Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/rql/jobs/"
+          },
+          "docs": "Returns all RQL jobs for the project, including their status and query details."
+        },
+        {
+          "info": {
+            "name": "Create an RQL Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/rql/jobs/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a new RQL query as a job. The query uses a SQL-like syntax and can query the item_occurrence and deploy logical tables. Jobs run asynchronously and will timeout after 10 minutes."
+        },
+        {
+          "info": {
+            "name": "Get an RQL Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/rql/job/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the RQL job."
+              }
+            ]
+          },
+          "docs": "Returns information about a specific RQL job, including its current status and query details."
+        },
+        {
+          "info": {
+            "name": "Get RQL Job Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/rql/job/:jobId/result",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the RQL job."
+              }
+            ]
+          },
+          "docs": "Returns the results of a completed RQL job. The job must be in the success status. Results include column definitions and rows of data matching the query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
