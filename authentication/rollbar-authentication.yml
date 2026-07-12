@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/rollbar-deployment-api-openapi.yml, openapi/rollbar-metrics-api-openapi.yml,
+  openapi/rollbar-rest-api-openapi.yml, openapi/rollbar-rql-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: accessToken
+  type: apiKey
+  in: header
+  parameter: X-Rollbar-Access-Token
+  description: Rollbar access token for authentication. Requires write or post_server_item scope
+    for creating deploys.
+  sources:
+  - openapi/rollbar-deployment-api-openapi.yml
+  - openapi/rollbar-metrics-api-openapi.yml
+  - openapi/rollbar-rest-api-openapi.yml
+  - openapi/rollbar-rql-api-openapi.yml

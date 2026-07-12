@@ -129,6 +129,12 @@ apis:
       - url: asyncapi/rollbar-webhooks-asyncapi.yml
         type: AsyncAPI
 common:
+  - type: DomainSecurity
+    url: security/rollbar-domain-security.yml
+  - type: Authentication
+    url: authentication/rollbar-authentication.yml
+  - url: https://rollbar.com/blog/feed/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/rollbar
   - url: https://rollbar.com/
