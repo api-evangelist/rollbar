@@ -129,6 +129,8 @@ apis:
       - url: asyncapi/rollbar-webhooks-asyncapi.yml
         type: AsyncAPI
 common:
+  - type: AgenticAccess
+    url: agentic-access/rollbar-agentic-access.yml
   - type: DomainSecurity
     url: security/rollbar-domain-security.yml
   - type: Authentication
