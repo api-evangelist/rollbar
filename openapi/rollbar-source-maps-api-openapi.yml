@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Source Maps API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Source Maps
+  description: Upload JavaScript source maps to enable readable stack traces for minified code.
+paths:
+  /sourcemap:
+    post:
+      operationId: uploadSourceMap
+      summary: Upload a JS Source Map
+      description: Uploads a JavaScript source map file so that Rollbar can translate minified stack traces into readable source code references. The source map is associated with a specific version and minified URL.
+      tags:
+      - Source Maps
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadSourceMapRequest'
+      responses:
+        '200':
+          description: Source map uploaded
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+components:
+  schemas:
+    UploadSourceMapRequest:
+      type: object
+      description: Request body for uploading a JavaScript source map file.
+      required:
+      - access_token
+      - version
+      - minified_url
+      - source_map
+      properties:
+        access_token:
+          type: string
+          description: A post_server_item access token.
+        version:
+          type: string
+          description: The code version string associated with this source map.
+        minified_url:
+          type: string
+          description: The full URL of the minified JavaScript file.
+          format: uri
+        source_map:
+          type: string
+          description: The source map file contents.
+          format: binary
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

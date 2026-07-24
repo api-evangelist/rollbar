@@ -1,0 +1,269 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Deploys API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Deploys
+  description: Manage deployment records in Rollbar. Report new deploys, update their status, and retrieve deployment history for a project.
+paths:
+  /deploy:
+    post:
+      operationId: createDeploy
+      summary: Create a Deploy
+      description: Reports a new deployment to Rollbar. This allows Rollbar to correlate error data with specific code releases. The deploy can be created with a status of started and later updated to succeeded or failed using the PATCH endpoint.
+      tags:
+      - Deploys
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeployRequest'
+      responses:
+        '200':
+          description: Deploy created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeployResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+  /deploy/{deployId}:
+    get:
+      operationId: getDeploy
+      summary: Get a Deploy
+      description: Returns information about a specific deployment by its deploy ID.
+      tags:
+      - Deploys
+      parameters:
+      - $ref: '#/components/parameters/DeployIdParam'
+      responses:
+        '200':
+          description: Deploy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Deploy not found
+    patch:
+      operationId: updateDeploy
+      summary: Update a Deploy
+      description: Updates the status of a deployment. Commonly used to mark a deploy as succeeded or failed after it was initially reported with a started status.
+      tags:
+      - Deploys
+      parameters:
+      - $ref: '#/components/parameters/DeployIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeployRequest'
+      responses:
+        '200':
+          description: Deploy updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Deploy not found
+        '422':
+          description: Unprocessable entity
+  /deploys:
+    get:
+      operationId: listDeploys
+      summary: List Deploys
+      description: Returns a paginated list of deployments for the project, ordered by most recent first. Supports filtering by environment.
+      tags:
+      - Deploys
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination. Defaults to 1.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: environment
+        in: query
+        required: false
+        description: Filter deploys by environment name.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of deploys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployListResponse'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    UpdateDeployRequest:
+      type: object
+      description: Request body for updating a deployment status.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The new status for the deploy.
+          enum:
+          - succeeded
+          - failed
+          - timed_out
+        comment:
+          type: string
+          description: An updated comment for the deploy.
+    CreateDeployRequest:
+      type: object
+      description: Request body for reporting a new deployment.
+      required:
+      - environment
+      - revision
+      properties:
+        environment:
+          type: string
+          description: The environment being deployed to (e.g., production, staging).
+          maxLength: 255
+        revision:
+          type: string
+          description: The revision identifier, typically a Git SHA or version string.
+          maxLength: 40
+        rollbar_username:
+          type: string
+          description: The Rollbar username of the deployer. Used to associate the deploy with a Rollbar user.
+        local_username:
+          type: string
+          description: The local system username of the deployer.
+        comment:
+          type: string
+          description: An optional comment describing the deployment.
+          maxLength: 64000
+        status:
+          type: string
+          description: The initial status of the deploy. Use started for long-running deploys and update with PATCH when complete.
+          enum:
+          - started
+          - succeeded
+          - failed
+          default: succeeded
+    Deploy:
+      type: object
+      description: A deployment record in Rollbar representing a code release.
+      properties:
+        id:
+          type: integer
+          description: The deploy ID.
+        project_id:
+          type: integer
+          description: The project ID this deploy belongs to.
+        environment:
+          type: string
+          description: The environment the deploy was made to (e.g., production, staging).
+        revision:
+          type: string
+          description: The revision identifier, typically a Git SHA.
+          maxLength: 40
+        local_username:
+          type: string
+          description: The local username of the person who performed the deploy.
+        rollbar_username:
+          type: string
+          description: The Rollbar username of the person who performed the deploy.
+        comment:
+          type: string
+          description: An optional comment describing the deploy.
+        status:
+          type: string
+          description: The status of the deployment.
+          enum:
+          - started
+          - succeeded
+          - failed
+          - timed_out
+        start_time:
+          type: integer
+          description: Unix timestamp when the deploy started.
+        finish_time:
+          type: integer
+          description: Unix timestamp when the deploy finished.
+        user_id:
+          type: integer
+          description: The Rollbar user ID who initiated the deploy.
+    DeployResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Deploy'
+    DeployListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            deploys:
+              type: array
+              items:
+                $ref: '#/components/schemas/Deploy'
+            page:
+              type: integer
+              description: Current page number.
+    CreateDeployResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            deploy_id:
+              type: integer
+              description: The ID of the newly created deploy.
+  parameters:
+    DeployIdParam:
+      name: deployId
+      in: path
+      required: true
+      description: The ID of the deployment.
+      schema:
+        type: integer
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

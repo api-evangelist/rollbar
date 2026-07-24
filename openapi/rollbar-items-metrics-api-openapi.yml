@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Items Metrics API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Items Metrics
+  description: Query metrics for specific items including occurrence counts and aggregate statistics.
+paths:
+  /metrics/items:
+    post:
+      operationId: getItemsMetrics
+      summary: Get Metrics for a List of Items
+      description: Returns metrics for a provided list of item IDs. Follows search/query semantics as a POST request. Requires a project read access token.
+      tags:
+      - Items Metrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemsMetricsRequest'
+      responses:
+        '200':
+          description: Item metrics results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsResponse'
+        '400':
+          description: Bad request - invalid query parameters
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+components:
+  schemas:
+    MetricsResponse:
+      type: object
+      description: Response containing metrics query results.
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          description: The metrics data results.
+          properties:
+            rows:
+              type: array
+              description: Array of result rows containing the queried metrics.
+              items:
+                type: object
+            columns:
+              type: array
+              description: Column definitions describing the result structure.
+              items:
+                type: string
+    MetricsFilter:
+      type: object
+      description: A filter condition for metrics queries.
+      properties:
+        field:
+          type: string
+          description: The field name to filter on.
+        operator:
+          type: string
+          description: The comparison operator.
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          - in
+          - nin
+        value:
+          description: The value to compare against. Type depends on the field and operator.
+    ItemsMetricsRequest:
+      type: object
+      description: Request body for querying metrics for specific items.
+      required:
+      - item_ids
+      properties:
+        item_ids:
+          type: array
+          description: List of item IDs to retrieve metrics for.
+          items:
+            type: integer
+        start_time:
+          type: integer
+          description: Start of the time range as Unix epoch time in seconds.
+        end_time:
+          type: integer
+          description: End of the time range as Unix epoch time in seconds.
+        filters:
+          type: array
+          description: Filter conditions to narrow down the results.
+          items:
+            $ref: '#/components/schemas/MetricsFilter'
+        group_by:
+          type: array
+          description: Fields to group the results by.
+          items:
+            type: string
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

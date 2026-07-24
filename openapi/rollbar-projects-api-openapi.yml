@@ -1,0 +1,166 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Projects API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Projects
+  description: Manage projects within a Rollbar account. Projects are the top-level organizational unit for error tracking.
+paths:
+  /projects:
+    get:
+      operationId: listAllProjects
+      summary: List All Projects
+      description: Returns all projects in the account. Requires an account-level access token.
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectListResponse'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createProject
+      summary: Create a Project
+      description: Creates a new project in the account. Optionally supports duplicating an existing project by providing a source project ID.
+      tags:
+      - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '200':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+  /project/{projectId}:
+    get:
+      operationId: getProject
+      summary: Get a Project
+      description: Returns information about a specific project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdParam'
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Project not found
+    delete:
+      operationId: deleteProject
+      summary: Delete a Project
+      description: Deletes a project and all of its data. This action is irreversible.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdParam'
+      responses:
+        '200':
+          description: Project deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Project not found
+components:
+  schemas:
+    ProjectListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    ProjectResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Project'
+    CreateProjectRequest:
+      type: object
+      description: Request body for creating a new project.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the project.
+        source_project_id:
+          type: integer
+          description: Optional project ID to duplicate settings from.
+    Project:
+      type: object
+      description: A project in Rollbar, the top-level organizational unit for error tracking.
+      properties:
+        id:
+          type: integer
+          description: The project ID.
+        account_id:
+          type: integer
+          description: The account ID this project belongs to.
+        name:
+          type: string
+          description: The name of the project.
+        date_created:
+          type: integer
+          description: Unix timestamp when the project was created.
+        date_modified:
+          type: integer
+          description: Unix timestamp when the project was last modified.
+        status:
+          type: string
+          description: The status of the project.
+          enum:
+          - enabled
+          - disabled
+  parameters:
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

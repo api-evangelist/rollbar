@@ -1,0 +1,347 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Teams API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Teams
+  description: Manage teams and team membership within a Rollbar account. Teams control access to projects.
+paths:
+  /teams:
+    get:
+      operationId: listAllTeams
+      summary: List All Teams
+      description: Returns all teams in the account. Requires an account-level access token.
+      tags:
+      - Teams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamListResponse'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createTeam
+      summary: Create a Team
+      description: Creates a new team in the account.
+      tags:
+      - Teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeamRequest'
+      responses:
+        '200':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+  /team/{teamId}:
+    get:
+      operationId: getTeam
+      summary: Get a Team
+      description: Returns information about a specific team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team not found
+    delete:
+      operationId: deleteTeam
+      summary: Delete a Team
+      description: Deletes a team. This action is irreversible.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      responses:
+        '200':
+          description: Team deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team not found
+  /team/{teamId}/projects:
+    get:
+      operationId: listTeamProjects
+      summary: List a Team's Projects
+      description: Returns all projects assigned to a specific team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      responses:
+        '200':
+          description: List of team projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectListResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team not found
+  /team/{teamId}/project/{projectId}:
+    put:
+      operationId: assignProjectToTeam
+      summary: Assign a Project to a Team
+      description: Assigns a project to a team, granting the team access to that project.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      - $ref: '#/components/parameters/ProjectIdParam'
+      responses:
+        '200':
+          description: Project assigned to team
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team or project not found
+    delete:
+      operationId: removeProjectFromTeam
+      summary: Remove a Project from a Team
+      description: Removes a project from a team, revoking the team's access to that project.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      - $ref: '#/components/parameters/ProjectIdParam'
+      responses:
+        '200':
+          description: Project removed from team
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team or project not found
+  /team/{teamId}/user/{userId}:
+    put:
+      operationId: assignUserToTeam
+      summary: Assign a User to a Team
+      description: Assigns a user to a team, granting them the team's access permissions.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      - $ref: '#/components/parameters/UserIdParam'
+      responses:
+        '200':
+          description: User assigned to team
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team or user not found
+    delete:
+      operationId: removeUserFromTeam
+      summary: Remove a User from a Team
+      description: Removes a user from a team, revoking the team's access permissions for that user.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      - $ref: '#/components/parameters/UserIdParam'
+      responses:
+        '200':
+          description: User removed from team
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team or user not found
+  /team/{teamId}/users:
+    get:
+      operationId: listTeamUsers
+      summary: List a Team's Users
+      description: Returns all users assigned to a specific team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamIdParam'
+      responses:
+        '200':
+          description: List of team users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Team not found
+components:
+  schemas:
+    TeamResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Team'
+    ProjectListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    TeamListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    Team:
+      type: object
+      description: A team in Rollbar that groups users and controls project access.
+      properties:
+        id:
+          type: integer
+          description: The team ID.
+        account_id:
+          type: integer
+          description: The account ID this team belongs to.
+        name:
+          type: string
+          description: The name of the team.
+        access_level:
+          type: string
+          description: The access level granted to team members.
+          enum:
+          - standard
+          - light
+          - view
+    UserListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            users:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+    CreateTeamRequest:
+      type: object
+      description: Request body for creating a new team.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the team.
+        access_level:
+          type: string
+          description: The access level to grant to team members.
+          enum:
+          - standard
+          - light
+          - view
+    Project:
+      type: object
+      description: A project in Rollbar, the top-level organizational unit for error tracking.
+      properties:
+        id:
+          type: integer
+          description: The project ID.
+        account_id:
+          type: integer
+          description: The account ID this project belongs to.
+        name:
+          type: string
+          description: The name of the project.
+        date_created:
+          type: integer
+          description: Unix timestamp when the project was created.
+        date_modified:
+          type: integer
+          description: Unix timestamp when the project was last modified.
+        status:
+          type: string
+          description: The status of the project.
+          enum:
+          - enabled
+          - disabled
+    User:
+      type: object
+      description: A user in a Rollbar account.
+      properties:
+        id:
+          type: integer
+          description: The user ID.
+        username:
+          type: string
+          description: The username.
+        email:
+          type: string
+          description: The user's email address.
+          format: email
+  parameters:
+    UserIdParam:
+      name: userId
+      in: path
+      required: true
+      description: The ID of the user.
+      schema:
+        type: integer
+    TeamIdParam:
+      name: teamId
+      in: path
+      required: true
+      description: The ID of the team.
+      schema:
+        type: integer
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

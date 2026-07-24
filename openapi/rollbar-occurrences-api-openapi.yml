@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Occurrences API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Occurrences
+  description: Retrieve individual occurrences of errors and messages. Each occurrence represents a single instance of an item happening.
+paths:
+  /item/{itemId}/instances/:
+    get:
+      operationId: listItemOccurrences
+      summary: List All Occurrences of an Item
+      description: Returns all occurrences for a specific item, in pages of 20, ordered descending by occurrence ID.
+      tags:
+      - Occurrences
+      parameters:
+      - $ref: '#/components/parameters/ItemIdParam'
+      - $ref: '#/components/parameters/PageParam'
+      responses:
+        '200':
+          description: List of occurrences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OccurrenceListResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Item not found
+  /instances/:
+    get:
+      operationId: listProjectOccurrences
+      summary: List All Occurrences in a Project
+      description: Returns all occurrences in the project, in pages of 20, ordered descending by occurrence ID (approximately descending by timestamp).
+      tags:
+      - Occurrences
+      parameters:
+      - $ref: '#/components/parameters/PageParam'
+      responses:
+        '200':
+          description: List of occurrences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OccurrenceListResponse'
+        '401':
+          description: Unauthorized
+  /instance/{instanceId}:
+    get:
+      operationId: getOccurrence
+      summary: Get an Occurrence
+      description: Returns a single occurrence by its instance ID.
+      tags:
+      - Occurrences
+      parameters:
+      - name: instanceId
+        in: path
+        required: true
+        description: The ID of the occurrence instance to retrieve.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Occurrence details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OccurrenceResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Occurrence not found
+components:
+  schemas:
+    Occurrence:
+      type: object
+      description: An occurrence represents a single instance of an error or message.
+      properties:
+        id:
+          type: integer
+          description: The occurrence instance ID.
+        item_id:
+          type: integer
+          description: The item ID this occurrence belongs to.
+        timestamp:
+          type: integer
+          description: Unix timestamp when the occurrence happened.
+        version:
+          type: integer
+          description: The occurrence data version.
+        data:
+          type: object
+          description: The full occurrence data payload including body, request, server, and other context.
+    OccurrenceListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            instances:
+              type: array
+              items:
+                $ref: '#/components/schemas/Occurrence'
+            page:
+              type: integer
+              description: Current page number.
+    OccurrenceResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Occurrence'
+  parameters:
+    PageParam:
+      name: page
+      in: query
+      required: false
+      description: Page number for pagination. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

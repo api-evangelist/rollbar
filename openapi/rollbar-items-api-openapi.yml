@@ -1,0 +1,374 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens Items API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Items
+  description: Manage error and message items tracked by Rollbar. Items represent unique errors or messages grouped by fingerprint.
+paths:
+  /item/:
+    post:
+      operationId: createItem
+      summary: Create an Item
+      description: Reports an error or message to Rollbar. This is the primary endpoint used by Rollbar SDKs to send data. The request body should contain the error or message payload in Rollbar's item format.
+      tags:
+      - Items
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItemRequest'
+      responses:
+        '200':
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+  /items/:
+    get:
+      operationId: listAllItems
+      summary: List All Items
+      description: Returns all items in the project, ordered by most recent occurrence. Supports filtering by status, level, and environment, with pagination.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/StatusFilter'
+      - $ref: '#/components/parameters/LevelFilter'
+      - $ref: '#/components/parameters/EnvironmentFilter'
+      - $ref: '#/components/parameters/PageParam'
+      responses:
+        '200':
+          description: List of items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListResponse'
+        '401':
+          description: Unauthorized
+  /item/{itemId}:
+    get:
+      operationId: getItemById
+      summary: Get an Item by ID
+      description: Returns a single item by its internal item ID. Note that this is different from the project counter visible in Rollbar URLs.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/ItemIdParam'
+      responses:
+        '200':
+          description: Item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Item not found
+    patch:
+      operationId: updateItem
+      summary: Update an Item
+      description: Updates properties of an item, such as its status, level, title, or assigned user. Commonly used to resolve or mute items.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/ItemIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateItemRequest'
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Item not found
+        '422':
+          description: Unprocessable entity
+  /item_by_counter/{counter}:
+    get:
+      operationId: getItemByCounter
+      summary: Get an Item by Project Counter
+      description: Returns an item by its project counter. The counter is the number shown in Rollbar URLs (e.g., items/456). Returns a 301 redirect to the item resource.
+      tags:
+      - Items
+      parameters:
+      - $ref: '#/components/parameters/CounterParam'
+      responses:
+        '301':
+          description: Redirect to item resource
+        '401':
+          description: Unauthorized
+        '404':
+          description: Item not found
+components:
+  parameters:
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
+    PageParam:
+      name: page
+      in: query
+      required: false
+      description: Page number for pagination. Defaults to 1.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    StatusFilter:
+      name: status
+      in: query
+      required: false
+      description: Filter items by status.
+      schema:
+        type: string
+        enum:
+        - active
+        - resolved
+        - muted
+        - any
+    CounterParam:
+      name: counter
+      in: path
+      required: true
+      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
+      schema:
+        type: integer
+    EnvironmentFilter:
+      name: environment
+      in: query
+      required: false
+      description: Filter items by environment name.
+      schema:
+        type: string
+    LevelFilter:
+      name: level
+      in: query
+      required: false
+      description: Filter items by level.
+      schema:
+        type: string
+        enum:
+        - critical
+        - error
+        - warning
+        - info
+        - debug
+  schemas:
+    UpdateItemRequest:
+      type: object
+      description: Request body for updating an item.
+      properties:
+        status:
+          type: string
+          description: The new status for the item.
+          enum:
+          - active
+          - resolved
+          - muted
+        level:
+          type: string
+          description: The new severity level.
+          enum:
+          - critical
+          - error
+          - warning
+          - info
+          - debug
+        title:
+          type: string
+          description: A custom title for the item.
+        assigned_user_id:
+          type: integer
+          description: The user ID to assign this item to.
+        resolved_in_version:
+          type: string
+          description: The version in which this item was resolved.
+    Item:
+      type: object
+      description: An item represents a unique error or message tracked by Rollbar, grouped by fingerprint.
+      properties:
+        id:
+          type: integer
+          description: The internal item ID.
+        counter:
+          type: integer
+          description: The project-specific counter for this item.
+        environment:
+          type: string
+          description: The environment where this item was first seen.
+        framework:
+          type: integer
+          description: Framework identifier code.
+        hash:
+          type: string
+          description: The fingerprint hash used to group occurrences into this item.
+        title:
+          type: string
+          description: The title or summary of the item.
+        first_occurrence_id:
+          type: integer
+          description: The ID of the first occurrence of this item.
+        first_occurrence_timestamp:
+          type: integer
+          description: Unix timestamp of the first occurrence.
+        last_occurrence_id:
+          type: integer
+          description: The ID of the most recent occurrence.
+        last_occurrence_timestamp:
+          type: integer
+          description: Unix timestamp of the most recent occurrence.
+        level:
+          type: string
+          description: The severity level of the item.
+          enum:
+          - critical
+          - error
+          - warning
+          - info
+          - debug
+        status:
+          type: string
+          description: The current status of the item.
+          enum:
+          - active
+          - resolved
+          - muted
+        total_occurrences:
+          type: integer
+          description: Total number of occurrences of this item.
+        unique_occurrences:
+          type: integer
+          description: Number of unique occurrences.
+        project_id:
+          type: integer
+          description: The project ID this item belongs to.
+        resolved_in_version:
+          type: string
+          description: The version in which this item was resolved.
+        assigned_user_id:
+          type: integer
+          description: The user ID of the assigned user.
+    CreateItemRequest:
+      type: object
+      description: Request body for creating a new item (error or message report).
+      required:
+      - access_token
+      - data
+      properties:
+        access_token:
+          type: string
+          description: A post_server_item or post_client_item access token.
+        data:
+          type: object
+          description: The item data payload.
+          required:
+          - environment
+          - body
+          properties:
+            environment:
+              type: string
+              description: The environment name (e.g., production, staging).
+              maxLength: 255
+            body:
+              type: object
+              description: The body of the item, containing error trace or message.
+            level:
+              type: string
+              description: The severity level.
+              enum:
+              - critical
+              - error
+              - warning
+              - info
+              - debug
+            timestamp:
+              type: integer
+              description: Unix timestamp when the error occurred.
+            code_version:
+              type: string
+              description: A string identifying the version of the application code.
+              maxLength: 40
+            platform:
+              type: string
+              description: The platform on which the error occurred.
+            language:
+              type: string
+              description: The programming language of the code.
+            framework:
+              type: string
+              description: The framework being used.
+            server:
+              type: object
+              description: Server-related metadata.
+            request:
+              type: object
+              description: HTTP request metadata if applicable.
+            person:
+              type: object
+              description: Person/user who experienced the error.
+            custom:
+              type: object
+              description: Custom key-value data to include with the item.
+    ItemListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Item'
+            page:
+              type: integer
+              description: Current page number.
+    ItemResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Item'
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api

@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Deployment Access Tokens API
+  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+servers:
+- url: https://api.rollbar.com/api/1
+  description: Production Server
+security:
+- accessToken: []
+tags:
+- name: Access Tokens
+  description: Manage project access tokens used for authentication and authorization when interacting with the API.
+paths:
+  /project/{projectId}/access_tokens:
+    get:
+      operationId: listProjectAccessTokens
+      summary: List All Project Access Tokens
+      description: Returns all access tokens for a specific project, including their scopes and rate limits.
+      tags:
+      - Access Tokens
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdParam'
+      responses:
+        '200':
+          description: List of access tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenListResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Project not found
+    post:
+      operationId: createProjectAccessToken
+      summary: Create a Project Access Token
+      description: Creates a new access token for a project with specified scopes and rate limits.
+      tags:
+      - Access Tokens
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccessTokenRequest'
+      responses:
+        '200':
+          description: Access token created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+  /project/{projectId}/access_token/{accessTokenId}:
+    patch:
+      operationId: updateProjectAccessToken
+      summary: Update a Project Access Token
+      description: Updates properties of a project access token, such as its name, scopes, or rate limits.
+      tags:
+      - Access Tokens
+      parameters:
+      - $ref: '#/components/parameters/ProjectIdParam'
+      - name: accessTokenId
+        in: path
+        required: true
+        description: The ID of the access token to update.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccessTokenRequest'
+      responses:
+        '200':
+          description: Access token updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Access token not found
+components:
+  schemas:
+    AccessToken:
+      type: object
+      description: A project access token used for API authentication.
+      properties:
+        project_id:
+          type: integer
+          description: The project this token belongs to.
+        access_token:
+          type: string
+          description: The access token string.
+        name:
+          type: string
+          description: A descriptive name for the token.
+        status:
+          type: string
+          description: The status of the token.
+          enum:
+          - enabled
+          - disabled
+        scopes:
+          type: array
+          description: The scopes granted to this token.
+          items:
+            type: string
+            enum:
+            - read
+            - write
+            - post_server_item
+            - post_client_item
+        cur_rate_limit_window_count:
+          type: integer
+          description: Current number of calls in the rate limit window.
+        rate_limit_window_size:
+          type: integer
+          description: Size of the rate limit window in seconds.
+        rate_limit_window_count:
+          type: integer
+          description: Maximum number of calls allowed in the rate limit window.
+        date_created:
+          type: integer
+          description: Unix timestamp when the token was created.
+        date_modified:
+          type: integer
+          description: Unix timestamp when the token was last modified.
+    UpdateAccessTokenRequest:
+      type: object
+      description: Request body for updating a project access token.
+      properties:
+        name:
+          type: string
+          description: A new descriptive name for the token.
+        scopes:
+          type: array
+          description: Updated scopes for this token.
+          items:
+            type: string
+            enum:
+            - read
+            - write
+            - post_server_item
+            - post_client_item
+        rate_limit_window_size:
+          type: integer
+          description: Updated rate limit window size in seconds.
+        rate_limit_window_count:
+          type: integer
+          description: Updated maximum calls in the rate limit window.
+    AccessTokenListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessToken'
+    AccessTokenResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/AccessToken'
+    CreateAccessTokenRequest:
+      type: object
+      description: Request body for creating a new project access token.
+      required:
+      - name
+      - scopes
+      properties:
+        name:
+          type: string
+          description: A descriptive name for the token.
+        scopes:
+          type: array
+          description: The scopes to grant to this token.
+          items:
+            type: string
+            enum:
+            - read
+            - write
+            - post_server_item
+            - post_client_item
+        rate_limit_window_size:
+          type: integer
+          description: Size of the rate limit window in seconds.
+        rate_limit_window_count:
+          type: integer
+          description: Maximum number of calls allowed in the rate limit window.
+  parameters:
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+externalDocs:
+  description: Rollbar Deployment API Documentation
+  url: https://docs.rollbar.com/docs/deployment-api
