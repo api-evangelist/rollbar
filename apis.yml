@@ -1,4 +1,18 @@
 aid: rollbar
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rollbar.png
 name: Rollbar
 description: >-
   Rollbar is a real-time error tracking and monitoring platform for software teams. It automatically captures exceptions
@@ -18,117 +32,294 @@ created: '2026-05-02'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: rollbar:rollbar-rest-api
-    name: Rollbar REST API
-    description: >-
-      The Rollbar REST API provides programmatic access to the Rollbar error tracking and monitoring platform. Manage
-      projects, items, occurrences, deploys, teams, users, invites, notifications, and source maps through a RESTful
-      JSON interface. Authentication is via project access tokens in the X-Rollbar-Access-Token header.
-    tags:
-      - Error Tracking
-      - Monitoring
-      - REST
-      - Projects
-      - Teams
-    humanURL: https://docs.rollbar.com/reference/getting-started-1
-    baseURL: https://api.rollbar.com/api/1
-    properties:
-      - url: https://docs.rollbar.com/reference/getting-started-1
-        type: Documentation
-      - url: https://explorer.docs.rollbar.com/
-        type: OpenAPI
-      - url: openapi/rollbar-rest-api-openapi.yml
-        type: OpenAPI
-    solutions:
-      - Error Management
-      - Project Administration
-      - Team Management
-      - Source Map Debugging
-    features:
-      - Item Management
-      - Occurrence Retrieval
-      - Project Management
-      - Access Token Management
-      - Team and User Management
-      - Source Map Upload
-      - Webhook Notifications
-  - aid: rollbar:rollbar-deployment-api
-    name: Rollbar Deployment API
-    description: >-
-      The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By
-      reporting deploys, teams can correlate error spikes with specific releases, track deployment history, and manage
-      rollbacks with full visibility into which code version is running in production.
-    tags:
-      - Deployment
-      - Release Management
-      - Error Tracking
-      - REST
-      - DevOps
-    humanURL: https://docs.rollbar.com/reference/post_deploy
-    baseURL: https://api.rollbar.com/api/1
-    properties:
-      - url: https://docs.rollbar.com/reference/post_deploy
-        type: Documentation
-      - url: openapi/rollbar-deployment-api-openapi.yml
-        type: OpenAPI
-  - aid: rollbar:rollbar-metrics-api
-    name: Rollbar Metrics API
-    description: >-
-      The Rollbar Metrics API is part of Rollbar Analyze and provides programmatic access to metrics data for error
-      tracking analysis and discovery. Enables developers to query resolution time metrics, occurrence counts, and item
-      activation metrics across projects.
-    tags:
-      - Metrics
-      - Analytics
-      - Error Tracking
-      - REST
-      - Monitoring
-    humanURL: https://docs.rollbar.com/reference/metrics
-    baseURL: https://api.rollbar.com/api/1
-    properties:
-      - url: https://docs.rollbar.com/reference/metrics
-        type: Documentation
-      - url: openapi/rollbar-metrics-api-openapi.yml
-        type: OpenAPI
-  - aid: rollbar:rollbar-rql-api
-    name: Rollbar RQL API
-    description: >-
-      The Rollbar RQL (Rollbar Query Language) API provides a SQL-like interface for querying error and deployment data
-      stored in Rollbar. Supports SELECT queries against item_occurrence and deploy tables for advanced error analysis,
-      reporting, and custom integrations.
-    tags:
-      - Query Language
-      - Analytics
-      - Error Tracking
-      - REST
-      - SQL
-    humanURL: https://docs.rollbar.com/reference/rql
-    baseURL: https://api.rollbar.com/api/1
-    properties:
-      - url: https://docs.rollbar.com/reference/rql
-        type: Documentation
-      - url: openapi/rollbar-rql-api-openapi.yml
-        type: OpenAPI
-  - aid: rollbar:rollbar-webhooks
-    name: Rollbar Webhooks
-    description: >-
-      Rollbar supports outbound webhook notifications for real-time event-driven integrations. Webhooks deliver payload
-      data when errors occur, items are resolved, or deployment events happen, enabling integration with Slack,
-      PagerDuty, email, and custom HTTP endpoints.
-    tags:
-      - Webhooks
-      - Event-Driven
-      - Notifications
-      - AsyncAPI
-      - Monitoring
-    humanURL: https://docs.rollbar.com/docs/webhooks
-    baseURL: https://api.rollbar.com
-    properties:
-      - url: https://docs.rollbar.com/docs/webhooks
-        type: Documentation
-      - url: asyncapi/rollbar-webhooks-asyncapi.yml
-        type: AsyncAPI
+- aid: rollbar:rollbar-webhooks
+  name: Rollbar Webhooks
+  description: >-
+    Rollbar supports outbound webhook notifications for real-time event-driven integrations. Webhooks
+    deliver payload data when errors occur, items are resolved, or deployment events happen, enabling
+    integration with Slack, PagerDuty, email, and custom HTTP endpoints.
+  tags:
+  - Webhooks
+  - Event-Driven
+  - Notifications
+  - AsyncAPI
+  - Monitoring
+  humanURL: https://docs.rollbar.com/docs/webhooks
+  baseURL: https://api.rollbar.com
+  properties:
+  - url: https://docs.rollbar.com/docs/webhooks
+    type: Documentation
+  - url: asyncapi/rollbar-webhooks-asyncapi.yml
+    type: AsyncAPI
+- aid: rollbar:rollbar-access-tokens-api
+  name: Rollbar Access Tokens API
+  description: >-
+    Manage project access tokens used for authentication and authorization when interacting with the API.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Access Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-access-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-deploys-api
+  name: Rollbar Deploys API
+  description: >-
+    Manage deployment records in Rollbar. Report new deploys, update their status, and retrieve deployment
+    history for a project.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Deploys
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-deploys-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-invites-api
+  name: Rollbar Invites API
+  description: Manage invitations to join teams within a Rollbar account.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Invites
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-invites-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-items-api
+  name: Rollbar Items API
+  description: >-
+    Manage error and message items tracked by Rollbar. Items represent unique errors or messages grouped
+    by fingerprint.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-items-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-items-metrics-api
+  name: Rollbar Items Metrics API
+  description: Query metrics for specific items including occurrence counts and aggregate statistics.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Items Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-items-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-notifications-api
+  name: Rollbar Notifications API
+  description: Manage webhook notification rules and configuration for a project.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-occurrences-api
+  name: Rollbar Occurrences API
+  description: >-
+    Retrieve individual occurrences of errors and messages. Each occurrence represents a single instance
+    of an item happening.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Occurrences
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-occurrences-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-occurrences-metrics-api
+  name: Rollbar Occurrences Metrics API
+  description: >-
+    Query occurrence count metrics over time with filtering, grouping, and aggregation capabilities.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Occurrences Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-occurrences-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-projects-api
+  name: Rollbar Projects API
+  description: >-
+    Manage projects within a Rollbar account. Projects are the top-level organizational unit for error
+    tracking.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-resolution-time-metrics-api
+  name: Rollbar Resolution Time Metrics API
+  description: >-
+    Query time-to-resolution metrics for projects, filterable by environment, level, and framework.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Resolution Time Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-resolution-time-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-rql-jobs-api
+  name: Rollbar RQL Jobs API
+  description: >-
+    Submit, list, and retrieve results for RQL (Rollbar Query Language) jobs. RQL provides a SQL-like
+    interface for querying error and deployment data.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - RQL Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-rql-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-source-maps-api
+  name: Rollbar Source Maps API
+  description: Upload JavaScript source maps to enable readable stack traces for minified code.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Source Maps
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-source-maps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-teams-api
+  name: Rollbar Teams API
+  description: >-
+    Manage teams and team membership within a Rollbar account. Teams control access to projects.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-teams-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
+- aid: rollbar:rollbar-users-api
+  name: Rollbar Users API
+  description: Retrieve user information within a Rollbar account.
+  humanURL: https://docs.rollbar.com/reference/getting-started-1
+  baseURL: https://api.rollbar.com/api/1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/rollbar-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/getting-started-1
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/post_deploy
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/metrics
+  - type: Documentation
+    url: https://docs.rollbar.com/reference/rql
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/rollbar/overview
   - type: AgenticAccess
     url: agentic-access/rollbar-agentic-access.yml
   - type: DomainSecurity
