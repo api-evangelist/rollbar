@@ -1,0 +1,799 @@
+{
+  "info": {
+    "_postman_id": "6e5b4fdc-53ed-4c2d-9785-0d555ee52b65",
+    "name": "Rollbar Deployment Access Tokens Invites API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:48:58.000Z",
+    "updatedAt": "2026-07-28T02:48:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6e5b4fdc-53ed-4c2d-9785-0d555ee52b65"
+  },
+  "item": [
+    {
+      "name": "team",
+      "item": [
+        {
+          "name": "{teamId}",
+          "item": [
+            {
+              "name": "invites",
+              "item": [
+                {
+                  "name": "List All Invitations for a Team",
+                  "id": "eeece6cd-ca93-4fab-857e-8b83d8c30a49",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId/invites",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId",
+                        "invites"
+                      ],
+                      "variable": [
+                        {
+                          "id": "166183ad-1a58-49bd-9275-e7faa10b28a7",
+                          "key": "teamId",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the team."
+                        }
+                      ]
+                    },
+                    "description": "Returns all pending invitations for a specific team."
+                  },
+                  "response": [
+                    {
+                      "id": "6058ea83-ac96-4f16-b2ea-07ae55a4c299",
+                      "name": "List of invitations",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/invites",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "invites"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<integer>\",\n      \"from_user_id\": \"<integer>\",\n      \"team_id\": \"<integer>\",\n      \"to_email\": \"<email>\",\n      \"status\": \"cancelled\",\n      \"date_created\": \"<integer>\",\n      \"date_redeemed\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"from_user_id\": \"<integer>\",\n      \"team_id\": \"<integer>\",\n      \"to_email\": \"<email>\",\n      \"status\": \"accepted\",\n      \"date_created\": \"<integer>\",\n      \"date_redeemed\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:48:59.000Z",
+                      "updatedAt": "2026-07-28T02:48:59.000Z",
+                      "uid": "35240-6058ea83-ac96-4f16-b2ea-07ae55a4c299"
+                    },
+                    {
+                      "id": "eb994474-f333-4578-ba78-315634b42de1",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/invites",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "invites"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:48:59.000Z",
+                      "updatedAt": "2026-07-28T02:48:59.000Z",
+                      "uid": "35240-eb994474-f333-4578-ba78-315634b42de1"
+                    },
+                    {
+                      "id": "4730fc70-800e-4e17-b942-2cce9806bc80",
+                      "name": "Team not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/invites",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "invites"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:48:59.000Z",
+                      "updatedAt": "2026-07-28T02:48:59.000Z",
+                      "uid": "35240-4730fc70-800e-4e17-b942-2cce9806bc80"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-eeece6cd-ca93-4fab-857e-8b83d8c30a49"
+                },
+                {
+                  "name": "Invite a User to a Team",
+                  "id": "7cd0cd52-c413-40a8-9d7b-611ebd0b9dd1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId/invites",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId",
+                        "invites"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9d11b365-c1b6-4f9a-9f38-b71a640bae8e",
+                          "key": "teamId",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the team."
+                        }
+                      ]
+                    },
+                    "description": "Sends an invitation to join a team. The invitee receives an email with a link to accept the invitation."
+                  },
+                  "response": [
+                    {
+                      "id": "cb4a61a4-434e-45b2-b91f-076ab0b564ce",
+                      "name": "Invitation sent",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/invites",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "invites"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"from_user_id\": \"<integer>\",\n    \"team_id\": \"<integer>\",\n    \"to_email\": \"<email>\",\n    \"status\": \"rejected\",\n    \"date_created\": \"<integer>\",\n    \"date_redeemed\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:48:59.000Z",
+                      "updatedAt": "2026-07-28T02:48:59.000Z",
+                      "uid": "35240-cb4a61a4-434e-45b2-b91f-076ab0b564ce"
+                    },
+                    {
+                      "id": "1c6ceb3b-229f-429f-85f5-3e8fcbab4ee2",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/invites",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "invites"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:48:59.000Z",
+                      "updatedAt": "2026-07-28T02:48:59.000Z",
+                      "uid": "35240-1c6ceb3b-229f-429f-85f5-3e8fcbab4ee2"
+                    },
+                    {
+                      "id": "3cbcb6ea-5f8b-47d1-8a55-08630276dff5",
+                      "name": "Unprocessable entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/invites",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "invites"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:48:59.000Z",
+                      "updatedAt": "2026-07-28T02:48:59.000Z",
+                      "uid": "35240-3cbcb6ea-5f8b-47d1-8a55-08630276dff5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-7cd0cd52-c413-40a8-9d7b-611ebd0b9dd1"
+                }
+              ],
+              "id": "b634b412-57a9-49ec-a4b2-c8f9562d3938",
+              "createdAt": "2026-07-28T02:48:59.000Z",
+              "updatedAt": "2026-07-28T02:48:59.000Z",
+              "uid": "35240-b634b412-57a9-49ec-a4b2-c8f9562d3938"
+            }
+          ],
+          "id": "957f9b2b-b2a3-4658-bf77-cb7133c3a847",
+          "createdAt": "2026-07-28T02:48:59.000Z",
+          "updatedAt": "2026-07-28T02:48:59.000Z",
+          "uid": "35240-957f9b2b-b2a3-4658-bf77-cb7133c3a847"
+        }
+      ],
+      "id": "9a7ac9ce-03c8-4206-8f69-dc8522019b51",
+      "createdAt": "2026-07-28T02:48:59.000Z",
+      "updatedAt": "2026-07-28T02:48:59.000Z",
+      "uid": "35240-9a7ac9ce-03c8-4206-8f69-dc8522019b51"
+    },
+    {
+      "name": "invite",
+      "item": [
+        {
+          "name": "{inviteId}",
+          "item": [
+            {
+              "name": "Get an Invitation",
+              "id": "84a38232-bec1-4b3e-a1ff-46d90c6c5741",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/invite/:inviteId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invite",
+                    ":inviteId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "8bea018b-b889-4dcc-bf02-5cb7368ef26c",
+                      "key": "inviteId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the invitation to retrieve."
+                    }
+                  ]
+                },
+                "description": "Returns information about a specific invitation."
+              },
+              "response": [
+                {
+                  "id": "64b89812-38a4-4fc3-87f5-7aa72ec20f11",
+                  "name": "Invitation details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/invite/:inviteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "invite",
+                        ":inviteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "inviteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"from_user_id\": \"<integer>\",\n    \"team_id\": \"<integer>\",\n    \"to_email\": \"<email>\",\n    \"status\": \"rejected\",\n    \"date_created\": \"<integer>\",\n    \"date_redeemed\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-64b89812-38a4-4fc3-87f5-7aa72ec20f11"
+                },
+                {
+                  "id": "3a81ae48-1bc9-499a-bbed-7449a06b6250",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/invite/:inviteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "invite",
+                        ":inviteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "inviteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-3a81ae48-1bc9-499a-bbed-7449a06b6250"
+                },
+                {
+                  "id": "7ef39d18-8fa2-41d9-829a-06172bf4eb9d",
+                  "name": "Invitation not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/invite/:inviteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "invite",
+                        ":inviteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "inviteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-7ef39d18-8fa2-41d9-829a-06172bf4eb9d"
+                }
+              ],
+              "createdAt": "2026-07-28T02:48:59.000Z",
+              "updatedAt": "2026-07-28T02:48:59.000Z",
+              "uid": "35240-84a38232-bec1-4b3e-a1ff-46d90c6c5741"
+            },
+            {
+              "name": "Cancel an Invitation",
+              "id": "a0e2f311-679b-41f3-af52-9e5714044f2b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/invite/:inviteId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invite",
+                    ":inviteId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e6894872-dd22-454a-8bed-daf33c17a809",
+                      "key": "inviteId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the invitation to cancel."
+                    }
+                  ]
+                },
+                "description": "Cancels a pending invitation. Only pending invitations can be cancelled."
+              },
+              "response": [
+                {
+                  "id": "63a5478c-8f0c-4fb6-92c0-ca2db36d82a6",
+                  "name": "Invitation cancelled",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/invite/:inviteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "invite",
+                        ":inviteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "inviteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-63a5478c-8f0c-4fb6-92c0-ca2db36d82a6"
+                },
+                {
+                  "id": "245952e7-da29-4a40-8d40-bea8f997b766",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/invite/:inviteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "invite",
+                        ":inviteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "inviteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-245952e7-da29-4a40-8d40-bea8f997b766"
+                },
+                {
+                  "id": "0388affd-15d7-420f-bd2e-e135a99e7cfa",
+                  "name": "Invitation not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/invite/:inviteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "invite",
+                        ":inviteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "inviteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:48:59.000Z",
+                  "updatedAt": "2026-07-28T02:48:59.000Z",
+                  "uid": "35240-0388affd-15d7-420f-bd2e-e135a99e7cfa"
+                }
+              ],
+              "createdAt": "2026-07-28T02:48:59.000Z",
+              "updatedAt": "2026-07-28T02:48:59.000Z",
+              "uid": "35240-a0e2f311-679b-41f3-af52-9e5714044f2b"
+            }
+          ],
+          "id": "d632e497-a1f7-469d-bcda-43c863d7f026",
+          "createdAt": "2026-07-28T02:48:59.000Z",
+          "updatedAt": "2026-07-28T02:48:59.000Z",
+          "uid": "35240-d632e497-a1f7-469d-bcda-43c863d7f026"
+        }
+      ],
+      "id": "007cabc8-f949-427c-abbe-4e803f564b5e",
+      "createdAt": "2026-07-28T02:48:59.000Z",
+      "updatedAt": "2026-07-28T02:48:59.000Z",
+      "uid": "35240-007cabc8-f949-427c-abbe-4e803f564b5e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

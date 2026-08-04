@@ -1,0 +1,834 @@
+{
+  "info": {
+    "_postman_id": "c7dd722c-034c-47cf-b5ba-0a877017759d",
+    "name": "Rollbar Deployment Access Tokens RQL Jobs API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:08.000Z",
+    "updatedAt": "2026-07-28T02:49:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c7dd722c-034c-47cf-b5ba-0a877017759d"
+  },
+  "item": [
+    {
+      "name": "rql",
+      "item": [
+        {
+          "name": "jobs",
+          "item": [
+            {
+              "name": "List All RQL Jobs",
+              "id": "38f11502-4738-4d1b-a6dd-c9a1f6a5fa16",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rql/jobs/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rql",
+                    "jobs",
+                    ""
+                  ]
+                },
+                "description": "Returns all RQL jobs for the project, including their status and query details."
+              },
+              "response": [
+                {
+                  "id": "04c1a594-4fa8-4fb3-8a05-300862d98b98",
+                  "name": "List of RQL jobs",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<integer>\",\n      \"project_id\": \"<integer>\",\n      \"query_string\": \"<string>\",\n      \"status\": \"timed_out\",\n      \"job_hash\": \"<string>\",\n      \"date_created\": \"<integer>\",\n      \"date_modified\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"project_id\": \"<integer>\",\n      \"query_string\": \"<string>\",\n      \"status\": \"running\",\n      \"job_hash\": \"<string>\",\n      \"date_created\": \"<integer>\",\n      \"date_modified\": \"<integer>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-04c1a594-4fa8-4fb3-8a05-300862d98b98"
+                },
+                {
+                  "id": "8f3f2ccf-735e-441a-bef2-e57c1c55eb61",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-8f3f2ccf-735e-441a-bef2-e57c1c55eb61"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:09.000Z",
+              "updatedAt": "2026-07-28T02:49:09.000Z",
+              "uid": "35240-38f11502-4738-4d1b-a6dd-c9a1f6a5fa16"
+            },
+            {
+              "name": "Create an RQL Job",
+              "id": "121114d0-7d4c-48e9-b6c3-a989be7bdb7e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query_string\": \"<string>\",\n  \"force_refresh\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rql/jobs/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rql",
+                    "jobs",
+                    ""
+                  ]
+                },
+                "description": "Submits a new RQL query as a job. The query uses a SQL-like syntax and can query the item_occurrence and deploy logical tables. Jobs run asynchronously and will timeout after 10 minutes."
+              },
+              "response": [
+                {
+                  "id": "d873c09c-1238-4997-9ee0-cc4647dc5ebf",
+                  "name": "RQL job created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query_string\": \"<string>\",\n  \"force_refresh\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"project_id\": \"<integer>\",\n    \"query_string\": \"<string>\",\n    \"status\": \"success\",\n    \"job_hash\": \"<string>\",\n    \"date_created\": \"<integer>\",\n    \"date_modified\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-d873c09c-1238-4997-9ee0-cc4647dc5ebf"
+                },
+                {
+                  "id": "9bfb47b2-e7ed-42d2-99a9-deceb3b54d19",
+                  "name": "Bad request - invalid query syntax",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query_string\": \"<string>\",\n  \"force_refresh\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-9bfb47b2-e7ed-42d2-99a9-deceb3b54d19"
+                },
+                {
+                  "id": "2a8d909d-0f57-4c9e-bad8-1dc00ebc2503",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query_string\": \"<string>\",\n  \"force_refresh\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-2a8d909d-0f57-4c9e-bad8-1dc00ebc2503"
+                },
+                {
+                  "id": "86ec08f0-94c0-41b5-8dc7-79df63136e9b",
+                  "name": "Unprocessable entity",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query_string\": \"<string>\",\n  \"force_refresh\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-86ec08f0-94c0-41b5-8dc7-79df63136e9b"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:09.000Z",
+              "updatedAt": "2026-07-28T02:49:09.000Z",
+              "uid": "35240-121114d0-7d4c-48e9-b6c3-a989be7bdb7e"
+            }
+          ],
+          "id": "e1da24f7-02f2-4b67-8ca9-d8e9cdc5157a",
+          "createdAt": "2026-07-28T02:49:09.000Z",
+          "updatedAt": "2026-07-28T02:49:09.000Z",
+          "uid": "35240-e1da24f7-02f2-4b67-8ca9-d8e9cdc5157a"
+        },
+        {
+          "name": "job",
+          "item": [
+            {
+              "name": "{jobId}",
+              "item": [
+                {
+                  "name": "result",
+                  "item": [
+                    {
+                      "name": "Get RQL Job Results",
+                      "id": "4f115380-b171-4cc6-ba03-d2a4cb01b1e9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rql/job/:jobId/result",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rql",
+                            "job",
+                            ":jobId",
+                            "result"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8b7d7627-440c-48df-9946-23a82951aa90",
+                              "key": "jobId",
+                              "value": "<integer>",
+                              "description": "(Required) The unique ID of the RQL job."
+                            }
+                          ]
+                        },
+                        "description": "Returns the results of a completed RQL job. The job must be in the success status. Results include column definitions and rows of data matching the query."
+                      },
+                      "response": [
+                        {
+                          "id": "84fe98ee-17f8-4127-9a66-96f0385da6b5",
+                          "name": "RQL job results",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/rql/job/:jobId/result",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "rql",
+                                "job",
+                                ":jobId",
+                                "result"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"columns\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rows\": [\n      [],\n      []\n    ],\n    \"rowcount\": \"<integer>\",\n    \"selectionCondition\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T02:49:09.000Z",
+                          "updatedAt": "2026-07-28T02:49:09.000Z",
+                          "uid": "35240-84fe98ee-17f8-4127-9a66-96f0385da6b5"
+                        },
+                        {
+                          "id": "90e008b3-6534-4749-b449-7230d3c35767",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/rql/job/:jobId/result",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "rql",
+                                "job",
+                                ":jobId",
+                                "result"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:09.000Z",
+                          "updatedAt": "2026-07-28T02:49:09.000Z",
+                          "uid": "35240-90e008b3-6534-4749-b449-7230d3c35767"
+                        },
+                        {
+                          "id": "6b46c92d-ec86-40d3-b767-676e69158c52",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/rql/job/:jobId/result",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "rql",
+                                "job",
+                                ":jobId",
+                                "result"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:09.000Z",
+                          "updatedAt": "2026-07-28T02:49:09.000Z",
+                          "uid": "35240-6b46c92d-ec86-40d3-b767-676e69158c52"
+                        },
+                        {
+                          "id": "4a895d71-d51f-4cf2-9f6b-2c65f1013228",
+                          "name": "Job has not completed successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/rql/job/:jobId/result",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "rql",
+                                "job",
+                                ":jobId",
+                                "result"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:09.000Z",
+                          "updatedAt": "2026-07-28T02:49:09.000Z",
+                          "uid": "35240-4a895d71-d51f-4cf2-9f6b-2c65f1013228"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:09.000Z",
+                      "updatedAt": "2026-07-28T02:49:09.000Z",
+                      "uid": "35240-4f115380-b171-4cc6-ba03-d2a4cb01b1e9"
+                    }
+                  ],
+                  "id": "1aeb5833-7fb8-40f5-8029-f857257b56bb",
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-1aeb5833-7fb8-40f5-8029-f857257b56bb"
+                },
+                {
+                  "name": "Get an RQL Job",
+                  "id": "17f04f6d-21a0-4308-9b9a-79daeec3c462",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rql/job/:jobId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rql",
+                        "job",
+                        ":jobId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fa911555-a5c0-4dbd-b329-bfc9313bb770",
+                          "key": "jobId",
+                          "value": "<integer>",
+                          "description": "(Required) The unique ID of the RQL job."
+                        }
+                      ]
+                    },
+                    "description": "Returns information about a specific RQL job, including its current status and query details."
+                  },
+                  "response": [
+                    {
+                      "id": "8cb61556-e801-474d-aa20-504638ea5da9",
+                      "name": "RQL job details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rql/job/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rql",
+                            "job",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"project_id\": \"<integer>\",\n    \"query_string\": \"<string>\",\n    \"status\": \"success\",\n    \"job_hash\": \"<string>\",\n    \"date_created\": \"<integer>\",\n    \"date_modified\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:49:09.000Z",
+                      "updatedAt": "2026-07-28T02:49:09.000Z",
+                      "uid": "35240-8cb61556-e801-474d-aa20-504638ea5da9"
+                    },
+                    {
+                      "id": "e9bfc5e7-193e-4f16-ae45-0df8de6a38e6",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rql/job/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rql",
+                            "job",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:09.000Z",
+                      "updatedAt": "2026-07-28T02:49:09.000Z",
+                      "uid": "35240-e9bfc5e7-193e-4f16-ae45-0df8de6a38e6"
+                    },
+                    {
+                      "id": "b4c110f9-41e7-48c6-bcdf-920e780c8302",
+                      "name": "Job not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/rql/job/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "rql",
+                            "job",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "jobId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:09.000Z",
+                      "updatedAt": "2026-07-28T02:49:09.000Z",
+                      "uid": "35240-b4c110f9-41e7-48c6-bcdf-920e780c8302"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:09.000Z",
+                  "updatedAt": "2026-07-28T02:49:09.000Z",
+                  "uid": "35240-17f04f6d-21a0-4308-9b9a-79daeec3c462"
+                }
+              ],
+              "id": "c344fab1-ad0e-4c58-b361-8b9542437104",
+              "createdAt": "2026-07-28T02:49:09.000Z",
+              "updatedAt": "2026-07-28T02:49:09.000Z",
+              "uid": "35240-c344fab1-ad0e-4c58-b361-8b9542437104"
+            }
+          ],
+          "id": "de3e50f7-37bb-4489-a84d-953c1317cd0a",
+          "createdAt": "2026-07-28T02:49:09.000Z",
+          "updatedAt": "2026-07-28T02:49:09.000Z",
+          "uid": "35240-de3e50f7-37bb-4489-a84d-953c1317cd0a"
+        }
+      ],
+      "id": "db377d5d-e26d-4896-a4e6-6e4572e772b7",
+      "createdAt": "2026-07-28T02:49:09.000Z",
+      "updatedAt": "2026-07-28T02:49:09.000Z",
+      "uid": "35240-db377d5d-e26d-4896-a4e6-6e4572e772b7"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

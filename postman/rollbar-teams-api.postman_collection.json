@@ -1,0 +1,1780 @@
+{
+  "info": {
+    "_postman_id": "35037017-274d-4673-b28c-653dae348bd6",
+    "name": "Rollbar Deployment Access Tokens Teams API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:13.000Z",
+    "updatedAt": "2026-07-28T02:49:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-35037017-274d-4673-b28c-653dae348bd6"
+  },
+  "item": [
+    {
+      "name": "teams",
+      "item": [
+        {
+          "name": "List All Teams",
+          "id": "4238d5c6-a7e2-4486-905a-44d8b71394f8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            },
+            "description": "Returns all teams in the account. Requires an account-level access token."
+          },
+          "response": [
+            {
+              "id": "fe23af3a-cae2-4436-91f0-c555a442f5fa",
+              "name": "List of teams",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"access_level\": \"standard\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"access_level\": \"light\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-fe23af3a-cae2-4436-91f0-c555a442f5fa"
+            },
+            {
+              "id": "54c1eddc-2a4d-4c9f-911e-dc94fc144d8d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-54c1eddc-2a4d-4c9f-911e-dc94fc144d8d"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-4238d5c6-a7e2-4486-905a-44d8b71394f8"
+        },
+        {
+          "name": "Create a Team",
+          "id": "470b45e0-19b5-454f-a4bf-4607d5b38730",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"access_level\": \"light\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            },
+            "description": "Creates a new team in the account."
+          },
+          "response": [
+            {
+              "id": "c0131515-943c-4c00-a782-ed00d0bb50ce",
+              "name": "Team created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_level\": \"light\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"access_level\": \"standard\"\n  }\n}",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-c0131515-943c-4c00-a782-ed00d0bb50ce"
+            },
+            {
+              "id": "26c7272e-a25e-40bb-9a2e-1cb4d79b8d8d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_level\": \"light\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-26c7272e-a25e-40bb-9a2e-1cb4d79b8d8d"
+            },
+            {
+              "id": "425fb41a-3526-4730-a9dc-5dfbd2a1fedd",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_level\": \"light\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/teams",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "teams"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-425fb41a-3526-4730-a9dc-5dfbd2a1fedd"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-470b45e0-19b5-454f-a4bf-4607d5b38730"
+        }
+      ],
+      "id": "0fa33c17-033c-47fa-b13f-fd5182d205e8",
+      "createdAt": "2026-07-28T02:49:13.000Z",
+      "updatedAt": "2026-07-28T02:49:13.000Z",
+      "uid": "35240-0fa33c17-033c-47fa-b13f-fd5182d205e8"
+    },
+    {
+      "name": "team",
+      "item": [
+        {
+          "name": "{teamId}",
+          "item": [
+            {
+              "name": "projects",
+              "item": [
+                {
+                  "name": "List a Team's Projects",
+                  "id": "020a3ad1-c3c1-4372-9503-070a23598f4e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId/projects",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId",
+                        "projects"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fdc21830-fde6-49ac-8e78-6f183f4e384b",
+                          "key": "teamId",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the team."
+                        }
+                      ]
+                    },
+                    "description": "Returns all projects assigned to a specific team."
+                  },
+                  "response": [
+                    {
+                      "id": "a965baa1-e0be-4080-bb0c-e9b2ce714089",
+                      "name": "List of team projects",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/projects",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "projects"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<integer>\",\n      \"date_modified\": \"<integer>\",\n      \"status\": \"disabled\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<integer>\",\n      \"date_modified\": \"<integer>\",\n      \"status\": \"disabled\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-a965baa1-e0be-4080-bb0c-e9b2ce714089"
+                    },
+                    {
+                      "id": "d5ce5a05-f828-43e8-8694-89bfcdbdc504",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/projects",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "projects"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-d5ce5a05-f828-43e8-8694-89bfcdbdc504"
+                    },
+                    {
+                      "id": "504385a4-066d-4c26-9062-067d1b567df5",
+                      "name": "Team not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/projects",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "projects"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-504385a4-066d-4c26-9062-067d1b567df5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-020a3ad1-c3c1-4372-9503-070a23598f4e"
+                }
+              ],
+              "id": "d4d6066d-2c25-4d1b-afc4-87aa1bd62838",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-d4d6066d-2c25-4d1b-afc4-87aa1bd62838"
+            },
+            {
+              "name": "project",
+              "item": [
+                {
+                  "name": "{projectId}",
+                  "item": [
+                    {
+                      "name": "Assign a Project to a Team",
+                      "id": "fba754e5-0e5f-4cd7-aabc-2a79682e07d2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "project",
+                            ":projectId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "74aa9228-4749-45b7-8567-4b9b76e87635",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the team."
+                            },
+                            {
+                              "id": "c2e40f34-9f32-40cb-bdce-1fe929dc2022",
+                              "key": "projectId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the project."
+                            }
+                          ]
+                        },
+                        "description": "Assigns a project to a team, granting the team access to that project."
+                      },
+                      "response": [
+                        {
+                          "id": "4385c879-abcf-4773-ad22-a1d48d3afe52",
+                          "name": "Project assigned to team",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "project",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-4385c879-abcf-4773-ad22-a1d48d3afe52"
+                        },
+                        {
+                          "id": "9a02dd44-393c-4abf-9413-7d88d6ff82ee",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "project",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-9a02dd44-393c-4abf-9413-7d88d6ff82ee"
+                        },
+                        {
+                          "id": "9a2e5a87-1733-44af-af4e-fa25b32f7c81",
+                          "name": "Team or project not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "project",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-9a2e5a87-1733-44af-af4e-fa25b32f7c81"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-fba754e5-0e5f-4cd7-aabc-2a79682e07d2"
+                    },
+                    {
+                      "name": "Remove a Project from a Team",
+                      "id": "27cacd64-9094-4874-b98d-89fb503c70bc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "project",
+                            ":projectId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c37435ab-8eb7-4a24-ab45-980880b0228b",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the team."
+                            },
+                            {
+                              "id": "86d2e63d-b1ed-43c7-a2b5-d4f1d7f79f4c",
+                              "key": "projectId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the project."
+                            }
+                          ]
+                        },
+                        "description": "Removes a project from a team, revoking the team's access to that project."
+                      },
+                      "response": [
+                        {
+                          "id": "00e098df-9c1d-42c7-bd58-7b28c464911a",
+                          "name": "Project removed from team",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "project",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-00e098df-9c1d-42c7-bd58-7b28c464911a"
+                        },
+                        {
+                          "id": "ffc02850-29e8-4fe7-9c90-22d376873835",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "project",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-ffc02850-29e8-4fe7-9c90-22d376873835"
+                        },
+                        {
+                          "id": "7d1fe9ab-4526-4015-a5ba-3199f5c433bc",
+                          "name": "Team or project not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/project/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "project",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-7d1fe9ab-4526-4015-a5ba-3199f5c433bc"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-27cacd64-9094-4874-b98d-89fb503c70bc"
+                    }
+                  ],
+                  "id": "bad2e9ca-082d-498b-8c41-1898ba963a30",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-bad2e9ca-082d-498b-8c41-1898ba963a30"
+                }
+              ],
+              "id": "35ebb130-4c2d-4327-a530-c3c3b3c93c72",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-35ebb130-4c2d-4327-a530-c3c3b3c93c72"
+            },
+            {
+              "name": "user",
+              "item": [
+                {
+                  "name": "{userId}",
+                  "item": [
+                    {
+                      "name": "Assign a User to a Team",
+                      "id": "e6097d62-598e-49b8-b319-47b51185ecd9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "user",
+                            ":userId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "db3e8805-a5ee-4087-acb2-4bb1286126bf",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the team."
+                            },
+                            {
+                              "id": "9df410d5-e973-464f-8c5b-7bf5cde47fbc",
+                              "key": "userId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the user."
+                            }
+                          ]
+                        },
+                        "description": "Assigns a user to a team, granting them the team's access permissions."
+                      },
+                      "response": [
+                        {
+                          "id": "cb5747c4-6e4f-4b04-bd64-2d1d7c5b0bbe",
+                          "name": "User assigned to team",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "user",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-cb5747c4-6e4f-4b04-bd64-2d1d7c5b0bbe"
+                        },
+                        {
+                          "id": "6a6c2587-3acb-419d-aab8-d23e38348157",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "user",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-6a6c2587-3acb-419d-aab8-d23e38348157"
+                        },
+                        {
+                          "id": "41e7a8e1-3570-47ee-a49b-a733a0d0650d",
+                          "name": "Team or user not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "user",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-41e7a8e1-3570-47ee-a49b-a733a0d0650d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-e6097d62-598e-49b8-b319-47b51185ecd9"
+                    },
+                    {
+                      "name": "Remove a User from a Team",
+                      "id": "c32e7ed7-643f-4569-8b1c-d03ebdf7427a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "user",
+                            ":userId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d5cef82c-3a26-4b11-9b3a-ec0fea637cbf",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the team."
+                            },
+                            {
+                              "id": "c2c509ae-e007-47d5-b060-44c3a474e225",
+                              "key": "userId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the user."
+                            }
+                          ]
+                        },
+                        "description": "Removes a user from a team, revoking the team's access permissions for that user."
+                      },
+                      "response": [
+                        {
+                          "id": "f8850ba4-39cb-415a-b232-bfdffe45e6b0",
+                          "name": "User removed from team",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "user",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-f8850ba4-39cb-415a-b232-bfdffe45e6b0"
+                        },
+                        {
+                          "id": "bd6bc254-a1d3-423d-8448-b6e1290a806d",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "user",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-bd6bc254-a1d3-423d-8448-b6e1290a806d"
+                        },
+                        {
+                          "id": "ad02e6f2-d317-4d0e-b0a6-3ac948bad6fa",
+                          "name": "Team or user not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/team/:teamId/user/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "team",
+                                ":teamId",
+                                "user",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                },
+                                {
+                                  "key": "userId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:13.000Z",
+                          "updatedAt": "2026-07-28T02:49:13.000Z",
+                          "uid": "35240-ad02e6f2-d317-4d0e-b0a6-3ac948bad6fa"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-c32e7ed7-643f-4569-8b1c-d03ebdf7427a"
+                    }
+                  ],
+                  "id": "46dc26d1-e647-44dc-a537-10f4d7a5f0a1",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-46dc26d1-e647-44dc-a537-10f4d7a5f0a1"
+                }
+              ],
+              "id": "b9a31b88-267f-41f3-a4c8-9d86487e8827",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-b9a31b88-267f-41f3-a4c8-9d86487e8827"
+            },
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "List a Team's Users",
+                  "id": "004296e3-3ecf-465f-821a-8dcc5da58e03",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId",
+                        "users"
+                      ],
+                      "variable": [
+                        {
+                          "id": "27aacf38-88b9-4fba-a928-4974f0960f93",
+                          "key": "teamId",
+                          "value": "<integer>",
+                          "description": "(Required) The ID of the team."
+                        }
+                      ]
+                    },
+                    "description": "Returns all users assigned to a specific team."
+                  },
+                  "response": [
+                    {
+                      "id": "f6569196-6550-45c1-9fc9-f2ccf2fce241",
+                      "name": "List of team users",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"users\": [\n      {\n        \"id\": \"<integer>\",\n        \"username\": \"<string>\",\n        \"email\": \"<email>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"username\": \"<string>\",\n        \"email\": \"<email>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-f6569196-6550-45c1-9fc9-f2ccf2fce241"
+                    },
+                    {
+                      "id": "47c27950-e81f-4ca8-a060-e27ce33c53df",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-47c27950-e81f-4ca8-a060-e27ce33c53df"
+                    },
+                    {
+                      "id": "63c9be90-becf-4fc9-8a28-7446dddbce8f",
+                      "name": "Team not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/team/:teamId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "team",
+                            ":teamId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "teamId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:13.000Z",
+                      "updatedAt": "2026-07-28T02:49:13.000Z",
+                      "uid": "35240-63c9be90-becf-4fc9-8a28-7446dddbce8f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-004296e3-3ecf-465f-821a-8dcc5da58e03"
+                }
+              ],
+              "id": "52b8f5b2-3060-49e2-91df-1511af4e226c",
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-52b8f5b2-3060-49e2-91df-1511af4e226c"
+            },
+            {
+              "name": "Get a Team",
+              "id": "1038be26-a743-4595-90d8-98b952d67efa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/team/:teamId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team",
+                    ":teamId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "746b195d-dfa5-4775-90cc-81717d1e1a1f",
+                      "key": "teamId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the team."
+                    }
+                  ]
+                },
+                "description": "Returns information about a specific team."
+              },
+              "response": [
+                {
+                  "id": "11c6de16-d0e7-47ec-a48d-0b75c7539087",
+                  "name": "Team details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "teamId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"access_level\": \"standard\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-11c6de16-d0e7-47ec-a48d-0b75c7539087"
+                },
+                {
+                  "id": "0a8abc52-33f1-4655-bbb4-68d0e4679569",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "teamId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-0a8abc52-33f1-4655-bbb4-68d0e4679569"
+                },
+                {
+                  "id": "e4c877ff-6e46-4838-97ed-1be81b039a10",
+                  "name": "Team not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "teamId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-e4c877ff-6e46-4838-97ed-1be81b039a10"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-1038be26-a743-4595-90d8-98b952d67efa"
+            },
+            {
+              "name": "Delete a Team",
+              "id": "8f3199bb-abb8-49cb-8d35-a9553e21a681",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/team/:teamId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "team",
+                    ":teamId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1639f618-d9e2-4560-9559-570001cfc432",
+                      "key": "teamId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the team."
+                    }
+                  ]
+                },
+                "description": "Deletes a team. This action is irreversible."
+              },
+              "response": [
+                {
+                  "id": "40da0f47-aefa-4d19-96f5-bba78b114111",
+                  "name": "Team deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "teamId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-40da0f47-aefa-4d19-96f5-bba78b114111"
+                },
+                {
+                  "id": "4aeda901-536c-4068-be67-fa1efb3bb8b4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "teamId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-4aeda901-536c-4068-be67-fa1efb3bb8b4"
+                },
+                {
+                  "id": "5c03fc62-6407-4278-bbe1-e7e89a05a98e",
+                  "name": "Team not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/team/:teamId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "team",
+                        ":teamId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "teamId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:13.000Z",
+                  "updatedAt": "2026-07-28T02:49:13.000Z",
+                  "uid": "35240-5c03fc62-6407-4278-bbe1-e7e89a05a98e"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:13.000Z",
+              "updatedAt": "2026-07-28T02:49:13.000Z",
+              "uid": "35240-8f3199bb-abb8-49cb-8d35-a9553e21a681"
+            }
+          ],
+          "id": "fe0be917-b73b-491e-ab36-2fb8fa3faecd",
+          "createdAt": "2026-07-28T02:49:13.000Z",
+          "updatedAt": "2026-07-28T02:49:13.000Z",
+          "uid": "35240-fe0be917-b73b-491e-ab36-2fb8fa3faecd"
+        }
+      ],
+      "id": "515fc818-c499-437e-9dd8-b08843a60f91",
+      "createdAt": "2026-07-28T02:49:13.000Z",
+      "updatedAt": "2026-07-28T02:49:13.000Z",
+      "uid": "35240-515fc818-c499-437e-9dd8-b08843a60f91"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

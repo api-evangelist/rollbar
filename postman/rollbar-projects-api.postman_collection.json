@@ -1,0 +1,686 @@
+{
+  "info": {
+    "_postman_id": "03db1223-5fa4-4488-ab53-5f8a48639a5a",
+    "name": "Rollbar Deployment Access Tokens Projects API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:05.000Z",
+    "updatedAt": "2026-07-28T02:49:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-03db1223-5fa4-4488-ab53-5f8a48639a5a"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "List All Projects",
+          "id": "f1bcea40-a2e4-4708-9821-6e5b27710637",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Returns all projects in the account. Requires an account-level access token."
+          },
+          "response": [
+            {
+              "id": "d8bb5bf7-ec61-4bbb-8b60-f51b5e574abe",
+              "name": "List of projects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<integer>\",\n      \"date_modified\": \"<integer>\",\n      \"status\": \"enabled\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"date_created\": \"<integer>\",\n      \"date_modified\": \"<integer>\",\n      \"status\": \"disabled\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-d8bb5bf7-ec61-4bbb-8b60-f51b5e574abe"
+            },
+            {
+              "id": "152e2653-c7aa-4c33-97c7-1ccd18459709",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-152e2653-c7aa-4c33-97c7-1ccd18459709"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:05.000Z",
+          "updatedAt": "2026-07-28T02:49:05.000Z",
+          "uid": "35240-f1bcea40-a2e4-4708-9821-6e5b27710637"
+        },
+        {
+          "name": "Create a Project",
+          "id": "38b6e570-5644-4f3d-9657-d518ac1a4528",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"source_project_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Creates a new project in the account. Optionally supports duplicating an existing project by providing a source project ID."
+          },
+          "response": [
+            {
+              "id": "edebdb45-adfd-43f1-bd02-a7cc1f76d6c0",
+              "name": "Project created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source_project_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"date_created\": \"<integer>\",\n    \"date_modified\": \"<integer>\",\n    \"status\": \"disabled\"\n  }\n}",
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-edebdb45-adfd-43f1-bd02-a7cc1f76d6c0"
+            },
+            {
+              "id": "5b53523b-481d-4ade-94e5-daafc988013d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source_project_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-5b53523b-481d-4ade-94e5-daafc988013d"
+            },
+            {
+              "id": "21d3d3d0-e6cf-41e0-8787-240ef3fdd61f",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"source_project_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-21d3d3d0-e6cf-41e0-8787-240ef3fdd61f"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:05.000Z",
+          "updatedAt": "2026-07-28T02:49:05.000Z",
+          "uid": "35240-38b6e570-5644-4f3d-9657-d518ac1a4528"
+        }
+      ],
+      "id": "3a96bf08-731f-40bd-8bec-78127333a263",
+      "createdAt": "2026-07-28T02:49:05.000Z",
+      "updatedAt": "2026-07-28T02:49:05.000Z",
+      "uid": "35240-3a96bf08-731f-40bd-8bec-78127333a263"
+    },
+    {
+      "name": "project",
+      "item": [
+        {
+          "name": "{projectId}",
+          "item": [
+            {
+              "name": "Get a Project",
+              "id": "90c247e2-d3a6-4677-b328-319e3ef0c6a0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/project/:projectId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "project",
+                    ":projectId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "df9fb1b9-7652-4135-a07d-cb6c1d4c9bc4",
+                      "key": "projectId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the project."
+                    }
+                  ]
+                },
+                "description": "Returns information about a specific project."
+              },
+              "response": [
+                {
+                  "id": "28b0cabc-e338-4c9f-a753-4f02aac79eb7",
+                  "name": "Project details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"date_created\": \"<integer>\",\n    \"date_modified\": \"<integer>\",\n    \"status\": \"disabled\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:05.000Z",
+                  "updatedAt": "2026-07-28T02:49:05.000Z",
+                  "uid": "35240-28b0cabc-e338-4c9f-a753-4f02aac79eb7"
+                },
+                {
+                  "id": "2e837124-5e42-4500-ace6-466110550ef4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:05.000Z",
+                  "updatedAt": "2026-07-28T02:49:05.000Z",
+                  "uid": "35240-2e837124-5e42-4500-ace6-466110550ef4"
+                },
+                {
+                  "id": "fffac7fe-38c2-4cd6-90bf-6d53f84e7eda",
+                  "name": "Project not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:05.000Z",
+                  "updatedAt": "2026-07-28T02:49:05.000Z",
+                  "uid": "35240-fffac7fe-38c2-4cd6-90bf-6d53f84e7eda"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-90c247e2-d3a6-4677-b328-319e3ef0c6a0"
+            },
+            {
+              "name": "Delete a Project",
+              "id": "c57d2cc4-f81d-497a-b917-8fa86bb7ad4f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/project/:projectId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "project",
+                    ":projectId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b2dc039f-c593-4b14-8cf9-d51f5b44621d",
+                      "key": "projectId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the project."
+                    }
+                  ]
+                },
+                "description": "Deletes a project and all of its data. This action is irreversible."
+              },
+              "response": [
+                {
+                  "id": "cef295b6-e7ee-4f4a-9c28-ef10ff7752b6",
+                  "name": "Project deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:05.000Z",
+                  "updatedAt": "2026-07-28T02:49:05.000Z",
+                  "uid": "35240-cef295b6-e7ee-4f4a-9c28-ef10ff7752b6"
+                },
+                {
+                  "id": "d4e2f7aa-af34-4553-99aa-934446fb462f",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:05.000Z",
+                  "updatedAt": "2026-07-28T02:49:05.000Z",
+                  "uid": "35240-d4e2f7aa-af34-4553-99aa-934446fb462f"
+                },
+                {
+                  "id": "0180103d-6feb-4f11-933f-0e266e430531",
+                  "name": "Project not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:05.000Z",
+                  "updatedAt": "2026-07-28T02:49:05.000Z",
+                  "uid": "35240-0180103d-6feb-4f11-933f-0e266e430531"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:05.000Z",
+              "updatedAt": "2026-07-28T02:49:05.000Z",
+              "uid": "35240-c57d2cc4-f81d-497a-b917-8fa86bb7ad4f"
+            }
+          ],
+          "id": "0261dcce-8ba0-4ecb-86c9-b01daaf0167c",
+          "createdAt": "2026-07-28T02:49:05.000Z",
+          "updatedAt": "2026-07-28T02:49:05.000Z",
+          "uid": "35240-0261dcce-8ba0-4ecb-86c9-b01daaf0167c"
+        }
+      ],
+      "id": "b71bfe34-5b3a-4121-b514-4373c64f739b",
+      "createdAt": "2026-07-28T02:49:05.000Z",
+      "updatedAt": "2026-07-28T02:49:05.000Z",
+      "uid": "35240-b71bfe34-5b3a-4121-b514-4373c64f739b"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

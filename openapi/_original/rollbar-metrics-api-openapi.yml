@@ -1,0 +1,303 @@
+openapi: 3.1.0
+info:
+  title: Rollbar Metrics API
+  description: >-
+    The Rollbar Metrics API is part of Rollbar Analyze and provides
+    programmatic access to metrics data for error tracking analysis and
+    discovery. It enables developers to query resolution time metrics,
+    occurrence counts, and other aggregate data across projects. The API
+    supports filtering and grouping of results, making it useful for
+    building dashboards, generating reports, and monitoring error trends
+    over time.
+  version: '1'
+  contact:
+    name: Rollbar Support
+    url: https://rollbar.com/support/
+  termsOfService: https://rollbar.com/terms/
+externalDocs:
+  description: Rollbar Metrics API Documentation
+  url: https://docs.rollbar.com/docs/metrics-api-examples
+servers:
+  - url: https://api.rollbar.com/api/1
+    description: Production Server
+tags:
+  - name: Items Metrics
+    description: >-
+      Query metrics for specific items including occurrence counts and
+      aggregate statistics.
+  - name: Occurrences Metrics
+    description: >-
+      Query occurrence count metrics over time with filtering, grouping,
+      and aggregation capabilities.
+  - name: Resolution Time Metrics
+    description: >-
+      Query time-to-resolution metrics for projects, filterable by
+      environment, level, and framework.
+security:
+  - accessToken: []
+paths:
+  /metrics/occurrences:
+    post:
+      operationId: getOccurrencesMetrics
+      summary: Get Occurrences over a Span of Time
+      description: >-
+        Returns occurrence metrics over a span of time by filtering,
+        grouping, and aggregating. Follows search/query semantics as a
+        POST request. Requires a project read access token. The start_time
+        and end_time parameters use Unix epoch time in seconds.
+      tags:
+        - Occurrences Metrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OccurrencesMetricsRequest'
+      responses:
+        '200':
+          description: Occurrence metrics results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsResponse'
+        '400':
+          description: Bad request - invalid query parameters
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+  /metrics/items:
+    post:
+      operationId: getItemsMetrics
+      summary: Get Metrics for a List of Items
+      description: >-
+        Returns metrics for a provided list of item IDs. Follows
+        search/query semantics as a POST request. Requires a project
+        read access token.
+      tags:
+        - Items Metrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemsMetricsRequest'
+      responses:
+        '200':
+          description: Item metrics results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsResponse'
+        '400':
+          description: Bad request - invalid query parameters
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+  /metrics/ttr:
+    post:
+      operationId: getResolutionTimeMetrics
+      summary: Get Resolution Time Metrics for a List of Projects
+      description: >-
+        Returns resolution time (time-to-resolve) metrics for a provided
+        list of project IDs. Results can be filtered by environments,
+        levels, and frameworks.
+      tags:
+        - Resolution Time Metrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResolutionTimeMetricsRequest'
+      responses:
+        '200':
+          description: Resolution time metrics results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsResponse'
+        '400':
+          description: Bad request - invalid query parameters
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity
+components:
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      in: header
+      name: X-Rollbar-Access-Token
+      description: >-
+        Rollbar access token with read scope for authentication.
+  schemas:
+    OccurrencesMetricsRequest:
+      type: object
+      description: >-
+        Request body for querying occurrence metrics over a time span.
+      required:
+        - start_time
+        - end_time
+      properties:
+        start_time:
+          type: integer
+          description: >-
+            Start of the time range as Unix epoch time in seconds.
+        end_time:
+          type: integer
+          description: >-
+            End of the time range as Unix epoch time in seconds.
+        filters:
+          type: array
+          description: >-
+            Filter conditions to narrow down the occurrences included in metrics.
+          items:
+            $ref: '#/components/schemas/MetricsFilter'
+        group_by:
+          type: array
+          description: >-
+            Fields to group the results by. Supports fields like environment,
+            level, framework, and time intervals.
+          items:
+            type: string
+        aggregate:
+          type: string
+          description: >-
+            The aggregation function to apply.
+          enum:
+            - count
+            - avg
+            - sum
+            - min
+            - max
+    ItemsMetricsRequest:
+      type: object
+      description: >-
+        Request body for querying metrics for specific items.
+      required:
+        - item_ids
+      properties:
+        item_ids:
+          type: array
+          description: >-
+            List of item IDs to retrieve metrics for.
+          items:
+            type: integer
+        start_time:
+          type: integer
+          description: >-
+            Start of the time range as Unix epoch time in seconds.
+        end_time:
+          type: integer
+          description: >-
+            End of the time range as Unix epoch time in seconds.
+        filters:
+          type: array
+          description: >-
+            Filter conditions to narrow down the results.
+          items:
+            $ref: '#/components/schemas/MetricsFilter'
+        group_by:
+          type: array
+          description: >-
+            Fields to group the results by.
+          items:
+            type: string
+    ResolutionTimeMetricsRequest:
+      type: object
+      description: >-
+        Request body for querying resolution time metrics across projects.
+      required:
+        - project_ids
+      properties:
+        project_ids:
+          type: array
+          description: >-
+            List of project IDs to retrieve resolution time metrics for.
+          items:
+            type: integer
+        start_time:
+          type: integer
+          description: >-
+            Start of the time range as Unix epoch time in seconds.
+        end_time:
+          type: integer
+          description: >-
+            End of the time range as Unix epoch time in seconds.
+        environments:
+          type: array
+          description: >-
+            Filter by specific environment names.
+          items:
+            type: string
+        levels:
+          type: array
+          description: >-
+            Filter by severity levels.
+          items:
+            type: string
+            enum:
+              - critical
+              - error
+              - warning
+              - info
+              - debug
+        frameworks:
+          type: array
+          description: >-
+            Filter by framework identifiers.
+          items:
+            type: string
+    MetricsFilter:
+      type: object
+      description: >-
+        A filter condition for metrics queries.
+      properties:
+        field:
+          type: string
+          description: >-
+            The field name to filter on.
+        operator:
+          type: string
+          description: >-
+            The comparison operator.
+          enum:
+            - eq
+            - neq
+            - gt
+            - gte
+            - lt
+            - lte
+            - in
+            - nin
+        value:
+          description: >-
+            The value to compare against. Type depends on the field and operator.
+    MetricsResponse:
+      type: object
+      description: >-
+        Response containing metrics query results.
+      properties:
+        err:
+          type: integer
+          description: >-
+            Error code. 0 indicates success.
+        result:
+          type: object
+          description: >-
+            The metrics data results.
+          properties:
+            rows:
+              type: array
+              description: >-
+                Array of result rows containing the queried metrics.
+              items:
+                type: object
+            columns:
+              type: array
+              description: >-
+                Column definitions describing the result structure.
+              items:
+                type: string

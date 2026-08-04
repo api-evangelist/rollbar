@@ -1,0 +1,40 @@
+{
+  "provider": "rollbar",
+  "sources": [
+    "rollbar-access-tokens-api-openapi.yml",
+    "rollbar-deploys-api-openapi.yml",
+    "rollbar-invites-api-openapi.yml",
+    "rollbar-items-api-openapi.yml",
+    "rollbar-items-metrics-api-openapi.yml",
+    "rollbar-notifications-api-openapi.yml",
+    "rollbar-occurrences-api-openapi.yml",
+    "rollbar-occurrences-metrics-api-openapi.yml",
+    "rollbar-projects-api-openapi.yml",
+    "rollbar-resolution-time-metrics-api-openapi.yml",
+    "rollbar-rql-jobs-api-openapi.yml",
+    "rollbar-source-maps-api-openapi.yml",
+    "rollbar-teams-api-openapi.yml",
+    "rollbar-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "rollbar-access-tokens-api-openapi.yml",
+    "rollbar-deploys-api-openapi.yml",
+    "rollbar-invites-api-openapi.yml",
+    "rollbar-items-api-openapi.yml",
+    "rollbar-items-metrics-api-openapi.yml",
+    "rollbar-notifications-api-openapi.yml",
+    "rollbar-occurrences-api-openapi.yml",
+    "rollbar-occurrences-metrics-api-openapi.yml",
+    "rollbar-projects-api-openapi.yml",
+    "rollbar-resolution-time-metrics-api-openapi.yml",
+    "rollbar-rql-jobs-api-openapi.yml",
+    "rollbar-source-maps-api-openapi.yml",
+    "rollbar-teams-api-openapi.yml",
+    "rollbar-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

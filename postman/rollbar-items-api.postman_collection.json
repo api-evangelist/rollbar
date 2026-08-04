@@ -1,0 +1,1100 @@
+{
+  "info": {
+    "_postman_id": "22b9790c-e931-4385-bfcf-3346e32efbd1",
+    "name": "Rollbar Deployment Access Tokens Items API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:48:59.000Z",
+    "updatedAt": "2026-07-28T02:49:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-22b9790c-e931-4385-bfcf-3346e32efbd1"
+  },
+  "item": [
+    {
+      "name": "item",
+      "item": [
+        {
+          "name": "{itemId}",
+          "item": [
+            {
+              "name": "Get an Item by ID",
+              "id": "a54f7355-d093-4d51-b398-2855f33d3878",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/item/:itemId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "da0f6e49-0a45-4603-9ec0-d695922359f4",
+                      "key": "itemId",
+                      "value": "<integer>",
+                      "description": "(Required) The internal item ID. This is different from the project counter shown in Rollbar URLs."
+                    }
+                  ]
+                },
+                "description": "Returns a single item by its internal item ID. Note that this is different from the project counter visible in Rollbar URLs."
+              },
+              "response": [
+                {
+                  "id": "df577fc5-e695-4709-8a85-e55bf599a4c1",
+                  "name": "Item details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"counter\": \"<integer>\",\n    \"environment\": \"<string>\",\n    \"framework\": \"<integer>\",\n    \"hash\": \"<string>\",\n    \"title\": \"<string>\",\n    \"first_occurrence_id\": \"<integer>\",\n    \"first_occurrence_timestamp\": \"<integer>\",\n    \"last_occurrence_id\": \"<integer>\",\n    \"last_occurrence_timestamp\": \"<integer>\",\n    \"level\": \"info\",\n    \"status\": \"resolved\",\n    \"total_occurrences\": \"<integer>\",\n    \"unique_occurrences\": \"<integer>\",\n    \"project_id\": \"<integer>\",\n    \"resolved_in_version\": \"<string>\",\n    \"assigned_user_id\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-df577fc5-e695-4709-8a85-e55bf599a4c1"
+                },
+                {
+                  "id": "e52615bf-cb47-4117-8a40-a8f01eaaf438",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-e52615bf-cb47-4117-8a40-a8f01eaaf438"
+                },
+                {
+                  "id": "9265157b-d8dd-4862-8305-75dae53d0229",
+                  "name": "Item not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-9265157b-d8dd-4862-8305-75dae53d0229"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-a54f7355-d093-4d51-b398-2855f33d3878"
+            },
+            {
+              "name": "Update an Item",
+              "id": "0a86a26a-5e42-4f3b-b0f7-f1ba19ec88f9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"active\",\n  \"level\": \"critical\",\n  \"title\": \"<string>\",\n  \"assigned_user_id\": \"<integer>\",\n  \"resolved_in_version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/item/:itemId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "007b0fb7-7da2-46d5-9bb3-8beb6b2559db",
+                      "key": "itemId",
+                      "value": "<integer>",
+                      "description": "(Required) The internal item ID. This is different from the project counter shown in Rollbar URLs."
+                    }
+                  ]
+                },
+                "description": "Updates properties of an item, such as its status, level, title, or assigned user. Commonly used to resolve or mute items."
+              },
+              "response": [
+                {
+                  "id": "bb290b40-0d94-472f-b1b3-38db7b5f5d11",
+                  "name": "Item updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"active\",\n  \"level\": \"critical\",\n  \"title\": \"<string>\",\n  \"assigned_user_id\": \"<integer>\",\n  \"resolved_in_version\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"counter\": \"<integer>\",\n    \"environment\": \"<string>\",\n    \"framework\": \"<integer>\",\n    \"hash\": \"<string>\",\n    \"title\": \"<string>\",\n    \"first_occurrence_id\": \"<integer>\",\n    \"first_occurrence_timestamp\": \"<integer>\",\n    \"last_occurrence_id\": \"<integer>\",\n    \"last_occurrence_timestamp\": \"<integer>\",\n    \"level\": \"info\",\n    \"status\": \"resolved\",\n    \"total_occurrences\": \"<integer>\",\n    \"unique_occurrences\": \"<integer>\",\n    \"project_id\": \"<integer>\",\n    \"resolved_in_version\": \"<string>\",\n    \"assigned_user_id\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-bb290b40-0d94-472f-b1b3-38db7b5f5d11"
+                },
+                {
+                  "id": "e73d3209-1b8d-489f-b6af-89a2cc6c8496",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"active\",\n  \"level\": \"critical\",\n  \"title\": \"<string>\",\n  \"assigned_user_id\": \"<integer>\",\n  \"resolved_in_version\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-e73d3209-1b8d-489f-b6af-89a2cc6c8496"
+                },
+                {
+                  "id": "0804ff49-a681-4fe2-87ec-c19a53249080",
+                  "name": "Item not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"active\",\n  \"level\": \"critical\",\n  \"title\": \"<string>\",\n  \"assigned_user_id\": \"<integer>\",\n  \"resolved_in_version\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-0804ff49-a681-4fe2-87ec-c19a53249080"
+                },
+                {
+                  "id": "483b5ca6-74d6-4f0e-b723-e3a9c12c3a9c",
+                  "name": "Unprocessable entity",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"active\",\n  \"level\": \"critical\",\n  \"title\": \"<string>\",\n  \"assigned_user_id\": \"<integer>\",\n  \"resolved_in_version\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "itemId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-483b5ca6-74d6-4f0e-b723-e3a9c12c3a9c"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-0a86a26a-5e42-4f3b-b0f7-f1ba19ec88f9"
+            }
+          ],
+          "id": "4b4eabbb-a93e-4dd8-831e-3f29457e014a",
+          "createdAt": "2026-07-28T02:49:00.000Z",
+          "updatedAt": "2026-07-28T02:49:00.000Z",
+          "uid": "35240-4b4eabbb-a93e-4dd8-831e-3f29457e014a"
+        },
+        {
+          "name": "Create an Item",
+          "id": "5de8596d-cdb7-4864-bea7-33243c449ee2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access_token\": \"<string>\",\n  \"data\": {\n    \"environment\": \"<string>\",\n    \"body\": {},\n    \"level\": \"warning\",\n    \"timestamp\": \"<integer>\",\n    \"code_version\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"language\": \"<string>\",\n    \"framework\": \"<string>\",\n    \"server\": {},\n    \"request\": {},\n    \"person\": {},\n    \"custom\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/item/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "item",
+                ""
+              ]
+            },
+            "description": "Reports an error or message to Rollbar. This is the primary endpoint used by Rollbar SDKs to send data. The request body should contain the error or message payload in Rollbar's item format."
+          },
+          "response": [
+            {
+              "id": "bb54fb2f-73b0-458d-a91e-8c20e4f10ea7",
+              "name": "Item created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_token\": \"<string>\",\n  \"data\": {\n    \"environment\": \"<string>\",\n    \"body\": {},\n    \"level\": \"warning\",\n    \"timestamp\": \"<integer>\",\n    \"code_version\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"language\": \"<string>\",\n    \"framework\": \"<string>\",\n    \"server\": {},\n    \"request\": {},\n    \"person\": {},\n    \"custom\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/item/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"counter\": \"<integer>\",\n    \"environment\": \"<string>\",\n    \"framework\": \"<integer>\",\n    \"hash\": \"<string>\",\n    \"title\": \"<string>\",\n    \"first_occurrence_id\": \"<integer>\",\n    \"first_occurrence_timestamp\": \"<integer>\",\n    \"last_occurrence_id\": \"<integer>\",\n    \"last_occurrence_timestamp\": \"<integer>\",\n    \"level\": \"info\",\n    \"status\": \"resolved\",\n    \"total_occurrences\": \"<integer>\",\n    \"unique_occurrences\": \"<integer>\",\n    \"project_id\": \"<integer>\",\n    \"resolved_in_version\": \"<string>\",\n    \"assigned_user_id\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-bb54fb2f-73b0-458d-a91e-8c20e4f10ea7"
+            },
+            {
+              "id": "515e964e-c244-4858-ba92-276fd224923c",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_token\": \"<string>\",\n  \"data\": {\n    \"environment\": \"<string>\",\n    \"body\": {},\n    \"level\": \"warning\",\n    \"timestamp\": \"<integer>\",\n    \"code_version\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"language\": \"<string>\",\n    \"framework\": \"<string>\",\n    \"server\": {},\n    \"request\": {},\n    \"person\": {},\n    \"custom\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/item/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item",
+                    ""
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-515e964e-c244-4858-ba92-276fd224923c"
+            },
+            {
+              "id": "63a8a7ca-783b-4050-81b7-5c1d586a07c8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_token\": \"<string>\",\n  \"data\": {\n    \"environment\": \"<string>\",\n    \"body\": {},\n    \"level\": \"warning\",\n    \"timestamp\": \"<integer>\",\n    \"code_version\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"language\": \"<string>\",\n    \"framework\": \"<string>\",\n    \"server\": {},\n    \"request\": {},\n    \"person\": {},\n    \"custom\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/item/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item",
+                    ""
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-63a8a7ca-783b-4050-81b7-5c1d586a07c8"
+            },
+            {
+              "id": "c6d6bf6e-e04e-4af4-b51f-48a5b73edd2e",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_token\": \"<string>\",\n  \"data\": {\n    \"environment\": \"<string>\",\n    \"body\": {},\n    \"level\": \"warning\",\n    \"timestamp\": \"<integer>\",\n    \"code_version\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"language\": \"<string>\",\n    \"framework\": \"<string>\",\n    \"server\": {},\n    \"request\": {},\n    \"person\": {},\n    \"custom\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/item/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item",
+                    ""
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-c6d6bf6e-e04e-4af4-b51f-48a5b73edd2e"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:00.000Z",
+          "updatedAt": "2026-07-28T02:49:00.000Z",
+          "uid": "35240-5de8596d-cdb7-4864-bea7-33243c449ee2"
+        }
+      ],
+      "id": "c3b3bd41-a5b3-47ec-93d6-ebdbce7fefaf",
+      "createdAt": "2026-07-28T02:49:00.000Z",
+      "updatedAt": "2026-07-28T02:49:00.000Z",
+      "uid": "35240-c3b3bd41-a5b3-47ec-93d6-ebdbce7fefaf"
+    },
+    {
+      "name": "items",
+      "item": [
+        {
+          "name": "List All Items",
+          "id": "05809964-6830-476d-bc87-0a4b6cf895ea",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/items/?status=muted&level=info&environment=<string>&page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "items",
+                ""
+              ],
+              "query": [
+                {
+                  "description": "Filter items by status.",
+                  "key": "status",
+                  "value": "muted"
+                },
+                {
+                  "description": "Filter items by level.",
+                  "key": "level",
+                  "value": "info"
+                },
+                {
+                  "description": "Filter items by environment name.",
+                  "key": "environment",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Page number for pagination. Defaults to 1.",
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Returns all items in the project, ordered by most recent occurrence. Supports filtering by status, level, and environment, with pagination."
+          },
+          "response": [
+            {
+              "id": "784badc7-c828-4077-bc0e-8826e3236917",
+              "name": "List of items",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/items/?status=muted&level=info&environment=<string>&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "items",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter items by status.",
+                      "key": "status",
+                      "value": "muted"
+                    },
+                    {
+                      "description": "Filter items by level.",
+                      "key": "level",
+                      "value": "info"
+                    },
+                    {
+                      "description": "Filter items by environment name.",
+                      "key": "environment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number for pagination. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"items\": [\n      {\n        \"id\": \"<integer>\",\n        \"counter\": \"<integer>\",\n        \"environment\": \"<string>\",\n        \"framework\": \"<integer>\",\n        \"hash\": \"<string>\",\n        \"title\": \"<string>\",\n        \"first_occurrence_id\": \"<integer>\",\n        \"first_occurrence_timestamp\": \"<integer>\",\n        \"last_occurrence_id\": \"<integer>\",\n        \"last_occurrence_timestamp\": \"<integer>\",\n        \"level\": \"error\",\n        \"status\": \"resolved\",\n        \"total_occurrences\": \"<integer>\",\n        \"unique_occurrences\": \"<integer>\",\n        \"project_id\": \"<integer>\",\n        \"resolved_in_version\": \"<string>\",\n        \"assigned_user_id\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"counter\": \"<integer>\",\n        \"environment\": \"<string>\",\n        \"framework\": \"<integer>\",\n        \"hash\": \"<string>\",\n        \"title\": \"<string>\",\n        \"first_occurrence_id\": \"<integer>\",\n        \"first_occurrence_timestamp\": \"<integer>\",\n        \"last_occurrence_id\": \"<integer>\",\n        \"last_occurrence_timestamp\": \"<integer>\",\n        \"level\": \"warning\",\n        \"status\": \"muted\",\n        \"total_occurrences\": \"<integer>\",\n        \"unique_occurrences\": \"<integer>\",\n        \"project_id\": \"<integer>\",\n        \"resolved_in_version\": \"<string>\",\n        \"assigned_user_id\": \"<integer>\"\n      }\n    ],\n    \"page\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-784badc7-c828-4077-bc0e-8826e3236917"
+            },
+            {
+              "id": "570916d4-f485-4ea5-bb18-4ac32ad8a594",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/items/?status=muted&level=info&environment=<string>&page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "items",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter items by status.",
+                      "key": "status",
+                      "value": "muted"
+                    },
+                    {
+                      "description": "Filter items by level.",
+                      "key": "level",
+                      "value": "info"
+                    },
+                    {
+                      "description": "Filter items by environment name.",
+                      "key": "environment",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number for pagination. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-570916d4-f485-4ea5-bb18-4ac32ad8a594"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:00.000Z",
+          "updatedAt": "2026-07-28T02:49:00.000Z",
+          "uid": "35240-05809964-6830-476d-bc87-0a4b6cf895ea"
+        }
+      ],
+      "id": "9125c485-0786-4630-9ab5-585427586635",
+      "createdAt": "2026-07-28T02:49:00.000Z",
+      "updatedAt": "2026-07-28T02:49:00.000Z",
+      "uid": "35240-9125c485-0786-4630-9ab5-585427586635"
+    },
+    {
+      "name": "item_by_counter",
+      "item": [
+        {
+          "name": "{counter}",
+          "item": [
+            {
+              "name": "Get an Item by Project Counter",
+              "id": "ecee2af4-b637-456f-b884-d1d05dc4a53b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/item_by_counter/:counter",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "item_by_counter",
+                    ":counter"
+                  ],
+                  "variable": [
+                    {
+                      "id": "cf898e11-c332-4a0b-90a3-89f4368d7a42",
+                      "key": "counter",
+                      "value": "<integer>",
+                      "description": "(Required) The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter)."
+                    }
+                  ]
+                },
+                "description": "Returns an item by its project counter. The counter is the number shown in Rollbar URLs (e.g., items/456). Returns a 301 redirect to the item resource."
+              },
+              "response": [
+                {
+                  "id": "cd4baf9a-03b4-4b46-8035-867ab47e33ae",
+                  "name": "Redirect to item resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item_by_counter/:counter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item_by_counter",
+                        ":counter"
+                      ],
+                      "variable": [
+                        {
+                          "key": "counter"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Moved Permanently",
+                  "code": 301,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-cd4baf9a-03b4-4b46-8035-867ab47e33ae"
+                },
+                {
+                  "id": "d214b626-8296-4523-b40e-43a3b4e3dbf4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item_by_counter/:counter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item_by_counter",
+                        ":counter"
+                      ],
+                      "variable": [
+                        {
+                          "key": "counter"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-d214b626-8296-4523-b40e-43a3b4e3dbf4"
+                },
+                {
+                  "id": "fb3a4940-e097-4421-9c2d-98a7c42c2054",
+                  "name": "Item not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item_by_counter/:counter",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item_by_counter",
+                        ":counter"
+                      ],
+                      "variable": [
+                        {
+                          "key": "counter"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:00.000Z",
+                  "updatedAt": "2026-07-28T02:49:00.000Z",
+                  "uid": "35240-fb3a4940-e097-4421-9c2d-98a7c42c2054"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:00.000Z",
+              "updatedAt": "2026-07-28T02:49:00.000Z",
+              "uid": "35240-ecee2af4-b637-456f-b884-d1d05dc4a53b"
+            }
+          ],
+          "id": "603d5e73-b099-4be4-ad11-1084f1ca6129",
+          "createdAt": "2026-07-28T02:49:00.000Z",
+          "updatedAt": "2026-07-28T02:49:00.000Z",
+          "uid": "35240-603d5e73-b099-4be4-ad11-1084f1ca6129"
+        }
+      ],
+      "id": "d03037d8-3215-4d44-9f18-58709e147bd4",
+      "createdAt": "2026-07-28T02:49:00.000Z",
+      "updatedAt": "2026-07-28T02:49:00.000Z",
+      "uid": "35240-d03037d8-3215-4d44-9f18-58709e147bd4"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

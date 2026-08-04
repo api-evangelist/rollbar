@@ -1,0 +1,1272 @@
+{
+  "info": {
+    "_postman_id": "d302b2ef-8587-44fb-bc49-e889c0351241",
+    "name": "Rollbar Deployment Access Tokens Notifications API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:01.000Z",
+    "updatedAt": "2026-07-28T02:49:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d302b2ef-8587-44fb-bc49-e889c0351241"
+  },
+  "item": [
+    {
+      "name": "notifications",
+      "item": [
+        {
+          "name": "webhook",
+          "item": [
+            {
+              "name": "rules",
+              "item": [
+                {
+                  "name": "List Webhook Notification Rules",
+                  "id": "82718992-40db-4622-8b52-2364b8effa3a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook/rules",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook",
+                        "rules"
+                      ]
+                    },
+                    "description": "Returns all webhook notification rules configured for the project."
+                  },
+                  "response": [
+                    {
+                      "id": "7f8f4d00-3d1c-43e2-a9b3-a6b6d1faf990",
+                      "name": "List of webhook rules",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rules"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<integer>\",\n      \"trigger\": \"<string>\",\n      \"config\": {}\n    },\n    {\n      \"id\": \"<integer>\",\n      \"trigger\": \"<string>\",\n      \"config\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-7f8f4d00-3d1c-43e2-a9b3-a6b6d1faf990"
+                    },
+                    {
+                      "id": "c6cdb564-59b1-4ff8-a8bc-db704a5a7fae",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rules"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-c6cdb564-59b1-4ff8-a8bc-db704a5a7fae"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-82718992-40db-4622-8b52-2364b8effa3a"
+                },
+                {
+                  "name": "Create a Webhook Notification Rule",
+                  "id": "a3de73b1-e302-4738-bc4d-ab4eec1a65dc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook/rules",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook",
+                        "rules"
+                      ]
+                    },
+                    "description": "Creates a new webhook notification rule for the project, specifying trigger conditions and optional URL override."
+                  },
+                  "response": [
+                    {
+                      "id": "1ca60e51-e778-45fc-a52f-5e16b0ace2dc",
+                      "name": "Webhook rule created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rules"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"trigger\": \"<string>\",\n    \"config\": {}\n  }\n}",
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-1ca60e51-e778-45fc-a52f-5e16b0ace2dc"
+                    },
+                    {
+                      "id": "edacc659-f584-456d-ac31-71f0ec8c1870",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rules"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-edacc659-f584-456d-ac31-71f0ec8c1870"
+                    },
+                    {
+                      "id": "6cdbd59f-417c-4628-aec3-46b38b1d0422",
+                      "name": "Unprocessable entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rules",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rules"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-6cdbd59f-417c-4628-aec3-46b38b1d0422"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-a3de73b1-e302-4738-bc4d-ab4eec1a65dc"
+                }
+              ],
+              "id": "36c8f08d-50cb-4e14-a8bb-c63a39f4e53a",
+              "createdAt": "2026-07-28T02:49:02.000Z",
+              "updatedAt": "2026-07-28T02:49:02.000Z",
+              "uid": "35240-36c8f08d-50cb-4e14-a8bb-c63a39f4e53a"
+            },
+            {
+              "name": "rule",
+              "item": [
+                {
+                  "name": "{ruleId}",
+                  "item": [
+                    {
+                      "name": "Get a Webhook Notification Rule",
+                      "id": "e01ba6a5-261b-4b3e-b8dc-e208343ae860",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rule",
+                            ":ruleId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d4f3a737-db0f-44cd-b342-e82ecdc90d3c",
+                              "key": "ruleId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the webhook rule to retrieve."
+                            }
+                          ]
+                        },
+                        "description": "Returns a specific webhook notification rule by its ID."
+                      },
+                      "response": [
+                        {
+                          "id": "402b53e4-8a68-47b5-84db-039443632bd3",
+                          "name": "Webhook rule details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"trigger\": \"<string>\",\n    \"config\": {}\n  }\n}",
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-402b53e4-8a68-47b5-84db-039443632bd3"
+                        },
+                        {
+                          "id": "f8766ef9-1925-4be7-a001-ae5147af0dfa",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-f8766ef9-1925-4be7-a001-ae5147af0dfa"
+                        },
+                        {
+                          "id": "0ee68714-a493-4832-80e2-744e5e0bc4dd",
+                          "name": "Rule not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-0ee68714-a493-4832-80e2-744e5e0bc4dd"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-e01ba6a5-261b-4b3e-b8dc-e208343ae860"
+                    },
+                    {
+                      "name": "Update a Webhook Notification Rule",
+                      "id": "a34f5ac2-8f6f-430d-8997-a65f871f7984",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rule",
+                            ":ruleId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "562c0368-b3c3-4072-a724-a7366455f6c0",
+                              "key": "ruleId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the webhook rule to update."
+                            }
+                          ]
+                        },
+                        "description": "Updates a specific webhook notification rule."
+                      },
+                      "response": [
+                        {
+                          "id": "eb6a196a-5f6d-4c67-87e7-a752141a48c2",
+                          "name": "Webhook rule updated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"trigger\": \"<string>\",\n    \"config\": {}\n  }\n}",
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-eb6a196a-5f6d-4c67-87e7-a752141a48c2"
+                        },
+                        {
+                          "id": "9167a1e9-d2f9-46f3-9883-9f9d96bbca63",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-9167a1e9-d2f9-46f3-9883-9f9d96bbca63"
+                        },
+                        {
+                          "id": "725e3230-e338-4f21-b49d-4d3a931492b2",
+                          "name": "Rule not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"trigger\": \"resolved_item\",\n  \"config\": {\n    \"url\": \"<uri>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-725e3230-e338-4f21-b49d-4d3a931492b2"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-a34f5ac2-8f6f-430d-8997-a65f871f7984"
+                    },
+                    {
+                      "name": "Delete a Webhook Notification Rule",
+                      "id": "76ad604d-8c6d-46b5-93e9-f31a207de194",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "notifications",
+                            "webhook",
+                            "rule",
+                            ":ruleId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "44f1626a-fd13-4926-897c-9e3885f53156",
+                              "key": "ruleId",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the webhook rule to delete."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a specific webhook notification rule."
+                      },
+                      "response": [
+                        {
+                          "id": "e42de436-cc24-46b9-8ffc-6db50854eb2b",
+                          "name": "Webhook rule deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-e42de436-cc24-46b9-8ffc-6db50854eb2b"
+                        },
+                        {
+                          "id": "496e2466-b6bd-48e4-9af4-1cac23f696ad",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-496e2466-b6bd-48e4-9af4-1cac23f696ad"
+                        },
+                        {
+                          "id": "727e11c6-eb32-4ef3-8c3f-68d907623f0e",
+                          "name": "Rule not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Rollbar-Access-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/notifications/webhook/rule/:ruleId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "notifications",
+                                "webhook",
+                                "rule",
+                                ":ruleId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ruleId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:49:02.000Z",
+                          "updatedAt": "2026-07-28T02:49:02.000Z",
+                          "uid": "35240-727e11c6-eb32-4ef3-8c3f-68d907623f0e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:49:02.000Z",
+                      "updatedAt": "2026-07-28T02:49:02.000Z",
+                      "uid": "35240-76ad604d-8c6d-46b5-93e9-f31a207de194"
+                    }
+                  ],
+                  "id": "3160ae79-f265-42c5-9d55-a8edbdb902b2",
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-3160ae79-f265-42c5-9d55-a8edbdb902b2"
+                }
+              ],
+              "id": "8f319f56-3d09-4eef-a18b-82ce535432d1",
+              "createdAt": "2026-07-28T02:49:02.000Z",
+              "updatedAt": "2026-07-28T02:49:02.000Z",
+              "uid": "35240-8f319f56-3d09-4eef-a18b-82ce535432d1"
+            },
+            {
+              "name": "Get Webhook Notification Configuration",
+              "id": "2e6a2708-3e46-4f31-a110-a6da462bf77b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/notifications/webhook",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "notifications",
+                    "webhook"
+                  ]
+                },
+                "description": "Returns the current webhook notification configuration for the project, including the webhook URL and format settings."
+              },
+              "response": [
+                {
+                  "id": "400bd923-4bfc-4db2-ac4a-baff53e7fe38",
+                  "name": "Webhook configuration",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"enabled\": \"<boolean>\",\n    \"url\": \"<string>\",\n    \"format\": \"json\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-400bd923-4bfc-4db2-ac4a-baff53e7fe38"
+                },
+                {
+                  "id": "91c23f90-143a-4488-951b-dc6a83db8e1c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-91c23f90-143a-4488-951b-dc6a83db8e1c"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:02.000Z",
+              "updatedAt": "2026-07-28T02:49:02.000Z",
+              "uid": "35240-2e6a2708-3e46-4f31-a110-a6da462bf77b"
+            },
+            {
+              "name": "Update Webhook Notification Configuration",
+              "id": "6450fbb2-2710-4c81-9f38-3f12f0a75ff4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"url\": \"<uri>\",\n  \"format\": \"json\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/notifications/webhook",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "notifications",
+                    "webhook"
+                  ]
+                },
+                "description": "Updates the webhook notification configuration for the project, including the URL and format (JSON or XML)."
+              },
+              "response": [
+                {
+                  "id": "a543ce98-10b0-471e-aa15-f62583702688",
+                  "name": "Webhook configuration updated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"url\": \"<uri>\",\n  \"format\": \"json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"enabled\": \"<boolean>\",\n    \"url\": \"<string>\",\n    \"format\": \"json\"\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-a543ce98-10b0-471e-aa15-f62583702688"
+                },
+                {
+                  "id": "73d6c79f-aaa2-490f-b207-0c4eca8852da",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"url\": \"<uri>\",\n  \"format\": \"json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-73d6c79f-aaa2-490f-b207-0c4eca8852da"
+                },
+                {
+                  "id": "ba1f5d44-657c-4ded-bee5-706129706ce2",
+                  "name": "Unprocessable entity",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"url\": \"<uri>\",\n  \"format\": \"json\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/notifications/webhook",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "notifications",
+                        "webhook"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:02.000Z",
+                  "updatedAt": "2026-07-28T02:49:02.000Z",
+                  "uid": "35240-ba1f5d44-657c-4ded-bee5-706129706ce2"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:02.000Z",
+              "updatedAt": "2026-07-28T02:49:02.000Z",
+              "uid": "35240-6450fbb2-2710-4c81-9f38-3f12f0a75ff4"
+            }
+          ],
+          "id": "88c2fc30-41cf-4fcc-a54f-9a7da3d7e97e",
+          "createdAt": "2026-07-28T02:49:02.000Z",
+          "updatedAt": "2026-07-28T02:49:02.000Z",
+          "uid": "35240-88c2fc30-41cf-4fcc-a54f-9a7da3d7e97e"
+        }
+      ],
+      "id": "71757013-5bbf-4ef8-9cc5-d69bf2067d2a",
+      "createdAt": "2026-07-28T02:49:02.000Z",
+      "updatedAt": "2026-07-28T02:49:02.000Z",
+      "uid": "35240-71757013-5bbf-4ef8-9cc5-d69bf2067d2a"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

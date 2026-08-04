@@ -1,0 +1,305 @@
+{
+  "info": {
+    "_postman_id": "8b44e549-8cd7-46e0-96f3-5b4f285ed1f4",
+    "name": "Rollbar Deployment Access Tokens Items Metrics API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:00.000Z",
+    "updatedAt": "2026-07-28T02:49:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8b44e549-8cd7-46e0-96f3-5b4f285ed1f4"
+  },
+  "item": [
+    {
+      "name": "metrics",
+      "item": [
+        {
+          "name": "items",
+          "item": [
+            {
+              "name": "Get Metrics for a List of Items",
+              "id": "4e5c865f-16f9-44e9-8be2-2634fd025998",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"nin\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"lte\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/metrics/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metrics",
+                    "items"
+                  ]
+                },
+                "description": "Returns metrics for a provided list of item IDs. Follows search/query semantics as a POST request. Requires a project read access token."
+              },
+              "response": [
+                {
+                  "id": "ed3a4b71-73a7-4bc2-b21e-98660d567d33",
+                  "name": "Item metrics results",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"nin\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"lte\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/metrics/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metrics",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"columns\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:01.000Z",
+                  "updatedAt": "2026-07-28T02:49:01.000Z",
+                  "uid": "35240-ed3a4b71-73a7-4bc2-b21e-98660d567d33"
+                },
+                {
+                  "id": "f166c31d-28fb-40e9-97ea-a5f0cc38974b",
+                  "name": "Bad request - invalid query parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"nin\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"lte\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/metrics/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metrics",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:01.000Z",
+                  "updatedAt": "2026-07-28T02:49:01.000Z",
+                  "uid": "35240-f166c31d-28fb-40e9-97ea-a5f0cc38974b"
+                },
+                {
+                  "id": "9138ebe3-4966-4a26-bdf7-10b99b560d87",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"nin\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"lte\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/metrics/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metrics",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:01.000Z",
+                  "updatedAt": "2026-07-28T02:49:01.000Z",
+                  "uid": "35240-9138ebe3-4966-4a26-bdf7-10b99b560d87"
+                },
+                {
+                  "id": "e102e9fa-2c54-455c-bfb0-76f8005dc80f",
+                  "name": "Unprocessable entity",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"nin\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"lte\",\n      \"value\": {\n        \"description\": \"The value to compare against. Type depends on the field and operator.\"\n      }\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/metrics/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "metrics",
+                        "items"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:01.000Z",
+                  "updatedAt": "2026-07-28T02:49:01.000Z",
+                  "uid": "35240-e102e9fa-2c54-455c-bfb0-76f8005dc80f"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:01.000Z",
+              "updatedAt": "2026-07-28T02:49:01.000Z",
+              "uid": "35240-4e5c865f-16f9-44e9-8be2-2634fd025998"
+            }
+          ],
+          "id": "fed407f9-5560-4941-b06d-d8efd0f865be",
+          "createdAt": "2026-07-28T02:49:01.000Z",
+          "updatedAt": "2026-07-28T02:49:01.000Z",
+          "uid": "35240-fed407f9-5560-4941-b06d-d8efd0f865be"
+        }
+      ],
+      "id": "7ddcb5d3-e4f4-4c1f-8a50-98885437b335",
+      "createdAt": "2026-07-28T02:49:01.000Z",
+      "updatedAt": "2026-07-28T02:49:01.000Z",
+      "uid": "35240-7ddcb5d3-e4f4-4c1f-8a50-98885437b335"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

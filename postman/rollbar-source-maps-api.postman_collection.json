@@ -1,0 +1,369 @@
+{
+  "info": {
+    "_postman_id": "2c655bbd-6955-4c44-87ba-908fa25e8343",
+    "name": "Rollbar Deployment Access Tokens Source Maps API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:09.000Z",
+    "updatedAt": "2026-07-28T02:49:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2c655bbd-6955-4c44-87ba-908fa25e8343"
+  },
+  "item": [
+    {
+      "name": "sourcemap",
+      "item": [
+        {
+          "name": "Upload a JS Source Map",
+          "id": "3bde8283-01e1-45fa-98e7-182da92f3909",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": "(Required) A post_server_item access token.",
+                  "key": "access_token",
+                  "value": "<string>",
+                  "type": "text"
+                },
+                {
+                  "description": "(Required) The code version string associated with this source map.",
+                  "key": "version",
+                  "value": "<string>",
+                  "type": "text"
+                },
+                {
+                  "description": "(Required) The full URL of the minified JavaScript file.",
+                  "key": "minified_url",
+                  "value": "<uri>",
+                  "type": "text"
+                },
+                {
+                  "description": "(Required) The source map file contents.",
+                  "key": "source_map",
+                  "type": "file",
+                  "value": null
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sourcemap",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sourcemap"
+              ]
+            },
+            "description": "Uploads a JavaScript source map file so that Rollbar can translate minified stack traces into readable source code references. The source map is associated with a specific version and minified URL."
+          },
+          "response": [
+            {
+              "id": "974286d2-8a02-4b4e-8664-787f2cfbf93f",
+              "name": "Source map uploaded",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) A post_server_item access token.",
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The code version string associated with this source map.",
+                      "key": "version",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The full URL of the minified JavaScript file.",
+                      "key": "minified_url",
+                      "value": "<uri>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The source map file contents.",
+                      "key": "source_map",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sourcemap",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sourcemap"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-974286d2-8a02-4b4e-8664-787f2cfbf93f"
+            },
+            {
+              "id": "0b1c451b-05e4-4cd3-a92c-9f8b36839896",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) A post_server_item access token.",
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The code version string associated with this source map.",
+                      "key": "version",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The full URL of the minified JavaScript file.",
+                      "key": "minified_url",
+                      "value": "<uri>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The source map file contents.",
+                      "key": "source_map",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sourcemap",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sourcemap"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-0b1c451b-05e4-4cd3-a92c-9f8b36839896"
+            },
+            {
+              "id": "e35ae12e-9d39-4f30-a800-1a0480a3c73f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) A post_server_item access token.",
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The code version string associated with this source map.",
+                      "key": "version",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The full URL of the minified JavaScript file.",
+                      "key": "minified_url",
+                      "value": "<uri>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The source map file contents.",
+                      "key": "source_map",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sourcemap",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sourcemap"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-e35ae12e-9d39-4f30-a800-1a0480a3c73f"
+            },
+            {
+              "id": "b89ba3ae-91f3-4815-9bc1-bf91233fe416",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": "(Required) A post_server_item access token.",
+                      "key": "access_token",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The code version string associated with this source map.",
+                      "key": "version",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The full URL of the minified JavaScript file.",
+                      "key": "minified_url",
+                      "value": "<uri>",
+                      "type": "text"
+                    },
+                    {
+                      "description": "(Required) The source map file contents.",
+                      "key": "source_map",
+                      "type": "file"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sourcemap",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sourcemap"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-b89ba3ae-91f3-4815-9bc1-bf91233fe416"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:10.000Z",
+          "updatedAt": "2026-07-28T02:49:10.000Z",
+          "uid": "35240-3bde8283-01e1-45fa-98e7-182da92f3909"
+        }
+      ],
+      "id": "5c364cb0-67ba-4437-8898-098b0a428899",
+      "createdAt": "2026-07-28T02:49:10.000Z",
+      "updatedAt": "2026-07-28T02:49:10.000Z",
+      "uid": "35240-5c364cb0-67ba-4437-8898-098b0a428899"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}

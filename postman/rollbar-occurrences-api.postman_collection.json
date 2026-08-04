@@ -1,0 +1,592 @@
+{
+  "info": {
+    "_postman_id": "842f1f85-2870-4e24-9ccd-bfc3a2b43d40",
+    "name": "Rollbar Deployment Access Tokens Occurrences API",
+    "description": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:03.000Z",
+    "updatedAt": "2026-07-28T02:49:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-842f1f85-2870-4e24-9ccd-bfc3a2b43d40"
+  },
+  "item": [
+    {
+      "name": "item",
+      "item": [
+        {
+          "name": "{itemId}",
+          "item": [
+            {
+              "name": "instances",
+              "item": [
+                {
+                  "name": "List All Occurrences of an Item",
+                  "id": "3e3bb93a-ab55-4f0e-af77-d0a30cdd3a54",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/item/:itemId/instances/?page=1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "item",
+                        ":itemId",
+                        "instances",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number for pagination. Defaults to 1.",
+                          "key": "page",
+                          "value": "1"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "81b88cb0-ffb6-41f2-a560-e8e058365d73",
+                          "key": "itemId",
+                          "value": "<integer>",
+                          "description": "(Required) The internal item ID. This is different from the project counter shown in Rollbar URLs."
+                        }
+                      ]
+                    },
+                    "description": "Returns all occurrences for a specific item, in pages of 20, ordered descending by occurrence ID."
+                  },
+                  "response": [
+                    {
+                      "id": "0252b192-c333-4e76-9547-f3f92df093ea",
+                      "name": "List of occurrences",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/item/:itemId/instances/?page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "item",
+                            ":itemId",
+                            "instances",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for pagination. Defaults to 1.",
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "itemId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"instances\": [\n      {\n        \"id\": \"<integer>\",\n        \"item_id\": \"<integer>\",\n        \"timestamp\": \"<integer>\",\n        \"version\": \"<integer>\",\n        \"data\": {}\n      },\n      {\n        \"id\": \"<integer>\",\n        \"item_id\": \"<integer>\",\n        \"timestamp\": \"<integer>\",\n        \"version\": \"<integer>\",\n        \"data\": {}\n      }\n    ],\n    \"page\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:49:04.000Z",
+                      "updatedAt": "2026-07-28T02:49:04.000Z",
+                      "uid": "35240-0252b192-c333-4e76-9547-f3f92df093ea"
+                    },
+                    {
+                      "id": "981afcd3-537c-4e05-b09f-e0da860cf4dd",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/item/:itemId/instances/?page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "item",
+                            ":itemId",
+                            "instances",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for pagination. Defaults to 1.",
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "itemId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:04.000Z",
+                      "updatedAt": "2026-07-28T02:49:04.000Z",
+                      "uid": "35240-981afcd3-537c-4e05-b09f-e0da860cf4dd"
+                    },
+                    {
+                      "id": "4907585a-ecec-4a0c-b81c-b197545a6c9c",
+                      "name": "Item not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Rollbar-Access-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/item/:itemId/instances/?page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "item",
+                            ":itemId",
+                            "instances",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for pagination. Defaults to 1.",
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "itemId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:49:04.000Z",
+                      "updatedAt": "2026-07-28T02:49:04.000Z",
+                      "uid": "35240-4907585a-ecec-4a0c-b81c-b197545a6c9c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:04.000Z",
+                  "updatedAt": "2026-07-28T02:49:04.000Z",
+                  "uid": "35240-3e3bb93a-ab55-4f0e-af77-d0a30cdd3a54"
+                }
+              ],
+              "id": "6e135eee-c3f7-42be-a1ae-0bc7394315e4",
+              "createdAt": "2026-07-28T02:49:03.000Z",
+              "updatedAt": "2026-07-28T02:49:03.000Z",
+              "uid": "35240-6e135eee-c3f7-42be-a1ae-0bc7394315e4"
+            }
+          ],
+          "id": "6afd3164-012a-4a32-bc06-20416253fbc7",
+          "createdAt": "2026-07-28T02:49:03.000Z",
+          "updatedAt": "2026-07-28T02:49:03.000Z",
+          "uid": "35240-6afd3164-012a-4a32-bc06-20416253fbc7"
+        }
+      ],
+      "id": "c9438052-3de5-4d5b-b9ad-7e5cfc4cc279",
+      "createdAt": "2026-07-28T02:49:03.000Z",
+      "updatedAt": "2026-07-28T02:49:03.000Z",
+      "uid": "35240-c9438052-3de5-4d5b-b9ad-7e5cfc4cc279"
+    },
+    {
+      "name": "instances",
+      "item": [
+        {
+          "name": "List All Occurrences in a Project",
+          "id": "3bb43d6a-7902-4112-9898-3dd4aa69e69c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/instances/?page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "instances",
+                ""
+              ],
+              "query": [
+                {
+                  "description": "Page number for pagination. Defaults to 1.",
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Returns all occurrences in the project, in pages of 20, ordered descending by occurrence ID (approximately descending by timestamp)."
+          },
+          "response": [
+            {
+              "id": "4a059aed-cc30-47ec-b5d5-5b857e20ec1f",
+              "name": "List of occurrences",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/instances/?page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instances",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number for pagination. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"instances\": [\n      {\n        \"id\": \"<integer>\",\n        \"item_id\": \"<integer>\",\n        \"timestamp\": \"<integer>\",\n        \"version\": \"<integer>\",\n        \"data\": {}\n      },\n      {\n        \"id\": \"<integer>\",\n        \"item_id\": \"<integer>\",\n        \"timestamp\": \"<integer>\",\n        \"version\": \"<integer>\",\n        \"data\": {}\n      }\n    ],\n    \"page\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:49:04.000Z",
+              "updatedAt": "2026-07-28T02:49:04.000Z",
+              "uid": "35240-4a059aed-cc30-47ec-b5d5-5b857e20ec1f"
+            },
+            {
+              "id": "aca0bfcb-39b1-4a82-b090-48b5559ac959",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/instances/?page=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instances",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number for pagination. Defaults to 1.",
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T02:49:04.000Z",
+              "updatedAt": "2026-07-28T02:49:04.000Z",
+              "uid": "35240-aca0bfcb-39b1-4a82-b090-48b5559ac959"
+            }
+          ],
+          "createdAt": "2026-07-28T02:49:04.000Z",
+          "updatedAt": "2026-07-28T02:49:04.000Z",
+          "uid": "35240-3bb43d6a-7902-4112-9898-3dd4aa69e69c"
+        }
+      ],
+      "id": "654635c0-400a-412d-a70b-c1e85c082f5c",
+      "createdAt": "2026-07-28T02:49:03.000Z",
+      "updatedAt": "2026-07-28T02:49:03.000Z",
+      "uid": "35240-654635c0-400a-412d-a70b-c1e85c082f5c"
+    },
+    {
+      "name": "instance",
+      "item": [
+        {
+          "name": "{instanceId}",
+          "item": [
+            {
+              "name": "Get an Occurrence",
+              "id": "32bde396-9981-4d9a-acb2-f85c75b3f196",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/instance/:instanceId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instance",
+                    ":instanceId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "30583547-4ee2-4e75-9391-22f1cc78e4df",
+                      "key": "instanceId",
+                      "value": "<integer>",
+                      "description": "(Required) The ID of the occurrence instance to retrieve."
+                    }
+                  ]
+                },
+                "description": "Returns a single occurrence by its instance ID."
+              },
+              "response": [
+                {
+                  "id": "ba52b86c-621e-47f3-975e-f45e90c044a8",
+                  "name": "Occurrence details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instance/:instanceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instance",
+                        ":instanceId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instanceId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"err\": \"<integer>\",\n  \"result\": {\n    \"id\": \"<integer>\",\n    \"item_id\": \"<integer>\",\n    \"timestamp\": \"<integer>\",\n    \"version\": \"<integer>\",\n    \"data\": {}\n  }\n}",
+                  "createdAt": "2026-07-28T02:49:04.000Z",
+                  "updatedAt": "2026-07-28T02:49:04.000Z",
+                  "uid": "35240-ba52b86c-621e-47f3-975e-f45e90c044a8"
+                },
+                {
+                  "id": "c7490c41-5ffb-4754-8e8f-3f2519a92676",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instance/:instanceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instance",
+                        ":instanceId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instanceId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:04.000Z",
+                  "updatedAt": "2026-07-28T02:49:04.000Z",
+                  "uid": "35240-c7490c41-5ffb-4754-8e8f-3f2519a92676"
+                },
+                {
+                  "id": "a4079905-d9d9-475e-9041-745e051d06cf",
+                  "name": "Occurrence not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Rollbar-Access-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instance/:instanceId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instance",
+                        ":instanceId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instanceId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:49:04.000Z",
+                  "updatedAt": "2026-07-28T02:49:04.000Z",
+                  "uid": "35240-a4079905-d9d9-475e-9041-745e051d06cf"
+                }
+              ],
+              "createdAt": "2026-07-28T02:49:04.000Z",
+              "updatedAt": "2026-07-28T02:49:04.000Z",
+              "uid": "35240-32bde396-9981-4d9a-acb2-f85c75b3f196"
+            }
+          ],
+          "id": "060b8d2d-5ddb-4b54-b2b2-151f9242fa64",
+          "createdAt": "2026-07-28T02:49:03.000Z",
+          "updatedAt": "2026-07-28T02:49:03.000Z",
+          "uid": "35240-060b8d2d-5ddb-4b54-b2b2-151f9242fa64"
+        }
+      ],
+      "id": "724def15-ad58-4d37-b92d-e2be187b9a4f",
+      "createdAt": "2026-07-28T02:49:03.000Z",
+      "updatedAt": "2026-07-28T02:49:03.000Z",
+      "uid": "35240-724def15-ad58-4d37-b92d-e2be187b9a4f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.rollbar.com/api/1"
+    }
+  ]
+}
