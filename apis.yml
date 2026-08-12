@@ -348,13 +348,13 @@ common:
     type: PrivacyPolicy
   - url: https://rollbar.com/support/
     type: Support
-  - url: openapi/rollbar-rest-api-openapi.yml
+  - url: openapi/_original/rollbar-rest-api-openapi.yml
     type: OpenAPI
-  - url: openapi/rollbar-deployment-api-openapi.yml
+  - url: openapi/_original/rollbar-deployment-api-openapi.yml
     type: OpenAPI
-  - url: openapi/rollbar-metrics-api-openapi.yml
+  - url: openapi/_original/rollbar-metrics-api-openapi.yml
     type: OpenAPI
-  - url: openapi/rollbar-rql-api-openapi.yml
+  - url: openapi/_original/rollbar-rql-api-openapi.yml
     type: OpenAPI
   - url: asyncapi/rollbar-webhooks-asyncapi.yml
     type: AsyncAPI
