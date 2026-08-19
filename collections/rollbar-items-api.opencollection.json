@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Items API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/item/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reports an error or message to Rollbar. This is the primary endpoint used by Rollbar SDKs to send data. The request body should contain the error or message payload in Rollbar's item format."
+        },
+        {
+          "info": {
+            "name": "List All Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/items/",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter items by status."
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Filter items by level."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "Filter items by environment name."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination. Defaults to 1."
+              }
+            ]
+          },
+          "docs": "Returns all items in the project, ordered by most recent occurrence. Supports filtering by status, level, and environment, with pagination."
+        },
+        {
+          "info": {
+            "name": "Get an Item by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/item/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The internal item ID. This is different from the project counter shown in Rollbar URLs."
+              }
+            ]
+          },
+          "docs": "Returns a single item by its internal item ID. Note that this is different from the project counter visible in Rollbar URLs."
+        },
+        {
+          "info": {
+            "name": "Update an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.rollbar.com/api/1/item/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The internal item ID. This is different from the project counter shown in Rollbar URLs."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates properties of an item, such as its status, level, title, or assigned user. Commonly used to resolve or mute items."
+        },
+        {
+          "info": {
+            "name": "Get an Item by Project Counter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/item_by_counter/:counter",
+            "params": [
+              {
+                "name": "counter",
+                "value": "",
+                "type": "path",
+                "description": "The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter)."
+              }
+            ]
+          },
+          "docs": "Returns an item by its project counter. The counter is the number shown in Rollbar URLs (e.g., items/456). Returns a 301 redirect to the item resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

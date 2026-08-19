@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Occurrences Metrics API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Occurrences Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Occurrences over a Span of Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/metrics/occurrences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns occurrence metrics over a span of time by filtering, grouping, and aggregating. Follows search/query semantics as a POST request. Requires a project read access token. The start_time and end_time parameters use Unix epoch time in seconds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Occurrences API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Occurrences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Occurrences of an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/item/:itemId/instances/",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The internal item ID. This is different from the project counter shown in Rollbar URLs."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination. Defaults to 1."
+              }
+            ]
+          },
+          "docs": "Returns all occurrences for a specific item, in pages of 20, ordered descending by occurrence ID."
+        },
+        {
+          "info": {
+            "name": "List All Occurrences in a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/instances/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination. Defaults to 1."
+              }
+            ]
+          },
+          "docs": "Returns all occurrences in the project, in pages of 20, ordered descending by occurrence ID (approximately descending by timestamp)."
+        },
+        {
+          "info": {
+            "name": "Get an Occurrence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/instance/:instanceId",
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the occurrence instance to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns a single occurrence by its instance ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

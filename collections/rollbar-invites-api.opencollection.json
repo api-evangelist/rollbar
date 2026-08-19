@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Invites API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Invitations for a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/invites",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              }
+            ]
+          },
+          "docs": "Returns all pending invitations for a specific team."
+        },
+        {
+          "info": {
+            "name": "Invite a User to a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/invites",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an invitation to join a team. The invitee receives an email with a link to accept the invitation."
+        },
+        {
+          "info": {
+            "name": "Get an Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/invite/:inviteId",
+            "params": [
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the invitation to retrieve."
+              }
+            ]
+          },
+          "docs": "Returns information about a specific invitation."
+        },
+        {
+          "info": {
+            "name": "Cancel an Invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rollbar.com/api/1/invite/:inviteId",
+            "params": [
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the invitation to cancel."
+              }
+            ]
+          },
+          "docs": "Cancels a pending invitation. Only pending invitations can be cancelled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

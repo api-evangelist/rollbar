@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Teams API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/teams"
+          },
+          "docs": "Returns all teams in the account. Requires an account-level access token."
+        },
+        {
+          "info": {
+            "name": "Create a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/teams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new team in the account."
+        },
+        {
+          "info": {
+            "name": "Get a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/team/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              }
+            ]
+          },
+          "docs": "Returns information about a specific team."
+        },
+        {
+          "info": {
+            "name": "Delete a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rollbar.com/api/1/team/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              }
+            ]
+          },
+          "docs": "Deletes a team. This action is irreversible."
+        },
+        {
+          "info": {
+            "name": "List a Team's Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/projects",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              }
+            ]
+          },
+          "docs": "Returns all projects assigned to a specific team."
+        },
+        {
+          "info": {
+            "name": "Assign a Project to a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/project/:projectId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              },
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the project."
+              }
+            ]
+          },
+          "docs": "Assigns a project to a team, granting the team access to that project."
+        },
+        {
+          "info": {
+            "name": "Remove a Project from a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/project/:projectId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              },
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the project."
+              }
+            ]
+          },
+          "docs": "Removes a project from a team, revoking the team's access to that project."
+        },
+        {
+          "info": {
+            "name": "Assign a User to a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/user/:userId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user."
+              }
+            ]
+          },
+          "docs": "Assigns a user to a team, granting them the team's access permissions."
+        },
+        {
+          "info": {
+            "name": "Remove a User from a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/user/:userId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user."
+              }
+            ]
+          },
+          "docs": "Removes a user from a team, revoking the team's access permissions for that user."
+        },
+        {
+          "info": {
+            "name": "List a Team's Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rollbar.com/api/1/team/:teamId/users",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the team."
+              }
+            ]
+          },
+          "docs": "Returns all users assigned to a specific team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

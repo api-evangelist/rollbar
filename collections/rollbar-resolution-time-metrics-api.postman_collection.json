@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "eea052f6-c395-4e84-a612-fd384c929393",
+      "name": "Resolution Time Metrics",
+      "description": {
+        "content": "Query time-to-resolution metrics for projects, filterable by environment, level, and framework.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "029fd459-1a1c-4b6f-b12d-3a1b7ee2ef58",
+          "name": "Get Resolution Time Metrics for a List of Projects",
+          "request": {
+            "name": "Get Resolution Time Metrics for a List of Projects",
+            "description": {
+              "content": "Returns resolution time (time-to-resolve) metrics for a provided list of project IDs. Results can be filtered by environments, levels, and frameworks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics",
+                "ttr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"environments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"levels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frameworks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1d01785-9a84-4cb1-9c25-e78421da2656",
+              "name": "Resolution time metrics results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "ttr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"environments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"levels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frameworks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"err\": 89,\n  \"result\": {\n    \"columns\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b80c4416-be39-497a-8f45-e8122e456373",
+              "name": "Bad request - invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "ttr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"environments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"levels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frameworks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd8355da-45d4-4387-b5d3-4d2b273de7d1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "ttr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"environments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"levels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frameworks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b42f0f1e-820a-4e2a-a945-132271dcdbf8",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "ttr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"environments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"levels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frameworks\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rollbar.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "db9261db-e66e-4965-a33a-dcb618e8b4f9",
+    "name": "Rollbar Deployment Access Tokens Resolution Time Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "75a8aacb-c675-41cd-91e2-2d58f1636a9d",
+      "name": "Items Metrics",
+      "description": {
+        "content": "Query metrics for specific items including occurrence counts and aggregate statistics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "690c1e9f-30c5-485e-9148-fab891aeceb2",
+          "name": "Get Metrics for a List of Items",
+          "request": {
+            "name": "Get Metrics for a List of Items",
+            "description": {
+              "content": "Returns metrics for a provided list of item IDs. Follows search/query semantics as a POST request. Requires a project read access token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"field\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": {}\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1362bb86-2461-4731-953a-bac711affe05",
+              "name": "Item metrics results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    },\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"err\": 2375,\n  \"result\": {\n    \"columns\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f8f7526-703c-402d-8c0d-bd212a19a1cb",
+              "name": "Bad request - invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    },\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad2860c3-996f-4f10-829f-6d671d2c7746",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    },\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28c1c5de-ec5c-423f-823d-8facff0eb176",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Rollbar-Access-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"item_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_time\": \"<integer>\",\n  \"end_time\": \"<integer>\",\n  \"filters\": [\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    },\n    {\n      \"field\": \"string\",\n      \"operator\": \"gte\",\n      \"value\": {}\n    }\n  ],\n  \"group_by\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rollbar.com/api/1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Rollbar-Access-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "55a0c012-3357-4215-b09e-909aa18c9365",
+    "name": "Rollbar Deployment Access Tokens Items Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.\n\nContact Support:\n Name: Rollbar Support",
+      "type": "text/plain"
+    }
+  }
+}

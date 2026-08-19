@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Items Metrics API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Items Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Metrics for a List of Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/metrics/items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns metrics for a provided list of item IDs. Follows search/query semantics as a POST request. Requires a project read access token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

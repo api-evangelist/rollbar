@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rollbar Deployment Access Tokens Source Maps API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Rollbar-Access-Token",
+      "value": "{{X-Rollbar-Access-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Source Maps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a JS Source Map",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rollbar.com/api/1/sourcemap",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a JavaScript source map file so that Rollbar can translate minified stack traces into readable source code references. The source map is associated with a specific version and minified URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
