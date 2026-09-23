@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rollbar Deployment Access Tokens Deploys API
+  title: Rollbar Deployment Deploys API
   description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
   version: '1'
   contact:
@@ -122,22 +122,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    UpdateDeployRequest:
-      type: object
-      description: Request body for updating a deployment status.
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: The new status for the deploy.
-          enum:
-          - succeeded
-          - failed
-          - timed_out
-        comment:
-          type: string
-          description: An updated comment for the deploy.
     CreateDeployRequest:
       type: object
       description: Request body for reporting a new deployment.
@@ -214,6 +198,18 @@ components:
         user_id:
           type: integer
           description: The Rollbar user ID who initiated the deploy.
+    CreateDeployResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            deploy_id:
+              type: integer
+              description: The ID of the newly created deploy.
     DeployResponse:
       type: object
       properties:
@@ -222,6 +218,22 @@ components:
           description: Error code. 0 indicates success.
         result:
           $ref: '#/components/schemas/Deploy'
+    UpdateDeployRequest:
+      type: object
+      description: Request body for updating a deployment status.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The new status for the deploy.
+          enum:
+          - succeeded
+          - failed
+          - timed_out
+        comment:
+          type: string
+          description: An updated comment for the deploy.
     DeployListResponse:
       type: object
       properties:
@@ -238,18 +250,6 @@ components:
             page:
               type: integer
               description: Current page number.
-    CreateDeployResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            deploy_id:
-              type: integer
-              description: The ID of the newly created deploy.
   parameters:
     DeployIdParam:
       name: deployId

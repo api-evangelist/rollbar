@@ -1,40 +1,52 @@
 {
   "provider": "rollbar",
   "sources": [
-    "rollbar-access-tokens-api-openapi.yml",
-    "rollbar-deploys-api-openapi.yml",
-    "rollbar-invites-api-openapi.yml",
-    "rollbar-items-api-openapi.yml",
-    "rollbar-items-metrics-api-openapi.yml",
-    "rollbar-notifications-api-openapi.yml",
-    "rollbar-occurrences-api-openapi.yml",
-    "rollbar-occurrences-metrics-api-openapi.yml",
-    "rollbar-projects-api-openapi.yml",
-    "rollbar-resolution-time-metrics-api-openapi.yml",
-    "rollbar-rql-jobs-api-openapi.yml",
-    "rollbar-source-maps-api-openapi.yml",
-    "rollbar-teams-api-openapi.yml",
-    "rollbar-users-api-openapi.yml"
+    "_original/rollbar-deployment-api-openapi.yml",
+    "_original/rollbar-metrics-api-openapi.yml",
+    "_original/rollbar-rest-api-openapi.yml",
+    "_original/rollbar-rql-api-openapi.yml"
   ],
   "outputs": [
-    "rollbar-access-tokens-api-openapi.yml",
     "rollbar-deploys-api-openapi.yml",
+    "rollbar-items-metrics-api-openapi.yml",
+    "rollbar-occurrences-metrics-api-openapi.yml",
+    "rollbar-resolution-time-metrics-api-openapi.yml",
+    "rollbar-access-tokens-api-openapi.yml",
     "rollbar-invites-api-openapi.yml",
     "rollbar-items-api-openapi.yml",
-    "rollbar-items-metrics-api-openapi.yml",
     "rollbar-notifications-api-openapi.yml",
     "rollbar-occurrences-api-openapi.yml",
-    "rollbar-occurrences-metrics-api-openapi.yml",
     "rollbar-projects-api-openapi.yml",
-    "rollbar-resolution-time-metrics-api-openapi.yml",
-    "rollbar-rql-jobs-api-openapi.yml",
     "rollbar-source-maps-api-openapi.yml",
     "rollbar-teams-api-openapi.yml",
-    "rollbar-users-api-openapi.yml"
+    "rollbar-users-api-openapi.yml",
+    "rollbar-rql-jobs-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "rollbar-deployment-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "rollbar-metrics-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "rollbar-rest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "rollbar-rql-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "rollbar-access-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-deploys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-invites-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-items-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-notifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-occurrences-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-occurrences-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-resolution-time-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-rql-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-source-maps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rollbar-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

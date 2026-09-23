@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rollbar Deployment Access Tokens Invites API
-  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  title: Rollbar REST Invites API
+  description: The Rollbar REST API provides programmatic access to the Rollbar error tracking and monitoring platform.
   version: '1'
   contact:
     name: Rollbar Support
@@ -107,33 +107,17 @@ paths:
         '404':
           description: Invitation not found
 components:
-  parameters:
-    TeamIdParam:
-      name: teamId
-      in: path
-      required: true
-      description: The ID of the team.
-      schema:
-        type: integer
   schemas:
-    InviteResponse:
+    InviteListResponse:
       type: object
       properties:
         err:
           type: integer
           description: Error code. 0 indicates success.
         result:
-          $ref: '#/components/schemas/Invite'
-    CreateInviteRequest:
-      type: object
-      description: Request body for inviting a user to a team.
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          description: The email address to send the invitation to.
-          format: email
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
     Invite:
       type: object
       description: An invitation to join a Rollbar team.
@@ -165,22 +149,38 @@ components:
         date_redeemed:
           type: integer
           description: Unix timestamp when the invitation was accepted.
-    InviteListResponse:
+    InviteResponse:
       type: object
       properties:
         err:
           type: integer
           description: Error code. 0 indicates success.
         result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invite'
+          $ref: '#/components/schemas/Invite'
+    CreateInviteRequest:
+      type: object
+      description: Request body for inviting a user to a team.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          description: The email address to send the invitation to.
+          format: email
+  parameters:
+    TeamIdParam:
+      name: teamId
+      in: path
+      required: true
+      description: The ID of the team.
+      schema:
+        type: integer
   securitySchemes:
     accessToken:
       type: apiKey
       in: header
       name: X-Rollbar-Access-Token
-      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+      description: Rollbar access token for authentication. Different token scopes are required for different operations.
 externalDocs:
-  description: Rollbar Deployment API Documentation
-  url: https://docs.rollbar.com/docs/deployment-api
+  description: Rollbar API Documentation
+  url: https://docs.rollbar.com/reference/getting-started-1

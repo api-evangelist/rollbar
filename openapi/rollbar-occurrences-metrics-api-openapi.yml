@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rollbar Deployment Access Tokens Occurrences Metrics API
-  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  title: Rollbar Metrics Occurrences Metrics API
+  description: The Rollbar Metrics API is part of Rollbar Analyze and provides programmatic access to metrics data for error tracking analysis and discovery. It enables developers to query resolution time metrics, occurrence counts, and other aggregate data across projects. The API supports filtering and grouping of results, making it useful for building dashboards, generating reports, and monitoring error trends over time.
   version: '1'
   contact:
     name: Rollbar Support
@@ -44,48 +44,6 @@ paths:
           description: Unprocessable entity
 components:
   schemas:
-    MetricsResponse:
-      type: object
-      description: Response containing metrics query results.
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          description: The metrics data results.
-          properties:
-            rows:
-              type: array
-              description: Array of result rows containing the queried metrics.
-              items:
-                type: object
-            columns:
-              type: array
-              description: Column definitions describing the result structure.
-              items:
-                type: string
-    MetricsFilter:
-      type: object
-      description: A filter condition for metrics queries.
-      properties:
-        field:
-          type: string
-          description: The field name to filter on.
-        operator:
-          type: string
-          description: The comparison operator.
-          enum:
-          - eq
-          - neq
-          - gt
-          - gte
-          - lt
-          - lte
-          - in
-          - nin
-        value:
-          description: The value to compare against. Type depends on the field and operator.
     OccurrencesMetricsRequest:
       type: object
       description: Request body for querying occurrence metrics over a time span.
@@ -118,12 +76,54 @@ components:
           - sum
           - min
           - max
+    MetricsFilter:
+      type: object
+      description: A filter condition for metrics queries.
+      properties:
+        field:
+          type: string
+          description: The field name to filter on.
+        operator:
+          type: string
+          description: The comparison operator.
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          - in
+          - nin
+        value:
+          description: The value to compare against. Type depends on the field and operator.
+    MetricsResponse:
+      type: object
+      description: Response containing metrics query results.
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          description: The metrics data results.
+          properties:
+            rows:
+              type: array
+              description: Array of result rows containing the queried metrics.
+              items:
+                type: object
+            columns:
+              type: array
+              description: Column definitions describing the result structure.
+              items:
+                type: string
   securitySchemes:
     accessToken:
       type: apiKey
       in: header
       name: X-Rollbar-Access-Token
-      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+      description: Rollbar access token with read scope for authentication.
 externalDocs:
-  description: Rollbar Deployment API Documentation
-  url: https://docs.rollbar.com/docs/deployment-api
+  description: Rollbar Metrics API Documentation
+  url: https://docs.rollbar.com/docs/metrics-api-examples

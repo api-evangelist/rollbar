@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rollbar Deployment Access Tokens Notifications API
-  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  title: Rollbar REST Notifications API
+  description: The Rollbar REST API provides programmatic access to the Rollbar error tracking and monitoring platform.
   version: '1'
   contact:
     name: Rollbar Support
@@ -171,7 +171,32 @@ paths:
           description: Rule not found
 components:
   schemas:
-    WebhookRuleResponse:
+    WebhookRuleListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The rule ID.
+              trigger:
+                type: string
+                description: The event trigger type.
+              filters:
+                type: array
+                description: Filter conditions.
+                items:
+                  type: object
+              config:
+                type: object
+                description: Rule configuration.
+    WebhookConfigResponse:
       type: object
       properties:
         err:
@@ -180,20 +205,35 @@ components:
         result:
           type: object
           properties:
-            id:
-              type: integer
-              description: The rule ID.
-            trigger:
+            enabled:
+              type: boolean
+              description: Whether the webhook integration is enabled.
+            url:
               type: string
-              description: The event trigger type.
-            filters:
-              type: array
-              description: Filter conditions.
-              items:
-                type: object
-            config:
-              type: object
-              description: Rule configuration.
+              description: The webhook URL.
+            format:
+              type: string
+              description: The payload format.
+              enum:
+              - json
+              - xml
+    UpdateWebhookConfigRequest:
+      type: object
+      description: Request body for updating webhook notification configuration.
+      properties:
+        enabled:
+          type: boolean
+          description: Whether the webhook integration is enabled.
+        url:
+          type: string
+          description: The URL to send webhook payloads to.
+          format: uri
+        format:
+          type: string
+          description: The format for webhook payloads.
+          enum:
+          - json
+          - xml
     CreateWebhookRuleRequest:
       type: object
       description: Request body for creating a webhook notification rule.
@@ -223,7 +263,7 @@ components:
               type: string
               description: Override URL for this specific rule.
               format: uri
-    WebhookConfigResponse:
+    WebhookRuleResponse:
       type: object
       properties:
         err:
@@ -232,66 +272,26 @@ components:
         result:
           type: object
           properties:
-            enabled:
-              type: boolean
-              description: Whether the webhook integration is enabled.
-            url:
+            id:
+              type: integer
+              description: The rule ID.
+            trigger:
               type: string
-              description: The webhook URL.
-            format:
-              type: string
-              description: The payload format.
-              enum:
-              - json
-              - xml
-    WebhookRuleListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: The rule ID.
-              trigger:
-                type: string
-                description: The event trigger type.
-              filters:
-                type: array
-                description: Filter conditions.
-                items:
-                  type: object
-              config:
+              description: The event trigger type.
+            filters:
+              type: array
+              description: Filter conditions.
+              items:
                 type: object
-                description: Rule configuration.
-    UpdateWebhookConfigRequest:
-      type: object
-      description: Request body for updating webhook notification configuration.
-      properties:
-        enabled:
-          type: boolean
-          description: Whether the webhook integration is enabled.
-        url:
-          type: string
-          description: The URL to send webhook payloads to.
-          format: uri
-        format:
-          type: string
-          description: The format for webhook payloads.
-          enum:
-          - json
-          - xml
+            config:
+              type: object
+              description: Rule configuration.
   securitySchemes:
     accessToken:
       type: apiKey
       in: header
       name: X-Rollbar-Access-Token
-      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+      description: Rollbar access token for authentication. Different token scopes are required for different operations.
 externalDocs:
-  description: Rollbar Deployment API Documentation
-  url: https://docs.rollbar.com/docs/deployment-api
+  description: Rollbar API Documentation
+  url: https://docs.rollbar.com/reference/getting-started-1

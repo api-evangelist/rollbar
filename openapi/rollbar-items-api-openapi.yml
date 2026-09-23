@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rollbar Deployment Access Tokens Items API
-  description: The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track which code version introduced a bug, and automatically resolve items that were fixed in a deploy. The API accepts deployment metadata such as revision, environment, and rollbar_username, and integrates with CI/CD pipelines to provide continuous visibility into how deployments affect application stability.
+  title: Rollbar REST Items API
+  description: The Rollbar REST API provides programmatic access to the Rollbar error tracking and monitoring platform.
   version: '1'
   contact:
     name: Rollbar Support
@@ -128,13 +128,13 @@ paths:
           description: Item not found
 components:
   parameters:
-    ItemIdParam:
-      name: itemId
-      in: path
-      required: true
-      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+    EnvironmentFilter:
+      name: environment
+      in: query
+      required: false
+      description: Filter items by environment name.
       schema:
-        type: integer
+        type: string
     PageParam:
       name: page
       in: query
@@ -144,32 +144,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-    StatusFilter:
-      name: status
-      in: query
-      required: false
-      description: Filter items by status.
-      schema:
-        type: string
-        enum:
-        - active
-        - resolved
-        - muted
-        - any
-    CounterParam:
-      name: counter
-      in: path
-      required: true
-      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
-      schema:
-        type: integer
-    EnvironmentFilter:
-      name: environment
-      in: query
-      required: false
-      description: Filter items by environment name.
-      schema:
-        type: string
     LevelFilter:
       name: level
       in: query
@@ -183,7 +157,94 @@ components:
         - warning
         - info
         - debug
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
+    CounterParam:
+      name: counter
+      in: path
+      required: true
+      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
+      schema:
+        type: integer
+    StatusFilter:
+      name: status
+      in: query
+      required: false
+      description: Filter items by status.
+      schema:
+        type: string
+        enum:
+        - active
+        - resolved
+        - muted
+        - any
   schemas:
+    CreateItemRequest:
+      type: object
+      description: Request body for creating a new item (error or message report).
+      required:
+      - access_token
+      - data
+      properties:
+        access_token:
+          type: string
+          description: A post_server_item or post_client_item access token.
+        data:
+          type: object
+          description: The item data payload.
+          required:
+          - environment
+          - body
+          properties:
+            environment:
+              type: string
+              description: The environment name (e.g., production, staging).
+              maxLength: 255
+            body:
+              type: object
+              description: The body of the item, containing error trace or message.
+            level:
+              type: string
+              description: The severity level.
+              enum:
+              - critical
+              - error
+              - warning
+              - info
+              - debug
+            timestamp:
+              type: integer
+              description: Unix timestamp when the error occurred.
+            code_version:
+              type: string
+              description: A string identifying the version of the application code.
+              maxLength: 40
+            platform:
+              type: string
+              description: The platform on which the error occurred.
+            language:
+              type: string
+              description: The programming language of the code.
+            framework:
+              type: string
+              description: The framework being used.
+            server:
+              type: object
+              description: Server-related metadata.
+            request:
+              type: object
+              description: HTTP request metadata if applicable.
+            person:
+              type: object
+              description: Person/user who experienced the error.
+            custom:
+              type: object
+              description: Custom key-value data to include with the item.
     UpdateItemRequest:
       type: object
       description: Request body for updating an item.
@@ -213,6 +274,30 @@ components:
         resolved_in_version:
           type: string
           description: The version in which this item was resolved.
+    ItemListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Item'
+            page:
+              type: integer
+              description: Current page number.
+    ItemResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Item'
     Item:
       type: object
       description: An item represents a unique error or message tracked by Rollbar, grouped by fingerprint.
@@ -278,97 +363,12 @@ components:
         assigned_user_id:
           type: integer
           description: The user ID of the assigned user.
-    CreateItemRequest:
-      type: object
-      description: Request body for creating a new item (error or message report).
-      required:
-      - access_token
-      - data
-      properties:
-        access_token:
-          type: string
-          description: A post_server_item or post_client_item access token.
-        data:
-          type: object
-          description: The item data payload.
-          required:
-          - environment
-          - body
-          properties:
-            environment:
-              type: string
-              description: The environment name (e.g., production, staging).
-              maxLength: 255
-            body:
-              type: object
-              description: The body of the item, containing error trace or message.
-            level:
-              type: string
-              description: The severity level.
-              enum:
-              - critical
-              - error
-              - warning
-              - info
-              - debug
-            timestamp:
-              type: integer
-              description: Unix timestamp when the error occurred.
-            code_version:
-              type: string
-              description: A string identifying the version of the application code.
-              maxLength: 40
-            platform:
-              type: string
-              description: The platform on which the error occurred.
-            language:
-              type: string
-              description: The programming language of the code.
-            framework:
-              type: string
-              description: The framework being used.
-            server:
-              type: object
-              description: Server-related metadata.
-            request:
-              type: object
-              description: HTTP request metadata if applicable.
-            person:
-              type: object
-              description: Person/user who experienced the error.
-            custom:
-              type: object
-              description: Custom key-value data to include with the item.
-    ItemListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            items:
-              type: array
-              items:
-                $ref: '#/components/schemas/Item'
-            page:
-              type: integer
-              description: Current page number.
-    ItemResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Item'
   securitySchemes:
     accessToken:
       type: apiKey
       in: header
       name: X-Rollbar-Access-Token
-      description: Rollbar access token for authentication. Requires write or post_server_item scope for creating deploys.
+      description: Rollbar access token for authentication. Different token scopes are required for different operations.
 externalDocs:
-  description: Rollbar Deployment API Documentation
-  url: https://docs.rollbar.com/docs/deployment-api
+  description: Rollbar API Documentation
+  url: https://docs.rollbar.com/reference/getting-started-1
