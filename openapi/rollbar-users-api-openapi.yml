@@ -53,6 +53,14 @@ paths:
         '404':
           description: User not found
 components:
+  parameters:
+    UserIdParam:
+      name: userId
+      in: path
+      required: true
+      description: The ID of the user.
+      schema:
+        type: integer
   schemas:
     User:
       type: object
@@ -68,6 +76,14 @@ components:
           type: string
           description: The user's email address.
           format: email
+    UserResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/User'
     UserListResponse:
       type: object
       properties:
@@ -81,22 +97,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/User'
-    UserResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/User'
-  parameters:
-    UserIdParam:
-      name: userId
-      in: path
-      required: true
-      description: The ID of the user.
-      schema:
-        type: integer
   securitySchemes:
     accessToken:
       type: apiKey

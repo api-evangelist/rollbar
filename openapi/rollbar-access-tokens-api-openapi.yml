@@ -94,6 +94,14 @@ paths:
         '404':
           description: Access token not found
 components:
+  parameters:
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
   schemas:
     AccessTokenResponse:
       type: object
@@ -103,50 +111,6 @@ components:
           description: Error code. 0 indicates success.
         result:
           $ref: '#/components/schemas/AccessToken'
-    AccessToken:
-      type: object
-      description: A project access token used for API authentication.
-      properties:
-        project_id:
-          type: integer
-          description: The project this token belongs to.
-        access_token:
-          type: string
-          description: The access token string.
-        name:
-          type: string
-          description: A descriptive name for the token.
-        status:
-          type: string
-          description: The status of the token.
-          enum:
-          - enabled
-          - disabled
-        scopes:
-          type: array
-          description: The scopes granted to this token.
-          items:
-            type: string
-            enum:
-            - read
-            - write
-            - post_server_item
-            - post_client_item
-        cur_rate_limit_window_count:
-          type: integer
-          description: Current number of calls in the rate limit window.
-        rate_limit_window_size:
-          type: integer
-          description: Size of the rate limit window in seconds.
-        rate_limit_window_count:
-          type: integer
-          description: Maximum number of calls allowed in the rate limit window.
-        date_created:
-          type: integer
-          description: Unix timestamp when the token was created.
-        date_modified:
-          type: integer
-          description: Unix timestamp when the token was last modified.
     UpdateAccessTokenRequest:
       type: object
       description: Request body for updating a project access token.
@@ -206,14 +170,50 @@ components:
         rate_limit_window_count:
           type: integer
           description: Maximum number of calls allowed in the rate limit window.
-  parameters:
-    ProjectIdParam:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the project.
-      schema:
-        type: integer
+    AccessToken:
+      type: object
+      description: A project access token used for API authentication.
+      properties:
+        project_id:
+          type: integer
+          description: The project this token belongs to.
+        access_token:
+          type: string
+          description: The access token string.
+        name:
+          type: string
+          description: A descriptive name for the token.
+        status:
+          type: string
+          description: The status of the token.
+          enum:
+          - enabled
+          - disabled
+        scopes:
+          type: array
+          description: The scopes granted to this token.
+          items:
+            type: string
+            enum:
+            - read
+            - write
+            - post_server_item
+            - post_client_item
+        cur_rate_limit_window_count:
+          type: integer
+          description: Current number of calls in the rate limit window.
+        rate_limit_window_size:
+          type: integer
+          description: Size of the rate limit window in seconds.
+        rate_limit_window_count:
+          type: integer
+          description: Maximum number of calls allowed in the rate limit window.
+        date_created:
+          type: integer
+          description: Unix timestamp when the token was created.
+        date_modified:
+          type: integer
+          description: Unix timestamp when the token was last modified.
   securitySchemes:
     accessToken:
       type: apiKey

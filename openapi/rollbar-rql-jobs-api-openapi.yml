@@ -101,62 +101,6 @@ paths:
           description: Job has not completed successfully
 components:
   schemas:
-    RqlJobListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/RqlJob'
-    RqlJobResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/RqlJob'
-    CreateRqlJobRequest:
-      type: object
-      description: Request body for creating a new RQL job.
-      required:
-      - query_string
-      properties:
-        query_string:
-          type: string
-          description: The RQL query to execute. Supports SELECT queries against the item_occurrence and deploy tables with WHERE, GROUP BY, ORDER BY, and LIMIT clauses.
-        force_refresh:
-          type: boolean
-          description: Whether to force a fresh query instead of using cached results.
-    RqlJobResultResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            columns:
-              type: array
-              description: Column names from the query result.
-              items:
-                type: string
-            rows:
-              type: array
-              description: Rows of data matching the query. Each row is an array of values corresponding to the columns.
-              items:
-                type: array
-                items: {}
-            rowcount:
-              type: integer
-              description: Total number of rows in the result.
-            selectionCondition:
-              type: string
-              description: The parsed selection condition from the query.
     RqlJob:
       type: object
       description: An RQL job representing a submitted query.
@@ -189,6 +133,62 @@ components:
         date_modified:
           type: integer
           description: Unix timestamp when the job was last updated.
+    RqlJobResultResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            columns:
+              type: array
+              description: Column names from the query result.
+              items:
+                type: string
+            rows:
+              type: array
+              description: Rows of data matching the query. Each row is an array of values corresponding to the columns.
+              items:
+                type: array
+                items: {}
+            rowcount:
+              type: integer
+              description: Total number of rows in the result.
+            selectionCondition:
+              type: string
+              description: The parsed selection condition from the query.
+    RqlJobListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/RqlJob'
+    RqlJobResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/RqlJob'
+    CreateRqlJobRequest:
+      type: object
+      description: Request body for creating a new RQL job.
+      required:
+      - query_string
+      properties:
+        query_string:
+          type: string
+          description: The RQL query to execute. Supports SELECT queries against the item_occurrence and deploy tables with WHERE, GROUP BY, ORDER BY, and LIMIT clauses.
+        force_refresh:
+          type: boolean
+          description: Whether to force a fresh query instead of using cached results.
   parameters:
     JobIdParam:
       name: jobId

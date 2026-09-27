@@ -198,18 +198,18 @@ paths:
           description: Team not found
 components:
   parameters:
-    UserIdParam:
-      name: userId
-      in: path
-      required: true
-      description: The ID of the user.
-      schema:
-        type: integer
     ProjectIdParam:
       name: projectId
       in: path
       required: true
       description: The ID of the project.
+      schema:
+        type: integer
+    UserIdParam:
+      name: userId
+      in: path
+      required: true
+      description: The ID of the user.
       schema:
         type: integer
     TeamIdParam:
@@ -220,26 +220,16 @@ components:
       schema:
         type: integer
   schemas:
-    Team:
+    TeamListResponse:
       type: object
-      description: A team in Rollbar that groups users and controls project access.
       properties:
-        id:
+        err:
           type: integer
-          description: The team ID.
-        account_id:
-          type: integer
-          description: The account ID this team belongs to.
-        name:
-          type: string
-          description: The name of the team.
-        access_level:
-          type: string
-          description: The access level granted to team members.
-          enum:
-          - standard
-          - light
-          - view
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
     UserListResponse:
       type: object
       properties:
@@ -253,20 +243,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/User'
-    User:
-      type: object
-      description: A user in a Rollbar account.
-      properties:
-        id:
-          type: integer
-          description: The user ID.
-        username:
-          type: string
-          description: The username.
-        email:
-          type: string
-          description: The user's email address.
-          format: email
     CreateTeamRequest:
       type: object
       description: Request body for creating a new team.
@@ -283,34 +259,6 @@ components:
           - standard
           - light
           - view
-    TeamResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Team'
-    ProjectListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
-    TeamListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     Project:
       type: object
       description: A project in Rollbar, the top-level organizational unit for error tracking.
@@ -336,6 +284,58 @@ components:
           enum:
           - enabled
           - disabled
+    Team:
+      type: object
+      description: A team in Rollbar that groups users and controls project access.
+      properties:
+        id:
+          type: integer
+          description: The team ID.
+        account_id:
+          type: integer
+          description: The account ID this team belongs to.
+        name:
+          type: string
+          description: The name of the team.
+        access_level:
+          type: string
+          description: The access level granted to team members.
+          enum:
+          - standard
+          - light
+          - view
+    User:
+      type: object
+      description: A user in a Rollbar account.
+      properties:
+        id:
+          type: integer
+          description: The user ID.
+        username:
+          type: string
+          description: The username.
+        email:
+          type: string
+          description: The user's email address.
+          format: email
+    ProjectListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    TeamResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Team'
   securitySchemes:
     accessToken:
       type: apiKey

@@ -122,6 +122,22 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    DeployListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            deploys:
+              type: array
+              items:
+                $ref: '#/components/schemas/Deploy'
+            page:
+              type: integer
+              description: Current page number.
     CreateDeployRequest:
       type: object
       description: Request body for reporting a new deployment.
@@ -155,6 +171,42 @@ components:
           - succeeded
           - failed
           default: succeeded
+    CreateDeployResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            deploy_id:
+              type: integer
+              description: The ID of the newly created deploy.
+    DeployResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Deploy'
+    UpdateDeployRequest:
+      type: object
+      description: Request body for updating a deployment status.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The new status for the deploy.
+          enum:
+          - succeeded
+          - failed
+          - timed_out
+        comment:
+          type: string
+          description: An updated comment for the deploy.
     Deploy:
       type: object
       description: A deployment record in Rollbar representing a code release.
@@ -198,58 +250,6 @@ components:
         user_id:
           type: integer
           description: The Rollbar user ID who initiated the deploy.
-    CreateDeployResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            deploy_id:
-              type: integer
-              description: The ID of the newly created deploy.
-    DeployResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Deploy'
-    UpdateDeployRequest:
-      type: object
-      description: Request body for updating a deployment status.
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: The new status for the deploy.
-          enum:
-          - succeeded
-          - failed
-          - timed_out
-        comment:
-          type: string
-          description: An updated comment for the deploy.
-    DeployListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            deploys:
-              type: array
-              items:
-                $ref: '#/components/schemas/Deploy'
-            page:
-              type: integer
-              description: Current page number.
   parameters:
     DeployIdParam:
       name: deployId

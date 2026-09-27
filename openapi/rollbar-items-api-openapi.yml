@@ -128,22 +128,6 @@ paths:
           description: Item not found
 components:
   parameters:
-    EnvironmentFilter:
-      name: environment
-      in: query
-      required: false
-      description: Filter items by environment name.
-      schema:
-        type: string
-    PageParam:
-      name: page
-      in: query
-      required: false
-      description: Page number for pagination. Defaults to 1.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     LevelFilter:
       name: level
       in: query
@@ -157,20 +141,15 @@ components:
         - warning
         - info
         - debug
-    ItemIdParam:
-      name: itemId
-      in: path
-      required: true
-      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+    PageParam:
+      name: page
+      in: query
+      required: false
+      description: Page number for pagination. Defaults to 1.
       schema:
         type: integer
-    CounterParam:
-      name: counter
-      in: path
-      required: true
-      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
-      schema:
-        type: integer
+        minimum: 1
+        default: 1
     StatusFilter:
       name: status
       in: query
@@ -183,7 +162,65 @@ components:
         - resolved
         - muted
         - any
+    CounterParam:
+      name: counter
+      in: path
+      required: true
+      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
+      schema:
+        type: integer
+    EnvironmentFilter:
+      name: environment
+      in: query
+      required: false
+      description: Filter items by environment name.
+      schema:
+        type: string
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
   schemas:
+    ItemResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Item'
+    UpdateItemRequest:
+      type: object
+      description: Request body for updating an item.
+      properties:
+        status:
+          type: string
+          description: The new status for the item.
+          enum:
+          - active
+          - resolved
+          - muted
+        level:
+          type: string
+          description: The new severity level.
+          enum:
+          - critical
+          - error
+          - warning
+          - info
+          - debug
+        title:
+          type: string
+          description: A custom title for the item.
+        assigned_user_id:
+          type: integer
+          description: The user ID to assign this item to.
+        resolved_in_version:
+          type: string
+          description: The version in which this item was resolved.
     CreateItemRequest:
       type: object
       description: Request body for creating a new item (error or message report).
@@ -245,35 +282,6 @@ components:
             custom:
               type: object
               description: Custom key-value data to include with the item.
-    UpdateItemRequest:
-      type: object
-      description: Request body for updating an item.
-      properties:
-        status:
-          type: string
-          description: The new status for the item.
-          enum:
-          - active
-          - resolved
-          - muted
-        level:
-          type: string
-          description: The new severity level.
-          enum:
-          - critical
-          - error
-          - warning
-          - info
-          - debug
-        title:
-          type: string
-          description: A custom title for the item.
-        assigned_user_id:
-          type: integer
-          description: The user ID to assign this item to.
-        resolved_in_version:
-          type: string
-          description: The version in which this item was resolved.
     ItemListResponse:
       type: object
       properties:
@@ -290,14 +298,6 @@ components:
             page:
               type: integer
               description: Current page number.
-    ItemResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Item'
     Item:
       type: object
       description: An item represents a unique error or message tracked by Rollbar, grouped by fingerprint.
