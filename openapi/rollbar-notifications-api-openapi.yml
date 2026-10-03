@@ -171,6 +171,29 @@ paths:
           description: Rule not found
 components:
   schemas:
+    WebhookRuleResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: The rule ID.
+            trigger:
+              type: string
+              description: The event trigger type.
+            filters:
+              type: array
+              description: Filter conditions.
+              items:
+                type: object
+            config:
+              type: object
+              description: Rule configuration.
     WebhookRuleListResponse:
       type: object
       properties:
@@ -217,23 +240,6 @@ components:
               enum:
               - json
               - xml
-    UpdateWebhookConfigRequest:
-      type: object
-      description: Request body for updating webhook notification configuration.
-      properties:
-        enabled:
-          type: boolean
-          description: Whether the webhook integration is enabled.
-        url:
-          type: string
-          description: The URL to send webhook payloads to.
-          format: uri
-        format:
-          type: string
-          description: The format for webhook payloads.
-          enum:
-          - json
-          - xml
     CreateWebhookRuleRequest:
       type: object
       description: Request body for creating a webhook notification rule.
@@ -263,29 +269,23 @@ components:
               type: string
               description: Override URL for this specific rule.
               format: uri
-    WebhookRuleResponse:
+    UpdateWebhookConfigRequest:
       type: object
+      description: Request body for updating webhook notification configuration.
       properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: The rule ID.
-            trigger:
-              type: string
-              description: The event trigger type.
-            filters:
-              type: array
-              description: Filter conditions.
-              items:
-                type: object
-            config:
-              type: object
-              description: Rule configuration.
+        enabled:
+          type: boolean
+          description: Whether the webhook integration is enabled.
+        url:
+          type: string
+          description: The URL to send webhook payloads to.
+          format: uri
+        format:
+          type: string
+          description: The format for webhook payloads.
+          enum:
+          - json
+          - xml
   securitySchemes:
     accessToken:
       type: apiKey

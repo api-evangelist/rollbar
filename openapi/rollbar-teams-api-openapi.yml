@@ -198,13 +198,6 @@ paths:
           description: Team not found
 components:
   parameters:
-    ProjectIdParam:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the project.
-      schema:
-        type: integer
     UserIdParam:
       name: userId
       in: path
@@ -219,17 +212,14 @@ components:
       description: The ID of the team.
       schema:
         type: integer
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
   schemas:
-    TeamListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     UserListResponse:
       type: object
       properties:
@@ -243,22 +233,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/User'
-    CreateTeamRequest:
-      type: object
-      description: Request body for creating a new team.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The name of the team.
-        access_level:
-          type: string
-          description: The access level to grant to team members.
-          enum:
-          - standard
-          - light
-          - view
     Project:
       type: object
       description: A project in Rollbar, the top-level organizational unit for error tracking.
@@ -304,6 +278,22 @@ components:
           - standard
           - light
           - view
+    CreateTeamRequest:
+      type: object
+      description: Request body for creating a new team.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the team.
+        access_level:
+          type: string
+          description: The access level to grant to team members.
+          enum:
+          - standard
+          - light
+          - view
     User:
       type: object
       description: A user in a Rollbar account.
@@ -318,6 +308,24 @@ components:
           type: string
           description: The user's email address.
           format: email
+    TeamResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Team'
+    TeamListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
     ProjectListResponse:
       type: object
       properties:
@@ -328,14 +336,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Project'
-    TeamResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Team'
   securitySchemes:
     accessToken:
       type: apiKey

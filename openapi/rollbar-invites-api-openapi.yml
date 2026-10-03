@@ -118,14 +118,6 @@ components:
           type: string
           description: The email address to send the invitation to.
           format: email
-    InviteResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Invite'
     InviteListResponse:
       type: object
       properties:
@@ -136,6 +128,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Invite'
+    InviteResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Invite'
     Invite:
       type: object
       description: An invitation to join a Rollbar team.

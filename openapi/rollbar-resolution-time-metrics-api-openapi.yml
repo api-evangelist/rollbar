@@ -44,27 +44,6 @@ paths:
           description: Unprocessable entity
 components:
   schemas:
-    MetricsResponse:
-      type: object
-      description: Response containing metrics query results.
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          description: The metrics data results.
-          properties:
-            rows:
-              type: array
-              description: Array of result rows containing the queried metrics.
-              items:
-                type: object
-            columns:
-              type: array
-              description: Column definitions describing the result structure.
-              items:
-                type: string
     ResolutionTimeMetricsRequest:
       type: object
       description: Request body for querying resolution time metrics across projects.
@@ -103,6 +82,27 @@ components:
           description: Filter by framework identifiers.
           items:
             type: string
+    MetricsResponse:
+      type: object
+      description: Response containing metrics query results.
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          description: The metrics data results.
+          properties:
+            rows:
+              type: array
+              description: Array of result rows containing the queried metrics.
+              items:
+                type: object
+            columns:
+              type: array
+              description: Column definitions describing the result structure.
+              items:
+                type: string
   securitySchemes:
     accessToken:
       type: apiKey

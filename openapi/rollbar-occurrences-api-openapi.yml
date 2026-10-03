@@ -82,6 +82,13 @@ paths:
           description: Occurrence not found
 components:
   parameters:
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
     PageParam:
       name: page
       in: query
@@ -91,14 +98,15 @@ components:
         type: integer
         minimum: 1
         default: 1
-    ItemIdParam:
-      name: itemId
-      in: path
-      required: true
-      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
-      schema:
-        type: integer
   schemas:
+    OccurrenceResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Occurrence'
     Occurrence:
       type: object
       description: An occurrence represents a single instance of an error or message.
@@ -134,14 +142,6 @@ components:
             page:
               type: integer
               description: Current page number.
-    OccurrenceResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Occurrence'
   securitySchemes:
     accessToken:
       type: apiKey

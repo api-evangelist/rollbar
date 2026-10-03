@@ -53,14 +53,6 @@ paths:
         '404':
           description: User not found
 components:
-  parameters:
-    UserIdParam:
-      name: userId
-      in: path
-      required: true
-      description: The ID of the user.
-      schema:
-        type: integer
   schemas:
     User:
       type: object
@@ -97,6 +89,14 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/User'
+  parameters:
+    UserIdParam:
+      name: userId
+      in: path
+      required: true
+      description: The ID of the user.
+      schema:
+        type: integer
   securitySchemes:
     accessToken:
       type: apiKey

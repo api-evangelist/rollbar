@@ -101,6 +101,32 @@ paths:
           description: Job has not completed successfully
 components:
   schemas:
+    RqlJobResultResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            columns:
+              type: array
+              description: Column names from the query result.
+              items:
+                type: string
+            rows:
+              type: array
+              description: Rows of data matching the query. Each row is an array of values corresponding to the columns.
+              items:
+                type: array
+                items: {}
+            rowcount:
+              type: integer
+              description: Total number of rows in the result.
+            selectionCondition:
+              type: string
+              description: The parsed selection condition from the query.
     RqlJob:
       type: object
       description: An RQL job representing a submitted query.
@@ -133,32 +159,6 @@ components:
         date_modified:
           type: integer
           description: Unix timestamp when the job was last updated.
-    RqlJobResultResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            columns:
-              type: array
-              description: Column names from the query result.
-              items:
-                type: string
-            rows:
-              type: array
-              description: Rows of data matching the query. Each row is an array of values corresponding to the columns.
-              items:
-                type: array
-                items: {}
-            rowcount:
-              type: integer
-              description: Total number of rows in the result.
-            selectionCondition:
-              type: string
-              description: The parsed selection condition from the query.
     RqlJobListResponse:
       type: object
       properties:

@@ -94,56 +94,7 @@ paths:
         '404':
           description: Access token not found
 components:
-  parameters:
-    ProjectIdParam:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the project.
-      schema:
-        type: integer
   schemas:
-    AccessTokenResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/AccessToken'
-    UpdateAccessTokenRequest:
-      type: object
-      description: Request body for updating a project access token.
-      properties:
-        name:
-          type: string
-          description: A new descriptive name for the token.
-        scopes:
-          type: array
-          description: Updated scopes for this token.
-          items:
-            type: string
-            enum:
-            - read
-            - write
-            - post_server_item
-            - post_client_item
-        rate_limit_window_size:
-          type: integer
-          description: Updated rate limit window size in seconds.
-        rate_limit_window_count:
-          type: integer
-          description: Updated maximum calls in the rate limit window.
-    AccessTokenListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessToken'
     CreateAccessTokenRequest:
       type: object
       description: Request body for creating a new project access token.
@@ -214,6 +165,55 @@ components:
         date_modified:
           type: integer
           description: Unix timestamp when the token was last modified.
+    AccessTokenListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessToken'
+    AccessTokenResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/AccessToken'
+    UpdateAccessTokenRequest:
+      type: object
+      description: Request body for updating a project access token.
+      properties:
+        name:
+          type: string
+          description: A new descriptive name for the token.
+        scopes:
+          type: array
+          description: Updated scopes for this token.
+          items:
+            type: string
+            enum:
+            - read
+            - write
+            - post_server_item
+            - post_client_item
+        rate_limit_window_size:
+          type: integer
+          description: Updated rate limit window size in seconds.
+        rate_limit_window_count:
+          type: integer
+          description: Updated maximum calls in the rate limit window.
+  parameters:
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
   securitySchemes:
     accessToken:
       type: apiKey

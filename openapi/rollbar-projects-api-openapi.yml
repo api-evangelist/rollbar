@@ -91,15 +91,15 @@ paths:
         '404':
           description: Project not found
 components:
-  parameters:
-    ProjectIdParam:
-      name: projectId
-      in: path
-      required: true
-      description: The ID of the project.
-      schema:
-        type: integer
   schemas:
+    ProjectResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Project'
     Project:
       type: object
       description: A project in Rollbar, the top-level organizational unit for error tracking.
@@ -125,24 +125,6 @@ components:
           enum:
           - enabled
           - disabled
-    ProjectResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Project'
-    ProjectListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
     CreateProjectRequest:
       type: object
       description: Request body for creating a new project.
@@ -155,6 +137,24 @@ components:
         source_project_id:
           type: integer
           description: Optional project ID to duplicate settings from.
+    ProjectListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+  parameters:
+    ProjectIdParam:
+      name: projectId
+      in: path
+      required: true
+      description: The ID of the project.
+      schema:
+        type: integer
   securitySchemes:
     accessToken:
       type: apiKey

@@ -128,6 +128,20 @@ paths:
           description: Item not found
 components:
   parameters:
+    CounterParam:
+      name: counter
+      in: path
+      required: true
+      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
+      schema:
+        type: integer
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
     LevelFilter:
       name: level
       in: query
@@ -141,15 +155,13 @@ components:
         - warning
         - info
         - debug
-    PageParam:
-      name: page
+    EnvironmentFilter:
+      name: environment
       in: query
       required: false
-      description: Page number for pagination. Defaults to 1.
+      description: Filter items by environment name.
       schema:
-        type: integer
-        minimum: 1
-        default: 1
+        type: string
     StatusFilter:
       name: status
       in: query
@@ -162,27 +174,15 @@ components:
         - resolved
         - muted
         - any
-    CounterParam:
-      name: counter
-      in: path
-      required: true
-      description: The project counter for an item, as shown in Rollbar URLs (e.g., items/456 where 456 is the counter).
-      schema:
-        type: integer
-    EnvironmentFilter:
-      name: environment
+    PageParam:
+      name: page
       in: query
       required: false
-      description: Filter items by environment name.
-      schema:
-        type: string
-    ItemIdParam:
-      name: itemId
-      in: path
-      required: true
-      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      description: Page number for pagination. Defaults to 1.
       schema:
         type: integer
+        minimum: 1
+        default: 1
   schemas:
     ItemResponse:
       type: object
@@ -282,22 +282,6 @@ components:
             custom:
               type: object
               description: Custom key-value data to include with the item.
-    ItemListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            items:
-              type: array
-              items:
-                $ref: '#/components/schemas/Item'
-            page:
-              type: integer
-              description: Current page number.
     Item:
       type: object
       description: An item represents a unique error or message tracked by Rollbar, grouped by fingerprint.
@@ -363,6 +347,22 @@ components:
         assigned_user_id:
           type: integer
           description: The user ID of the assigned user.
+    ItemListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Item'
+            page:
+              type: integer
+              description: Current page number.
   securitySchemes:
     accessToken:
       type: apiKey

@@ -121,23 +121,66 @@ paths:
         '401':
           description: Unauthorized
 components:
+  parameters:
+    DeployIdParam:
+      name: deployId
+      in: path
+      required: true
+      description: The ID of the deployment.
+      schema:
+        type: integer
   schemas:
-    DeployListResponse:
+    DeployResponse:
       type: object
       properties:
         err:
           type: integer
           description: Error code. 0 indicates success.
         result:
-          type: object
-          properties:
-            deploys:
-              type: array
-              items:
-                $ref: '#/components/schemas/Deploy'
-            page:
-              type: integer
-              description: Current page number.
+          $ref: '#/components/schemas/Deploy'
+    Deploy:
+      type: object
+      description: A deployment record in Rollbar representing a code release.
+      properties:
+        id:
+          type: integer
+          description: The deploy ID.
+        project_id:
+          type: integer
+          description: The project ID this deploy belongs to.
+        environment:
+          type: string
+          description: The environment the deploy was made to (e.g., production, staging).
+        revision:
+          type: string
+          description: The revision identifier, typically a Git SHA.
+          maxLength: 40
+        local_username:
+          type: string
+          description: The local username of the person who performed the deploy.
+        rollbar_username:
+          type: string
+          description: The Rollbar username of the person who performed the deploy.
+        comment:
+          type: string
+          description: An optional comment describing the deploy.
+        status:
+          type: string
+          description: The status of the deployment.
+          enum:
+          - started
+          - succeeded
+          - failed
+          - timed_out
+        start_time:
+          type: integer
+          description: Unix timestamp when the deploy started.
+        finish_time:
+          type: integer
+          description: Unix timestamp when the deploy finished.
+        user_id:
+          type: integer
+          description: The Rollbar user ID who initiated the deploy.
     CreateDeployRequest:
       type: object
       description: Request body for reporting a new deployment.
@@ -183,14 +226,6 @@ components:
             deploy_id:
               type: integer
               description: The ID of the newly created deploy.
-    DeployResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Deploy'
     UpdateDeployRequest:
       type: object
       description: Request body for updating a deployment status.
@@ -207,57 +242,22 @@ components:
         comment:
           type: string
           description: An updated comment for the deploy.
-    Deploy:
+    DeployListResponse:
       type: object
-      description: A deployment record in Rollbar representing a code release.
       properties:
-        id:
+        err:
           type: integer
-          description: The deploy ID.
-        project_id:
-          type: integer
-          description: The project ID this deploy belongs to.
-        environment:
-          type: string
-          description: The environment the deploy was made to (e.g., production, staging).
-        revision:
-          type: string
-          description: The revision identifier, typically a Git SHA.
-          maxLength: 40
-        local_username:
-          type: string
-          description: The local username of the person who performed the deploy.
-        rollbar_username:
-          type: string
-          description: The Rollbar username of the person who performed the deploy.
-        comment:
-          type: string
-          description: An optional comment describing the deploy.
-        status:
-          type: string
-          description: The status of the deployment.
-          enum:
-          - started
-          - succeeded
-          - failed
-          - timed_out
-        start_time:
-          type: integer
-          description: Unix timestamp when the deploy started.
-        finish_time:
-          type: integer
-          description: Unix timestamp when the deploy finished.
-        user_id:
-          type: integer
-          description: The Rollbar user ID who initiated the deploy.
-  parameters:
-    DeployIdParam:
-      name: deployId
-      in: path
-      required: true
-      description: The ID of the deployment.
-      schema:
-        type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            deploys:
+              type: array
+              items:
+                $ref: '#/components/schemas/Deploy'
+            page:
+              type: integer
+              description: Current page number.
   securitySchemes:
     accessToken:
       type: apiKey
