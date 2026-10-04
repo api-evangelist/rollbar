@@ -1,0 +1,26 @@
+slug: rollbar
+provider: Rollbar
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Deploys
+  spec_file: rollbar-deploys-api-openapi.yml
+  capability_id: BC-4210
+  capability_id_l1: BC-4210
+  capability_name: Software Release & Deployment Management
+  confidence: 0.8
+  evidence: allows developers to notify Rollbar of application deployments and releases ... integrates
+    with CI/CD pipelines
+  reason: The surface records deployment/release events (revision, environment) and correlates them with
+    releases, which is release & deployment management for software. Left L2 null because the evidence
+    spans release engineering (versioning/revision) and deployment tracking rather than naming one.

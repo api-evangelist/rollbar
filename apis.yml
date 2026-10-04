@@ -348,6 +348,9 @@ apis:
   - type: Documentation
     url: https://docs.rollbar.com/reference/rql
 common:
+  - type: CapabilityMap
+    url: capabilities/rollbar-capability-edges.yml
+    name: Rollbar Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/rollbar/overview
   - type: AgenticAccess
