@@ -171,29 +171,6 @@ paths:
           description: Rule not found
 components:
   schemas:
-    WebhookRuleResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: The rule ID.
-            trigger:
-              type: string
-              description: The event trigger type.
-            filters:
-              type: array
-              description: Filter conditions.
-              items:
-                type: object
-            config:
-              type: object
-              description: Rule configuration.
     WebhookRuleListResponse:
       type: object
       properties:
@@ -219,7 +196,7 @@ components:
               config:
                 type: object
                 description: Rule configuration.
-    WebhookConfigResponse:
+    WebhookRuleResponse:
       type: object
       properties:
         err:
@@ -228,18 +205,20 @@ components:
         result:
           type: object
           properties:
-            enabled:
-              type: boolean
-              description: Whether the webhook integration is enabled.
-            url:
+            id:
+              type: integer
+              description: The rule ID.
+            trigger:
               type: string
-              description: The webhook URL.
-            format:
-              type: string
-              description: The payload format.
-              enum:
-              - json
-              - xml
+              description: The event trigger type.
+            filters:
+              type: array
+              description: Filter conditions.
+              items:
+                type: object
+            config:
+              type: object
+              description: Rule configuration.
     CreateWebhookRuleRequest:
       type: object
       description: Request body for creating a webhook notification rule.
@@ -286,6 +265,27 @@ components:
           enum:
           - json
           - xml
+    WebhookConfigResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              description: Whether the webhook integration is enabled.
+            url:
+              type: string
+              description: The webhook URL.
+            format:
+              type: string
+              description: The payload format.
+              enum:
+              - json
+              - xml
   securitySchemes:
     accessToken:
       type: apiKey

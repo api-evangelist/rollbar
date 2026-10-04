@@ -175,14 +175,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccessToken'
-    AccessTokenResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/AccessToken'
     UpdateAccessTokenRequest:
       type: object
       description: Request body for updating a project access token.
@@ -206,6 +198,14 @@ components:
         rate_limit_window_count:
           type: integer
           description: Updated maximum calls in the rate limit window.
+    AccessTokenResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/AccessToken'
   parameters:
     ProjectIdParam:
       name: projectId

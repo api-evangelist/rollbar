@@ -108,34 +108,6 @@ paths:
           description: Invitation not found
 components:
   schemas:
-    CreateInviteRequest:
-      type: object
-      description: Request body for inviting a user to a team.
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          description: The email address to send the invitation to.
-          format: email
-    InviteListResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invite'
-    InviteResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/Invite'
     Invite:
       type: object
       description: An invitation to join a Rollbar team.
@@ -167,6 +139,34 @@ components:
         date_redeemed:
           type: integer
           description: Unix timestamp when the invitation was accepted.
+    InviteResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/Invite'
+    InviteListResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+    CreateInviteRequest:
+      type: object
+      description: Request body for inviting a user to a team.
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          description: The email address to send the invitation to.
+          format: email
   parameters:
     TeamIdParam:
       name: teamId
