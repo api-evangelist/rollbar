@@ -348,6 +348,12 @@ apis:
   - type: Documentation
     url: https://docs.rollbar.com/reference/rql
 common:
+  - type: Plans
+    url: plans/rollbar-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/rollbar-rate-limits.yml
+  - type: FinOps
+    url: finops/rollbar-finops.yml
   - type: CapabilityMap
     url: capabilities/rollbar-capability-edges.yml
     name: Rollbar Business Capability Map
