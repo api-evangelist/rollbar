@@ -1,28 +1,5 @@
 generated: '2026-10-14'
 edges:
-- partner_name: Twilio Segment
-  partner: segment
-  partner_match: aggregator
-  marketplace: coverage
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
-  evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/rollbar
-  coverage_role:
-  - destination
-  cdp_signals:
-    destination:
-      catalog_entries:
-      - rollbar
-      status: PUBLIC
-      partner_owned: false
-      connection_modes:
-      - device:web
-      accepted_methods:
-      - Identify
-  detected_by: sweep-cdp.py
-  first_seen: '2026-10-14'
 - partner_name: GitHub Marketplace (apps)
   partner: github
   partner_match: aggregator
@@ -56,10 +33,62 @@ edges:
   publisher_name: Rollbar
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: Twilio Segment
+  partner: segment
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/rollbar
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - rollbar
+      status: PUBLIC
+      partner_owned: false
+      connection_modes:
+      - device:web
+      accepted_methods:
+      - Identify
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/rollbar_saml/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Rollbar
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - GROUP_LINKING
+  - GROUP_PUSH
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
+  - SAML
+  - SWA
+  - UPDATE
 method: searched
 checked:
 - https://github.com/marketplace?type=apps
 - https://marketplace.atlassian.com/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/rollbar
+- okta/integrations/okta-integration-edges.yml
 source: https://www.twilio.com/docs/segment/connections/destinations/catalog/rollbar
 marketplace_apps: []
