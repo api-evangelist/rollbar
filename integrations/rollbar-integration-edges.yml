@@ -23,7 +23,43 @@ edges:
       - Identify
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: GitHub Marketplace (apps)
+  partner: github
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-apps
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/rollbar
+  listing_count: 1
+  apps:
+  - Rollbar
+  publisher_name: Rollbar
+  badges:
+  - Verified creator
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Atlassian Marketplace
+  partner: atlassian
+  partner_match: aggregator
+  type: marketplace
+  marketplace: atlassian
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.atlassian.com/vendors/1212117/rollbar
+  listing_count: 1
+  apps:
+  - Rollbar for Jira
+  publisher_name: Rollbar
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 method: searched
 checked:
+- https://github.com/marketplace?type=apps
+- https://marketplace.atlassian.com/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/rollbar
 source: https://www.twilio.com/docs/segment/connections/destinations/catalog/rollbar
+marketplace_apps: []
