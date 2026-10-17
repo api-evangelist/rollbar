@@ -121,6 +121,37 @@ components:
         rate_limit_window_count:
           type: integer
           description: Maximum number of calls allowed in the rate limit window.
+    AccessTokenResponse:
+      type: object
+      properties:
+        err:
+          type: integer
+          description: Error code. 0 indicates success.
+        result:
+          $ref: '#/components/schemas/AccessToken'
+    UpdateAccessTokenRequest:
+      type: object
+      description: Request body for updating a project access token.
+      properties:
+        name:
+          type: string
+          description: A new descriptive name for the token.
+        scopes:
+          type: array
+          description: Updated scopes for this token.
+          items:
+            type: string
+            enum:
+            - read
+            - write
+            - post_server_item
+            - post_client_item
+        rate_limit_window_size:
+          type: integer
+          description: Updated rate limit window size in seconds.
+        rate_limit_window_count:
+          type: integer
+          description: Updated maximum calls in the rate limit window.
     AccessToken:
       type: object
       description: A project access token used for API authentication.
@@ -175,37 +206,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccessToken'
-    UpdateAccessTokenRequest:
-      type: object
-      description: Request body for updating a project access token.
-      properties:
-        name:
-          type: string
-          description: A new descriptive name for the token.
-        scopes:
-          type: array
-          description: Updated scopes for this token.
-          items:
-            type: string
-            enum:
-            - read
-            - write
-            - post_server_item
-            - post_client_item
-        rate_limit_window_size:
-          type: integer
-          description: Updated rate limit window size in seconds.
-        rate_limit_window_count:
-          type: integer
-          description: Updated maximum calls in the rate limit window.
-    AccessTokenResponse:
-      type: object
-      properties:
-        err:
-          type: integer
-          description: Error code. 0 indicates success.
-        result:
-          $ref: '#/components/schemas/AccessToken'
   parameters:
     ProjectIdParam:
       name: projectId

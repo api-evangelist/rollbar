@@ -53,7 +53,29 @@ paths:
         '404':
           description: User not found
 components:
+  parameters:
+    UserIdParam:
+      name: userId
+      in: path
+      required: true
+      description: The ID of the user.
+      schema:
+        type: integer
   schemas:
+    User:
+      type: object
+      description: A user in a Rollbar account.
+      properties:
+        id:
+          type: integer
+          description: The user ID.
+        username:
+          type: string
+          description: The username.
+        email:
+          type: string
+          description: The user's email address.
+          format: email
     UserResponse:
       type: object
       properties:
@@ -75,28 +97,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/User'
-    User:
-      type: object
-      description: A user in a Rollbar account.
-      properties:
-        id:
-          type: integer
-          description: The user ID.
-        username:
-          type: string
-          description: The username.
-        email:
-          type: string
-          description: The user's email address.
-          format: email
-  parameters:
-    UserIdParam:
-      name: userId
-      in: path
-      required: true
-      description: The ID of the user.
-      schema:
-        type: integer
   securitySchemes:
     accessToken:
       type: apiKey

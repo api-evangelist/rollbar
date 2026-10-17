@@ -126,6 +126,13 @@ components:
           type: object
           description: The full occurrence data payload including body, request, server, and other context.
   parameters:
+    ItemIdParam:
+      name: itemId
+      in: path
+      required: true
+      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
+      schema:
+        type: integer
     PageParam:
       name: page
       in: query
@@ -135,13 +142,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-    ItemIdParam:
-      name: itemId
-      in: path
-      required: true
-      description: The internal item ID. This is different from the project counter shown in Rollbar URLs.
-      schema:
-        type: integer
   securitySchemes:
     accessToken:
       type: apiKey
