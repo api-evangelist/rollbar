@@ -131,7 +131,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: rollbar-fivetran
   label: Fivetran
@@ -157,7 +157,7 @@
     - connectors/applications/rollbar
     vendor_link: https://rollbar.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: rollbar-slack-own
   label: Slack (own)
