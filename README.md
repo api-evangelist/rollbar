@@ -1,4 +1,4 @@
-# Rollbar (rollbar)
+# Rollbar
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,171 +66,221 @@
 
 Rollbar is a real-time error tracking and monitoring platform for software teams. It automatically captures exceptions and errors from web, mobile, and server-side applications, groups them by root cause, and provides actionable alerts to speed up debugging. Rollbar provides SDKs for over a dozen platforms including JavaScript, Python, PHP, Ruby, Go, Swift, .NET, and Java. The REST API enables programmatic management of projects, items, occurrences, deployments, teams, notifications, and source maps. The RQL (Rollbar Query Language) provides SQL-like queries for error analysis.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/rollbar/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/rollbar/refs/heads/main/apis.yml)
+**Areas:** Error Tracking · Monitoring · Debugging · DevOps · Application Performance · Developer Tools
 
-## Scope
+## Rollbar on APIs.io
 
-- **Type:** Index
+Everything profiled for Rollbar is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/rollbar/](https://apis.io/providers/rollbar/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (15)
 
-- Error Tracking
-- Monitoring
-- Debugging
-- DevOps
-- Application Performance
+- [Rollbar Webhooks](https://apis.io/apis/rollbar/rollbar-webhooks/) — Rollbar supports outbound webhook notifications for real-time event-driven integrations. Webhooks deliver payload data when errors occur, items are…
+- [Rollbar Access Tokens API](https://apis.io/apis/rollbar/rollbar-access-tokens-api/) — Manage project access tokens used for authentication and authorization when interacting with the API.
+- [Rollbar Deploys API](https://apis.io/apis/rollbar/rollbar-deploys-api/) — Manage deployment records in Rollbar. Report new deploys, update their status, and retrieve deployment history for a project.
+- [Rollbar Invites API](https://apis.io/apis/rollbar/rollbar-invites-api/) — Manage invitations to join teams within a Rollbar account.
+- [Rollbar Items API](https://apis.io/apis/rollbar/rollbar-items-api/) — Manage error and message items tracked by Rollbar. Items represent unique errors or messages grouped by fingerprint.
+- [Rollbar Items Metrics API](https://apis.io/apis/rollbar/rollbar-items-metrics-api/) — Query metrics for specific items including occurrence counts and aggregate statistics.
+- [Rollbar Notifications API](https://apis.io/apis/rollbar/rollbar-notifications-api/) — Manage webhook notification rules and configuration for a project.
+- [Rollbar Occurrences API](https://apis.io/apis/rollbar/rollbar-occurrences-api/) — Retrieve individual occurrences of errors and messages. Each occurrence represents a single instance of an item happening.
+- [Rollbar Occurrences Metrics API](https://apis.io/apis/rollbar/rollbar-occurrences-metrics-api/) — Query occurrence count metrics over time with filtering, grouping, and aggregation capabilities.
+- [Rollbar Projects API](https://apis.io/apis/rollbar/rollbar-projects-api/) — Manage projects within a Rollbar account. Projects are the top-level organizational unit for error tracking.
+- [Rollbar Resolution Time Metrics API](https://apis.io/apis/rollbar/rollbar-resolution-time-metrics-api/) — Query time-to-resolution metrics for projects, filterable by environment, level, and framework.
+- [Rollbar RQL Jobs API](https://apis.io/apis/rollbar/rollbar-rql-jobs-api/) — Submit, list, and retrieve results for RQL (Rollbar Query Language) jobs. RQL provides a SQL-like interface for querying error and deployment data.
+- [Rollbar Source Maps API](https://apis.io/apis/rollbar/rollbar-source-maps-api/) — Upload JavaScript source maps to enable readable stack traces for minified code.
+- [Rollbar Teams API](https://apis.io/apis/rollbar/rollbar-teams-api/) — Manage teams and team membership within a Rollbar account. Teams control access to projects.
+- [Rollbar Users API](https://apis.io/apis/rollbar/rollbar-users-api/) — Retrieve user information within a Rollbar account.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-02
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Rollbar REST API
+Event-driven and webhook contracts.
 
-The Rollbar REST API provides programmatic access to the Rollbar error tracking and monitoring platform. Manage projects, items, occurrences, deploys, teams, users, invites, notifications, and source maps through a RESTful JSON interface. Authentication is via project access tokens in the X-Rollbar-Access-Token header.
+- [Rollbar Webhook Events](https://apis.io/asyncapis/rollbar/rollbar-webhooks-asyncapi/)
 
-- **Human URL:** [https://docs.rollbar.com/reference/getting-started-1](https://docs.rollbar.com/reference/getting-started-1)
-- **Base URL:** `https://api.rollbar.com/api/1`
+#### Event channels (1)
 
-#### Tags
+Individual events and webhooks the provider emits.
 
-- Error Tracking
-- Monitoring
-- REST
-- Projects
-- Teams
+- [/webhook](https://apis.io/channels/rollbar/webhook/)
 
-#### Properties
+#### MCP servers (2)
 
-- [Documentation](https://docs.rollbar.com/reference/getting-started-1)
-- [OpenAPI](https://explorer.docs.rollbar.com/) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/rollbar-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rollbar-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Model Context Protocol servers that expose the API to agents.
 
-### Rollbar Deployment API
+- [MCP Server](https://apis.io/servers/rollbar/mcp-server/)
+- [Moved to /providers/rollbar/](https://apis.io/servers/rollbar/rollbar/)
 
-The Rollbar Deployment API allows developers to notify Rollbar of application deployments and releases. By reporting deploys, teams can correlate error spikes with specific releases, track deployment history, and manage rollbacks with full visibility into which code version is running in production.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.rollbar.com/reference/post_deploy](https://docs.rollbar.com/reference/post_deploy)
-- **Base URL:** `https://api.rollbar.com/api/1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Rollbar Agentic Access](https://apis.io/agentic-access/rollbar/rollbar-agentic-access/)
 
-- Deployment
-- Release Management
-- Error Tracking
-- REST
-- DevOps
+#### JSON Schema (4)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://docs.rollbar.com/reference/post_deploy)
-- [OpenAPI](openapi/rollbar-deployment-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rollbar-deployment-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-deployment-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Rollbar Deploy](https://apis.io/schemas/rollbar/rollbar-deploy/)
+- [Rollbar Item](https://apis.io/schemas/rollbar/rollbar-item/)
+- [Rollbar Occurrence](https://apis.io/schemas/rollbar/rollbar-occurrence/)
+- [Rollbar Webhook Payload](https://apis.io/schemas/rollbar/rollbar-webhook-payload/)
 
-### Rollbar Metrics API
+#### JSON Structure (1)
 
-The Rollbar Metrics API is part of Rollbar Analyze and provides programmatic access to metrics data for error tracking analysis and discovery. Enables developers to query resolution time metrics, occurrence counts, and item activation metrics across projects.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://docs.rollbar.com/reference/metrics](https://docs.rollbar.com/reference/metrics)
-- **Base URL:** `https://api.rollbar.com/api/1`
+- [Rollbar Item Structure](https://apis.io/json-structure/rollbar/rollbar-item-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- Metrics
-- Analytics
-- Error Tracking
-- REST
-- Monitoring
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Rollbar Context](https://apis.io/jsonld/rollbar/rollbar-context/)
 
-- [Documentation](https://docs.rollbar.com/reference/metrics)
-- [OpenAPI](openapi/rollbar-metrics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rollbar-metrics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-metrics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### Rollbar RQL API
+The provider's domain terms, defined.
 
-The Rollbar RQL (Rollbar Query Language) API provides a SQL-like interface for querying error and deployment data stored in Rollbar. Supports SELECT queries against item_occurrence and deploy tables for advanced error analysis, reporting, and custom integrations.
+- [Rollbar Vocabulary](https://apis.io/vocabularies/rollbar/rollbar-vocabulary/)
 
-- **Human URL:** [https://docs.rollbar.com/reference/rql](https://docs.rollbar.com/reference/rql)
-- **Base URL:** `https://api.rollbar.com/api/1`
+#### Examples (2)
 
-#### Tags
+Example requests and responses.
 
-- Query Language
-- Analytics
-- Error Tracking
-- REST
-- SQL
+- [Rollbar Create Item Example](https://apis.io/examples/rollbar/rollbar-create-item-example/)
+- [Rollbar List Items Example](https://apis.io/examples/rollbar/rollbar-list-items-example/)
 
-#### Properties
+#### Collections (32)
 
-- [Documentation](https://docs.rollbar.com/reference/rql)
-- [OpenAPI](openapi/rollbar-rql-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rollbar-rql-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-rql-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Rollbar Webhooks
+- [Rollbar Deployment Access Tokens API](https://apis.io/collections/rollbar/open-rollbar-access-tokens-api/)
+- [Rollbar Deployment API](https://apis.io/collections/rollbar/open-rollbar-deployment-api/)
+- [Rollbar Deployment Access Tokens Deploys API](https://apis.io/collections/rollbar/open-rollbar-deploys-api/)
+- [Rollbar Deployment Access Tokens Invites API](https://apis.io/collections/rollbar/open-rollbar-invites-api/)
+- [Rollbar Deployment Access Tokens Items API](https://apis.io/collections/rollbar/open-rollbar-items-api/)
+- [Rollbar Deployment Access Tokens Items Metrics API](https://apis.io/collections/rollbar/open-rollbar-items-metrics-api/)
+- [Rollbar Metrics API](https://apis.io/collections/rollbar/open-rollbar-metrics-api/)
+- [Rollbar Deployment Access Tokens Notifications API](https://apis.io/collections/rollbar/open-rollbar-notifications-api/)
+- [Rollbar Deployment Access Tokens Occurrences API](https://apis.io/collections/rollbar/open-rollbar-occurrences-api/)
+- [Rollbar Deployment Access Tokens Occurrences Metrics API](https://apis.io/collections/rollbar/open-rollbar-occurrences-metrics-api/)
+- [Rollbar Deployment Access Tokens Projects API](https://apis.io/collections/rollbar/open-rollbar-projects-api/)
+- [Rollbar Deployment Access Tokens Resolution Time Metrics API](https://apis.io/collections/rollbar/open-rollbar-resolution-time-metrics-api/)
+- [Rollbar REST API](https://apis.io/collections/rollbar/open-rollbar-rest-api/)
+- [Rollbar RQL API](https://apis.io/collections/rollbar/open-rollbar-rql-api/)
+- [Rollbar Deployment Access Tokens RQL Jobs API](https://apis.io/collections/rollbar/open-rollbar-rql-jobs-api/)
+- [Rollbar Deployment Access Tokens Source Maps API](https://apis.io/collections/rollbar/open-rollbar-source-maps-api/)
+- [Rollbar Deployment Access Tokens Teams API](https://apis.io/collections/rollbar/open-rollbar-teams-api/)
+- [Rollbar Deployment Access Tokens Users API](https://apis.io/collections/rollbar/open-rollbar-users-api/)
+- [Rollbar Deployment Access Tokens API](https://apis.io/collections/rollbar/postman-rollbar-access-tokens-api/)
+- [Rollbar Deployment Access Tokens Deploys API](https://apis.io/collections/rollbar/postman-rollbar-deploys-api/)
+- [Rollbar Deployment Access Tokens Invites API](https://apis.io/collections/rollbar/postman-rollbar-invites-api/)
+- [Rollbar Deployment Access Tokens Items API](https://apis.io/collections/rollbar/postman-rollbar-items-api/)
+- [Rollbar Deployment Access Tokens Items Metrics API](https://apis.io/collections/rollbar/postman-rollbar-items-metrics-api/)
+- [Rollbar Deployment Access Tokens Notifications API](https://apis.io/collections/rollbar/postman-rollbar-notifications-api/)
+- [Rollbar Deployment Access Tokens Occurrences API](https://apis.io/collections/rollbar/postman-rollbar-occurrences-api/)
+- …and 7 more published on APIs.io
 
-Rollbar supports outbound webhook notifications for real-time event-driven integrations. Webhooks deliver payload data when errors occur, items are resolved, or deployment events happen, enabling integration with Slack, PagerDuty, email, and custom HTTP endpoints.
+#### Governance rules (3)
 
-- **Human URL:** [https://docs.rollbar.com/docs/webhooks](https://docs.rollbar.com/docs/webhooks)
-- **Base URL:** `https://api.rollbar.com`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Rollbar — asyncapi rules](https://apis.io/rules/rollbar/rollbar-asyncapi-spectral-rules/)
+- [Rollbar — jsonschema rules](https://apis.io/rules/rollbar/rollbar-jsonschema-spectral-rules/)
+- [Rollbar API Rules](https://apis.io/rules/rollbar/rollbar-rules/)
 
-- Webhooks
-- Event-Driven
-- Notifications
-- AsyncAPI
-- Monitoring
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://docs.rollbar.com/docs/webhooks)
-- [AsyncAPI](asyncapi/rollbar-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/rollbar-deployment-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-deployment-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/rollbar-metrics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-metrics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/rollbar-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/rollbar-rql-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rollbar-rql-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Rollbar Authentication](https://apis.io/security/rollbar/rollbar-authentication/)
+- [Rollbar Domain Security](https://apis.io/security/rollbar/rollbar-domain-security/)
 
-## Common Properties
+#### Plans and pricing (1)
 
-- [LinkedIn](https://www.linkedin.com/company/rollbar)
+Published plans, tiers and prices.
+
+- [Rollbar Plans Pricing](https://apis.io/plans/rollbar/rollbar-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rollbar Rate Limits](https://apis.io/rate-limits/rollbar/rollbar-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Rollbar Finops](https://apis.io/finops/rollbar/rollbar-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://rollbar.com/)
 - [Documentation](https://docs.rollbar.com/)
-- [Documentation](https://docs.rollbar.com/reference/getting-started-1)
-- [Portal](https://explorer.docs.rollbar.com/)
 - [Pricing](https://rollbar.com/pricing/)
-- [GitHub Organization](https://github.com/rollbar)
-- [Terms of Service](https://rollbar.com/terms/)
-- [Privacy Policy](https://rollbar.com/privacy/)
 - [Support](https://rollbar.com/support/)
-- [OpenAPI](openapi/rollbar-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/rollbar-deployment-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/rollbar-metrics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/rollbar-rql-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [AsyncAPI](asyncapi/rollbar-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON Schema](json-schema/rollbar-item-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/rollbar-occurrence-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/rollbar-deploy-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/rollbar-webhook-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [J S O N L D Context](json-ld/rollbar-context.jsonld)
-- [Features](undefined)
-- [M C P Server](https://github.com/rollbar/rollbar-mcp-server)
-- [L L Ms Txt](https://docs.rollbar.com/llms.txt)
+- [Blog](https://rollbar.com/blog/feed/)
+- [Terms of service](https://rollbar.com/terms/)
+- [Privacy policy](https://rollbar.com/privacy/)
+- [GitHub](https://github.com/rollbar)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 42.1** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 61.0 |
+| Contract governance | 13.6 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 34.5 |
+| Access clarity | 39.5 |
+
+**Agent readiness 30.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/rollbar/](https://apis.io/providers/rollbar/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Rollbar: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/rollbar/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
